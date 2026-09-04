@@ -199,7 +199,7 @@ ela, a página aparece inteira. Nenhum `gsap.from` esconde conteúdo: um
 e se ele nunca dispara a seção some para sempre. Quem esconde é o CSS, sob
 `.motion`, e quem revela é um `onEnter` que põe `data-vista`.
 
-Quatro gestos, cada um com uma razão:
+Cada gesto tem uma razão. Nenhum existe só para a página se mexer:
 
 | Gesto | Por que existe | Ingredientes |
 |---|---|---|
@@ -209,6 +209,22 @@ Quatro gestos, cada um com uma razão:
 | Figurinhas com parallax | delight, a faixa rara | `yPercent` com `scrub`, entrada em `back.out(1.6)` |
 | Bolinha do cursor | feedback: diz onde a mão pode ir | `gsap.quickTo`, `power3`, .35s |
 | Arrastar entre ângulos | gesto: no celular a seta de 42px é alvo pequeno | segue o dedo a 60%, volta em `elastic.out(1, .55)` |
+| Título sobe palavra por palavra | hierarquia: separa o título do texto que vem depois | máscara `.pal`, transição .85s, atraso de 55ms por palavra |
+| Faixa que anda | ritmo: um respiro entre a galeria e o método | `@keyframes` CSS, 34s linear, duas fitas iguais |
+| Linha dos passos se desenha | diz que aquilo é sequência, não lista | `scaleY` 0→1 com `scrub` ao longo da seção |
+| Nome do rodapé emerge | chegada: a palavra sobe enquanto o site acaba | `yPercent` 38→0 com `scrub`, termina no último pixel da página |
+| Selo do topo gira com a rolagem | é o único indicador de posição da página | `rotation: 360`, `scrub: .6`, `start: 0` até `max` |
+
+Os quatro últimos entraram juntos. Três deles são de rolagem contínua
+(`scrub`), que é o oposto de animação que dispara: a pessoa é quem move, e
+por isso pode voltar atrás sem nada engasgar. Todos falham abertos — a
+faixa é CSS puro e anda mesmo sem o GSAP, e o título só se esconde debaixo
+de `.motion`, de modo que sem GSAP ele nasce no lugar.
+
+A faixa que anda é **uma só** na página inteira. Duas seriam enchimento: a
+segunda deixaria de marcar um respiro e viraria papel de parede. Ela para
+inteira em movimento reduzido, e o texto dela é decorativo, `aria-hidden`,
+porque repete o que as seções já dizem.
 
 Dentro da lupa dá para **arrastar** de um ângulo para o outro. Quase todo
 mundo chega aqui pelo Instagram, no celular, e ali a seta de 42px é alvo

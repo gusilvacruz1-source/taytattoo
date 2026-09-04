@@ -11,6 +11,26 @@
   var temGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
   function revelar(el) { el.setAttribute('data-vista', ''); }
 
+  /* Cada palavra do título de seção ganha a própria máscara, para
+     entrarem escalonadas em vez de o bloco inteiro aparecer de uma vez.
+     Só onde o título é texto puro: dividir um elemento com marcação
+     dentro apagaria os links. */
+  Array.prototype.slice.call(document.querySelectorAll('.titulo')).forEach(function (t) {
+    if (t.children.length) return;
+    var palavras = t.textContent.trim().split(/\s+/);
+    t.textContent = '';
+    palavras.forEach(function (palavra, i) {
+      var mascara = document.createElement('span');
+      mascara.className = 'pal';
+      mascara.style.setProperty('--i', i);
+      var dentro = document.createElement('span');
+      dentro.textContent = palavra;
+      mascara.appendChild(dentro);
+      t.appendChild(mascara);
+      if (i < palavras.length - 1) t.appendChild(document.createTextNode(' '));
+    });
+  });
+
   var ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();
 
@@ -638,6 +658,15 @@
       if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
       if (lentes.length) img.style.filter = lentes.join(' ');
 
+      /* "sangra" troca a máscara redonda por uma encostada na borda: do
+         lado que sai da página o desenho fica inteiro, e só os outros
+         três lados dissolvem. Sem isto a figurinha cortada pela seção
+         aparece com a beirada apagada, que denuncia o fim do arquivo em
+         vez de sugerir que ela continua para fora. */
+      if (f.sangra === 'esquerda' || f.sangra === 'direita') {
+        img.classList.add('figurinha--sangra-' + f.sangra);
+      }
+
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { img.remove(); });
 
@@ -768,6 +797,39 @@
 
     } else if (cursor) {
       cursor.remove();
+    }
+
+    /* 7. O nome gigante do rodapé sobe conforme a página termina. É a
+       chegada: a palavra emerge da margem enquanto o site acaba. */
+    var marcaRodape = document.querySelector('.rodape__marca span');
+    if (marcaRodape) {
+      gsap.fromTo(marcaRodape, { yPercent: 38 }, {
+        yPercent: 0,
+        ease: 'none',
+        scrollTrigger: { trigger: '.rodape', start: 'top bottom', end: 'bottom bottom', scrub: true }
+      });
+    }
+
+    /* 8. O selo do topo gira com a rolagem. É o único indicador de
+       posição da página, e usa a forma da própria marca para isso. */
+    var seloTopo = document.querySelector('.topo .marca__selo');
+    if (seloTopo) {
+      gsap.to(seloTopo, {
+        rotation: 360,
+        ease: 'none',
+        scrollTrigger: { start: 0, end: 'max', scrub: 0.6 }
+      });
+    }
+
+    /* 9. A linha dos passos se desenha de cima para baixo enquanto a
+       pessoa desce. Conta que aquilo ali é uma sequência, não uma lista. */
+    var linhaPassos = document.querySelector('.passos__linha');
+    if (linhaPassos) {
+      gsap.fromTo(linhaPassos, { scaleY: 0 }, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: '.passos', start: 'top 82%', end: 'bottom 72%', scrub: true }
+      });
     }
 
     /* As fotos mudam a altura da página conforme carregam. Sem isto o

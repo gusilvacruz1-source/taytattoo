@@ -197,12 +197,20 @@ discreta: deixa ela com ar de fantasma aceso, porque o traço perde corpo
 mas continua sendo a única coisa clara na tela. Para deixar alguma mais
 discreta, diminua a `largura`, não a opacidade.
 
-Há dois ajustes de imagem opcionais por figurinha:
+Há três ajustes opcionais por figurinha:
 
 | Campo | Para quê |
 |---|---|
 | `inverter: true` | arte que veio com fundo claro. Sem isso o branco vira um retângulo estourado |
 | `contraste: 1.5` | arte de fundo fotográfico, cujo preto não é preto de verdade e aparece como halo claro em volta. **Nunca use em arte pontilhada**: o contraste come os pontos |
+| `sangra: 'esquerda'` | a figurinha entra pela borda da página, cortada pela seção, como se o desenho seguisse para fora. Vale também `'direita'` |
+
+O `sangra` anda junto com o `x`: pela esquerda o `x` fica negativo (o
+arame está em `-4%`), pela direita passa de `100%`. Sem ele a beirada
+cortada apareceria apagada pela máscara redonda, o que denuncia o fim do
+arquivo em vez de sugerir que o traço continua. É por isso que o arame usa
+os dois: fio que começa e acaba dentro do quadro vira objeto; cortado pela
+borda, vira fio.
 
 Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de

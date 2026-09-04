@@ -27,6 +27,12 @@
      fundura   o quanto ela anda no scroll, de 2 (quase parada) a 14
                (bem solta). Acima de 14 embrulha o estômago.
      opacidade opcional, de 0 a 1. O padrão é 1.
+     sangra    opcional: 'esquerda' ou 'direita'. Use quando quiser que a
+               figurinha entre pela borda da página, cortada pela seção.
+               Ela troca a máscara redonda por uma encostada naquele
+               lado, para o desenho parecer que segue para fora do quadro
+               em vez de acabar ali. Combine com um x negativo (sangra
+               pela esquerda) ou acima de 100% (pela direita).
 
    Regra de ouro: no máximo duas por seção. Passou disso vira poluição,
    e a página deixa de ser sobre o traço da Tay.
@@ -50,9 +56,12 @@ const FIGURINHAS = [
      não é preto de verdade e aparece como halo claro em volta. Nunca em
      arte pontilhada, onde ele come os pontos. */
 
-  /* Trabalhos: a filigrana à direita e o arame descendo pela esquerda. */
+  /* Trabalhos: a filigrana à direita e o arame entrando pela esquerda.
+     O arame é o único que sangra: ele é um fio, e fio que começa e acaba
+     dentro do quadro vira objeto. Cortado pela borda, com a máscara
+     encostada nela, ele continua para fora da página. */
   { arquivo: 'filigrana.jpg',     secao: 'trabalhos',   largura: 260, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: 1 },
-  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 230, x: '1%',  y: '34%', giro: -4,  fundura: 7, opacidade: 1, contraste: 1.5 },
+  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 230, x: '-4%', y: '34%', giro: -4,  fundura: 7, opacidade: 1, contraste: 1.5, sangra: 'esquerda' },
 
   /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
   { arquivo: 'lirio.jpg',         secao: 'traco',       largura: 240, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: 1 },

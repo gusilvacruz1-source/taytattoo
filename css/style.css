@@ -616,6 +616,67 @@ body::after{
   color:#212126;                          /* massa silenciosa, não texto */
 }
 
+/* -------------------------------------------- entrada dos títulos */
+
+/* Cada palavra sobe de dentro da própria máscara, escalonada. O repouso
+   é o estado VISÍVEL: só sob .motion (GSAP de pé) a palavra começa
+   abaixada, e quem a traz é a mesma classe data-vista que revela a
+   seção. Sem GSAP, o título aparece pronto. */
+.pal{display:inline-block;overflow:hidden;vertical-align:bottom}
+.pal>span{display:inline-block;will-change:transform}
+
+.motion .titulo .pal>span{
+  transform:translateY(105%);
+  transition:transform .85s var(--saida);
+  transition-delay:calc(var(--i,0) * 55ms);
+}
+.motion .revela[data-vista] .titulo .pal>span,
+.motion .titulo.revela[data-vista] .pal>span{transform:none}
+
+/* ----------------------------------------------------------- faixa */
+
+/* Faixa que anda sozinha. É a única da página: duas seriam enchimento.
+   Puro CSS, então continua andando mesmo sem o GSAP, e para inteira em
+   movimento reduzido. */
+.faixa-anda{
+  border-block:1px solid var(--linha);
+  padding-block:18px;
+  overflow:hidden;
+  display:flex;
+  gap:0;
+  user-select:none;
+}
+.faixa-anda__fita{
+  display:flex;
+  flex:none;
+  gap:0;
+  animation:anda 34s linear infinite;
+}
+.faixa-anda__fita span{
+  font-family:var(--display);
+  font-size:clamp(1.5rem,3.4vw,2.6rem);
+  color:var(--osso-suave);
+  white-space:nowrap;
+  padding-inline:.5em;
+}
+.faixa-anda__fita span::after{
+  content:'·';
+  color:var(--sangue);
+  padding-left:1em;
+}
+@keyframes anda{to{transform:translateX(-100%)}}
+
+/* ------------------------------------------- linha dos passos */
+
+.passos{position:relative}
+.passos__linha{
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:1px;
+  background:var(--linha-viva);
+  transform-origin:top;
+}
+
 /* --------------------------------------------------------- revelação */
 
 .motion .revela{
@@ -682,6 +743,27 @@ body::after{
   max-width:42vw;
   will-change:transform;
 }
+
+/* Figurinha que sangra pela borda da página.
+
+   A máscara redonda de cima dissolve os quatro lados, e é isso que faz o
+   arquivo parecer traço solto no escuro. Mas do lado em que a figurinha
+   sai da página ela atrapalha: a beirada apagada avisa que ali acaba o
+   desenho, quando o que se quer é que ele siga para fora do quadro.
+
+   A saída é a mesma máscara com o centro jogado para a borda que sangra:
+   sólida onde a seção corta o desenho, dissolvendo nos outros três lados.
+   Continua sendo um gradiente só, sem mask-composite, que ainda não está
+   uniforme entre navegadores. */
+.figurinha--sangra-esquerda{
+  -webkit-mask-image:radial-gradient(125% 105% at 0% 50%,#000 58%,transparent 100%);
+  mask-image:radial-gradient(125% 105% at 0% 50%,#000 58%,transparent 100%);
+}
+.figurinha--sangra-direita{
+  -webkit-mask-image:radial-gradient(125% 105% at 100% 50%,#000 58%,transparent 100%);
+  mask-image:radial-gradient(125% 105% at 100% 50%,#000 58%,transparent 100%);
+}
+
 /* O conteúdo sempre por cima dos adesivos. */
 .secao>.container,.capa__inner{position:relative;z-index:1}
 
@@ -737,6 +819,8 @@ body::after{
     transition-duration:.001ms !important;
   }
   .sobe>*{animation:none}
+  .faixa-anda__fita{animation:none}
+  .motion .titulo .pal>span{transform:none}
   .capa__selo .selo__espiral{stroke-dashoffset:0}
   .motion .revela{opacity:1;transform:none}
   .motion .peca{clip-path:none}
