@@ -10,8 +10,7 @@ agendar. Linguagem editorial darkwork. Dials: variância 8, movimento 6
 
 Referência de nível: o site da Eloize Betim, feito antes. Este é o
 irmão escuro. Onde aquele alterna tinta e papel, este trava no escuro do
-começo ao fim, por pedido da cliente. Onde aquele arredonda em 20px, este
-não arredonda nada.
+começo ao fim, por pedido da cliente. O raio é parecido, um pouco menor.
 
 ## Cor
 
@@ -73,9 +72,17 @@ finas somem no celular.
 
 ## Forma
 
-**Raio zero em tudo.** Botões, cartões, painéis, campos, moldura. Uma
-escala só, sem exceção documentada. Blackwork não tem canto arredondado, e
-a página é uma folha de flash, não um app.
+Duas medidas e uma regra:
+
+| Papel | Raio | Onde |
+|---|---|---|
+| Superfície | `18px` | cartão de peça, painel, moldura do retrato, vaga, cartão de flash, lista de canais |
+| Controle | `12px` | botão, aba de filtro, botão de ícone, menu, link de pular |
+| Indicador | pílula | selo de ângulos, marca de ampliar, pontos da lupa, bolinha do cursor |
+
+**Nada fica reto.** Canto redondo convivendo com canto vivo na mesma tela
+é o que faz uma página parecer quebrada, então a regra vale para todo
+elemento com contorno próprio, sem exceção.
 
 **Sem sombra.** Sombra não se lê sobre breu. A profundidade vem de duas
 coisas: a claridade da superfície (breu → carvão → carvão alto) e um fio de
@@ -134,8 +141,8 @@ Seis mecanismos, todos portados:
 Duas coisas mudaram de propósito. Os dados moram em `js/trabalhos.js`, e
 não em JSON escapado dentro de atributo HTML como no site da Eloize:
 quem mantém este site edita uma lista, não `&quot;` no meio da marcação.
-E a pele é a daqui, escura e sem raio, porque a cliente pediu o oposto do
-tema claro daquele site.
+E a pele é a daqui, escura, porque a cliente pediu o oposto do tema claro
+daquele site.
 
 ## Ícones
 
@@ -205,9 +212,8 @@ clique, senão fecharia a lupa sem querer.
 
 A bolinha cresce por **escala**, nunca por largura ou altura, e o cursor
 do sistema continua visível por baixo: escondê-lo quebra quem depende
-dele. Ela é a única forma redonda do site, e é uma exceção declarada à
-regra de raio zero, porque é um ponteiro e não uma superfície. Some no
-toque e em movimento reduzido, onde o JS a remove do documento.
+dele. Ela é pílula, como os outros indicadores. Some no toque e em
+movimento reduzido, onde o JS a remove do documento.
 
 O cinza que vira cor mora dentro de `@media (hover:hover) and
 (pointer:fine)`. No celular não existe hover: fora dessa media query a

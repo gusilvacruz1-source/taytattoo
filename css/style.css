@@ -4,8 +4,10 @@
    é o pedido da cliente ("vibe mais escura, voltada ao darkwork"), e é
    o que separa este site do da Eloize, que alterna tinta e papel.
 
-   Forma: raio zero em tudo. Uma escala só, sem exceção. Blackwork não
-   tem canto redondo, e a página é uma folha de flash, não um app.
+   Forma: duas medidas de raio e uma regra. Superfície arredonda em 18,
+   controle em 12, indicador vira pílula. Nada fica reto: canto redondo
+   convivendo com canto vivo na mesma tela é o que faz página parecer
+   quebrada.
 
    Acento: um só, o vermelho de tinta seca. Aparece no botão principal,
    no anel de foco e na seleção de texto. Em lugar nenhum mais.
@@ -43,6 +45,12 @@
 
   --display:'Cormorant Garamond',Garamond,'Times New Roman',Georgia,serif;
   --ui:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  /* Duas medidas, uma regra: superfície arredonda em 18, controle em 12.
+     Nada fica reto, para não haver canto redondo brigando com canto vivo
+     na mesma tela. */
+  --raio:18px;
+  --raio-controle:12px;
 
   --largura:1240px;
   --pad-x:clamp(20px,5vw,48px);
@@ -125,6 +133,7 @@ body::after{
 .btn{
   display:inline-flex;align-items:center;gap:10px;
   padding:15px 24px;
+  border-radius:var(--raio-controle);
   font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
   white-space:nowrap;                       /* rótulo de CTA nunca quebra linha */
   border:1px solid transparent;
@@ -185,6 +194,7 @@ body::after{
 
 .menu-btn{
   display:none;width:42px;height:38px;border:1px solid var(--linha-viva);
+  border-radius:var(--raio-controle);
   place-items:center;gap:5px;
 }
 .menu-btn span{display:block;width:16px;height:1px;background:var(--osso);transition:transform .26s var(--saida),opacity .2s linear}
@@ -234,6 +244,7 @@ body::after{
 
 .capa__moldura{
   margin:0;
+  border-radius:var(--raio);
   width:min(74%,250px);
   aspect-ratio:4/5;
   border:1px solid var(--linha);
@@ -290,6 +301,7 @@ body::after{
 .galeria{columns:3;column-gap:14px}
 .peca{
   break-inside:avoid;margin-bottom:14px;
+  border-radius:var(--raio);
   position:relative;display:block;width:100%;padding:0;
   border:1px solid var(--linha);background:var(--carvao);
   overflow:hidden;
@@ -297,7 +309,7 @@ body::after{
 }
 /* A moldura carrega a proporção da peça: o espaço fica reservado antes
    de a foto chegar, e a grade não pula durante o carregamento. */
-.peca__moldura{display:block;width:100%;overflow:hidden}
+.peca__moldura{display:block;width:100%;overflow:hidden;border-radius:var(--raio)}
 .peca img,.peca video{width:100%;height:100%;object-fit:cover}
 .peca:hover{border-color:var(--linha-viva)}
 
@@ -319,7 +331,7 @@ body::after{
 
 .peca__marca{
   position:absolute;right:10px;bottom:10px;
-  width:28px;height:28px;display:grid;place-items:center;
+  width:28px;height:28px;border-radius:999px;display:grid;place-items:center;
   background:rgba(11,11,12,.72);border:1px solid var(--linha-viva);color:var(--osso);
   opacity:0;transition:opacity .26s var(--saida);
 }
@@ -332,6 +344,7 @@ body::after{
   min-width:30px;height:30px;
   display:inline-flex;align-items:center;justify-content:center;gap:5px;
   padding-inline:9px;
+  border-radius:999px;
   background:rgba(11,11,12,.74);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   border:1px solid var(--linha-viva);
@@ -346,6 +359,7 @@ body::after{
   position:fixed;top:8px;left:8px;
   z-index:calc(var(--z-cursor) + 1);
   padding:12px 18px;
+  border-radius:var(--raio-controle);
   background:var(--osso);color:var(--breu);
   font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
   transform:translateY(-160%);
@@ -366,6 +380,7 @@ body::after{
 .chip{
   min-height:44px;                          /* alvo de toque no celular */
   padding:11px 20px;
+  border-radius:var(--raio-controle);
   border:1px solid var(--linha-viva);
   color:var(--osso-suave);
   font-size:.72rem;font-weight:600;
@@ -389,6 +404,7 @@ body::after{
    lugar reservado, não uma peça. */
 .vaga{
   break-inside:avoid;
+  border-radius:var(--raio);
   margin-bottom:14px;
   border:1px dashed var(--linha-viva);
   background:var(--carvao);
@@ -414,6 +430,7 @@ body::after{
 /* Vazio dos trabalhos: painel largo emoldurado, ocupando a área da grade */
 .painel{
   border:1px solid var(--linha);background:var(--carvao);
+  border-radius:var(--raio);
   padding:clamp(30px,5vw,56px);
   display:grid;gap:18px;justify-items:start;
 }
@@ -443,7 +460,7 @@ body::after{
   scrollbar-width:thin;scrollbar-color:var(--linha-viva) transparent;
 }
 .trilho>*{scroll-snap-align:start}
-.flash{border:1px solid var(--linha);background:var(--carvao);display:grid}
+.flash{border:1px solid var(--linha);background:var(--carvao);display:grid;border-radius:var(--raio);overflow:hidden}
 .flash__foto{aspect-ratio:3/4;overflow:hidden;background:var(--carvao-alto)}
 .flash__foto img{width:100%;height:100%;object-fit:cover}
 .flash__pe{padding:16px 18px 18px;display:grid;gap:10px;justify-items:start}
@@ -475,7 +492,7 @@ body::after{
 .faixa{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:start}
 .faixa__texto{display:grid;gap:20px;justify-items:start}
 
-.canais{display:grid;gap:1px;background:var(--linha);border:1px solid var(--linha)}
+.canais{display:grid;gap:1px;background:var(--linha);border:1px solid var(--linha);border-radius:var(--raio);overflow:hidden}
 .canal{
   background:var(--breu);display:flex;align-items:center;gap:16px;
   padding:20px 22px;transition:background .24s var(--saida);
@@ -506,8 +523,8 @@ body::after{
   color:var(--osso);
 }
 .lupa__pontos{display:flex;gap:4px;margin-right:6px}
-/* Redondos, como a bolinha do cursor: são indicadores, não superfícies.
-   A regra de raio zero vale para o que é superfície. */
+/* Pílula, como o selo de ângulos e a bolinha do cursor: indicador é
+   redondo, superfície é 18 e controle é 12. */
 .lupa__ponto{width:30px;height:30px;display:grid;place-items:center;padding:0}
 .lupa__ponto::before{
   content:'';
@@ -537,6 +554,7 @@ body::after{
 .lupa__contador{font-variant-numeric:tabular-nums;margin-right:8px}
 .icone-btn{
   width:42px;height:42px;display:grid;place-items:center;
+  border-radius:var(--raio-controle);
   border:1px solid var(--linha-viva);color:var(--osso);
   transition:background .22s var(--saida),border-color .22s var(--saida);
 }
@@ -570,10 +588,9 @@ body::after{
 
 /* ------------------------------------------------------- cursor bolinha */
 
-/* Exceção declarada à regra de raio zero: isto é um ponteiro, não uma
-   superfície. O cursor nativo continua visível por baixo, de propósito:
-   esconder o cursor do sistema quebra quem depende dele.
-   O crescimento é por scale, nunca por width/height. */
+/* O cursor nativo continua visível por baixo, de propósito: esconder o
+   cursor do sistema quebra quem depende dele. O crescimento é por scale,
+   nunca por width/height. */
 .cursor{
   position:fixed;top:0;left:0;
   z-index:var(--z-cursor);
