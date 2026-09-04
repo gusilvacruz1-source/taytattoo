@@ -178,9 +178,17 @@ branco vira preto e some, e o traço escuro acende.
 Nos três primeiros, o conserto de verdade é recortar o fundo e salvar em
 PNG com transparência.
 
-**As opacidades são altas** (entre .72 e .88) de propósito: em `screen`
-sobre o breu o traço perde muita força, e abaixo de ~.7 a figurinha
-simplesmente não se vê.
+**As opacidades são cheias.** Opacidade baixa aqui não deixa a figurinha
+discreta: deixa ela com ar de fantasma aceso, porque o traço perde corpo
+mas continua sendo a única coisa clara na tela. Para deixar alguma mais
+discreta, diminua a `largura`, não a opacidade.
+
+Há dois ajustes de imagem opcionais por figurinha:
+
+| Campo | Para quê |
+|---|---|
+| `inverter: true` | arte que veio com fundo claro. Sem isso o branco vira um retângulo estourado |
+| `contraste: 1.5` | arte de fundo fotográfico, cujo preto não é preto de verdade e aparece como halo claro em volta. **Nunca use em arte pontilhada**: o contraste come os pontos |
 
 Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de

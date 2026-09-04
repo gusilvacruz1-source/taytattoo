@@ -585,10 +585,22 @@
          mantém enquanto anima o deslocamento. */
       img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
       if (f.opacidade != null) img.style.opacity = String(f.opacidade);
-      /* Arte que veio com fundo claro precisa ser invertida antes do
-         "screen": sem isso o fundo branco vira um retângulo estourado.
-         Invertida, o branco vira preto (some) e o traço escuro acende. */
-      if (f.inverter) img.style.filter = 'invert(1)';
+      /* Dois ajustes de imagem, os dois no mesmo filter porque um
+         substitui o outro se forem escritos separados:
+
+         "inverter" é para arte que veio com fundo claro. Sem ele o
+         branco vira um retângulo estourado sob o "screen"; invertida, o
+         branco vira preto e some, e o traço escuro acende.
+
+         "contraste" empurra os quase-pretos para o preto. Serve para
+         arte de fundo fotográfico, cujo preto não é preto de verdade e
+         o "screen" levanta como um halo claro em volta, dando o ar de
+         coisa brilhando. Não use em arte pontilhada: ali o contraste
+         come os pontos e a figurinha some. */
+      var lentes = [];
+      if (f.inverter) lentes.push('invert(1)');
+      if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
+      if (lentes.length) img.style.filter = lentes.join(' ');
 
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { img.remove(); });
