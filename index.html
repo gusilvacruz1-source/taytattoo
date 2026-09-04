@@ -26,16 +26,17 @@
      pacote, não desenhados à mão. O selo, logo abaixo, é a única forma
      autoral: um monograma circular, e sai assim que o logo real chegar. -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <symbol id="i-seta" viewBox="0 0 24 24"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></symbol>
-    <symbol id="i-volta" viewBox="0 0 24 24"><path d="M5 12l14 0"/><path d="M5 12l6 6"/><path d="M5 12l6 -6"/></symbol>
-    <symbol id="i-mais" viewBox="0 0 24 24"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></symbol>
-    <symbol id="i-fecha" viewBox="0 0 24 24"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></symbol>
-    <symbol id="i-instagram" viewBox="0 0 24 24"><path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M16.5 7.5v.01"/></symbol>
-    <symbol id="i-lapis" viewBox="0 0 24 24"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"/><path d="M13.5 6.5l4 4"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13 -8z"/></symbol>
-    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/></symbol>
-  </g>
+  <!-- Os atributos de traço moram em CADA símbolo, não num <g> em volta:
+       o conteúdo que o <use> clona não enxerga os ancestrais que o
+       símbolo tinha na árvore original, e os ícones sairiam sem traço. -->
+  <symbol id="i-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0"/><path d="M13 18l6 -6"/><path d="M13 6l6 6"/></symbol>
+  <symbol id="i-volta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l14 0"/><path d="M5 12l6 6"/><path d="M5 12l6 -6"/></symbol>
+  <symbol id="i-mais" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5l0 14"/><path d="M5 12l14 0"/></symbol>
+  <symbol id="i-fecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6l-12 12"/><path d="M6 6l12 12"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M16.5 7.5v.01"/></symbol>
+  <symbol id="i-lapis" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"/><path d="M13.5 6.5l4 4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v16l13 -8z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/></symbol>
   <symbol id="selo" viewBox="0 0 120 120">
     <defs><path id="selo-volta" d="M60 12a48 48 0 010 96 48 48 0 010-96"/></defs>
     <g>
@@ -138,11 +139,19 @@
   <!-- ================================================ 2. TRABALHOS ===== -->
   <section class="secao" id="trabalhos">
     <div class="container">
-      <div class="revela" style="max-width:52ch;margin-bottom:clamp(36px,5vw,58px)">
+      <div class="revela" style="max-width:52ch;margin-bottom:clamp(26px,3.6vw,40px)">
         <h2 class="titulo">Preto, cinza e o detalhe no lugar</h2>
       </div>
 
+      <!-- As abas saem da lista CATEGORIAS, em js/trabalhos.js. Ficam
+           escondidas enquanto não houver peça publicada. -->
+      <div class="filtros revela" id="filtros" role="group" aria-label="Filtrar trabalhos por estilo" hidden></div>
+
+      <p class="nota revela" id="galeriaNota" hidden>Cada cartão é uma tatuagem, não uma foto. Abrindo, as setas passam pelos ângulos da mesma peça. "Cicatrizadas" mostra como ela fica depois da cura.</p>
+
       <div class="galeria" id="galeria" hidden></div>
+
+      <p class="lead revela" id="categoriaVazia" hidden>Ainda não há peça publicada nessa aba.</p>
 
       <div class="painel revela" id="galeriaVazia">
         <h3>As fotos estão a caminho</h3>
@@ -291,8 +300,12 @@
   </div>
 </footer>
 
+<!-- A lupa abre UMA peça e caminha pelos ângulos dela: o close, a foto
+     de longe, o vídeo, a cicatrizada. Os pontos embaixo dizem quantos
+     ângulos existem e em qual você está. -->
 <div class="lupa" id="lupa" role="dialog" aria-modal="true" aria-label="Trabalho ampliado" hidden>
-  <div class="lupa__topo">
+  <div class="lupa__topo container">
+    <span class="lupa__titulo" id="lupaTitulo"></span>
     <button class="icone-btn" id="lupaFecha" aria-label="Fechar"><svg aria-hidden="true"><use href="#i-fecha"/></svg></button>
   </div>
   <div class="lupa__palco" id="lupaPalco"></div>
@@ -300,8 +313,9 @@
     <span class="lupa__legenda" id="lupaLegenda"></span>
     <span class="lupa__setas">
       <span class="lupa__contador" id="lupaContador"></span>
-      <button class="icone-btn" id="lupaAnt" aria-label="Anterior"><svg aria-hidden="true"><use href="#i-volta"/></svg></button>
-      <button class="icone-btn" id="lupaProx" aria-label="Próximo"><svg aria-hidden="true"><use href="#i-seta"/></svg></button>
+      <span class="lupa__pontos" id="lupaPontos"></span>
+      <button class="icone-btn" id="lupaAnt" aria-label="Ângulo anterior"><svg aria-hidden="true"><use href="#i-volta"/></svg></button>
+      <button class="icone-btn" id="lupaProx" aria-label="Próximo ângulo"><svg aria-hidden="true"><use href="#i-seta"/></svg></button>
     </span>
   </div>
 </div>

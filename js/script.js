@@ -8,6 +8,8 @@
   'use strict';
 
   var pouca = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var temGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
+  function revelar(el) { el.setAttribute('data-vista', ''); }
 
   var ano = document.getElementById('ano');
   if (ano) ano.textContent = new Date().getFullYear();
@@ -66,62 +68,97 @@
 
   var VIDEO = /\.(mp4|webm|mov)$/i;
 
-  function midiaDe(item, pasta, adiantada) {
-    var src = pasta + item.arquivo;
+  /* Monta a mídia de UM ângulo. Vídeo e foto entram pelo mesmo lugar. */
+  function midiaDe(a, pasta, adiantada) {
+    var src = pasta + a.arquivo;
     var el;
 
-    if (VIDEO.test(item.arquivo)) {
+    if (VIDEO.test(a.arquivo)) {
       el = document.createElement('video');
       el.src = src;
       el.muted = true;
       el.loop = true;
       el.playsInline = true;
       el.preload = 'metadata';
-      if (item.capa) el.poster = pasta + item.capa;
+      if (a.capa) el.poster = pasta + a.capa;
     } else {
       el = document.createElement('img');
       el.src = src;
-      el.alt = item.alt || '';
+      el.alt = a.alt || '';
       el.loading = adiantada ? 'eager' : 'lazy';
       el.decoding = 'async';
     }
     return el;
   }
 
-  /* Peças fechadas: grade em colunas, cada uma abre na lupa. */
+  function temVideo(angulos) {
+    return angulos.some(function (a) { return VIDEO.test(a.arquivo); });
+  }
+
+  /* Cada cartão é uma TATUAGEM, não uma foto: os ângulos moram dentro
+     dele e só aparecem quando a peça abre. */
   function montarGaleria(lista) {
     var alvo = document.getElementById('galeria');
     var vazio = document.getElementById('galeriaVazia');
-    var itens = (lista || []).filter(function (i) { return i && i.arquivo; });
+    var filtros = document.getElementById('filtros');
+    var nota = document.getElementById('galeriaNota');
+
+    var itens = (lista || []).filter(function (p) {
+      return p && p.angulos && p.angulos.length && p.angulos[0].arquivo;
+    });
+
     if (!alvo || !itens.length) return [];
 
     if (vazio) vazio.remove();
     alvo.hidden = false;
+    if (nota) nota.hidden = false;
 
-    itens.forEach(function (item, i) {
+    itens.forEach(function (peca, i) {
+      var capa = peca.angulos[0];
+
       var botao = document.createElement('button');
       botao.className = 'peca';
       botao.type = 'button';
-      botao.setAttribute('aria-label', 'Ampliar: ' + (item.alt || 'trabalho'));
       botao.dataset.indice = String(i);
+      botao.dataset.cat = peca.categorias || '';
 
-      var midia = midiaDe(item, 'img/trabalhos/', i < 4);
-      var ehVideo = VIDEO.test(item.arquivo);
+      var quantos = peca.angulos.length;
+      botao.setAttribute('aria-label',
+        (peca.titulo || 'Trabalho') + (quantos > 1
+          ? ', abrir e ver os ' + quantos + ' ângulos'
+          : ', abrir'));
 
-      if (ehVideo && !pouca) {
+      /* A proporção reserva o espaço antes de a foto carregar: sem isso
+         a grade pula quando cada imagem chega. */
+      var moldura = document.createElement('span');
+      moldura.className = 'peca__moldura';
+      moldura.style.aspectRatio = peca.proporcao || '3/4';
+
+      var midia = midiaDe(capa, 'img/trabalhos/', i < 4);
+      if (VIDEO.test(capa.arquivo) && !pouca) {
         botao.addEventListener('mouseenter', function () { midia.play().catch(function () {}); });
         botao.addEventListener('mouseleave', function () { midia.pause(); });
       }
-
       /* Nome de arquivo errado não deixa buraco na grade: o cartão sai. */
       midia.addEventListener('error', function () { botao.remove(); });
 
-      botao.appendChild(midia);
+      moldura.appendChild(midia);
+      botao.appendChild(moldura);
 
-      if (ehVideo) {
+      /* Selo: sem ele ninguém descobre que há mais fotos ali dentro. */
+      if (quantos > 1 || temVideo(peca.angulos)) {
         var selo = document.createElement('span');
-        selo.className = 'peca__video';
-        selo.innerHTML = '<svg width="14" height="14" aria-hidden="true"><use href="#i-play"/></svg>';
+        selo.className = 'peca__angulos';
+        var html = '';
+        if (temVideo(peca.angulos)) {
+          html += '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2l7 4-7 4z" fill="currentColor"/></svg>';
+        }
+        if (quantos > 1) {
+          html += '<span class="sr-only">Peça com </span>' + quantos + '<span class="sr-only"> ângulos</span>';
+        } else {
+          html += '<span class="sr-only">Peça em vídeo</span>';
+        }
+        selo.innerHTML = html;
         botao.appendChild(selo);
       }
 
@@ -133,13 +170,93 @@
       alvo.appendChild(botao);
     });
 
-    return itens.map(function (item) {
-      return {
-        src: 'img/trabalhos/' + item.arquivo,
-        alt: item.alt || '',
-        video: VIDEO.test(item.arquivo)
-      };
-    });
+    /* --------------------------------------------------------- filtros */
+
+    var cartoes = Array.prototype.slice.call(alvo.querySelectorAll('.peca'));
+    var vazioCat = document.getElementById('categoriaVazia');
+    var categorias = (typeof CATEGORIAS !== 'undefined') ? CATEGORIAS : [];
+
+    /* Só entra aba que tem peça atrás dela. Filtro que abre no vazio é
+       pior que filtro que não existe. */
+    function temPeca(id) {
+      if (id === 'todas') return true;
+      return cartoes.some(function (c) {
+        return (c.dataset.cat || '').split(/\s+/).indexOf(id) !== -1;
+      });
+    }
+
+    function medir() {
+      var mapa = new Map();
+      cartoes.forEach(function (c) {
+        if (!c.hidden) mapa.set(c, c.getBoundingClientRect());
+      });
+      return mapa;
+    }
+
+    /* FLIP na mão: mede antes, aplica o filtro, mede depois e anima a
+       diferença. O cartão desliza do lugar antigo para o novo em vez de
+       teleportar. */
+    function filtrar(categoria) {
+      var antes = medir();
+
+      cartoes.forEach(function (c) {
+        var cats = (c.dataset.cat || '').split(/\s+/);
+        c.hidden = !(categoria === 'todas' || cats.indexOf(categoria) !== -1);
+      });
+
+      var visiveis = cartoes.filter(function (c) { return !c.hidden; });
+      if (vazioCat) vazioCat.hidden = visiveis.length > 0;
+      alvo.hidden = visiveis.length === 0;
+
+      /* Cartão que entrou agora precisa estar revelado, senão o
+         clip-path da entrada o deixaria invisível. */
+      visiveis.forEach(revelar);
+
+      if (!temGsap || pouca) return;
+
+      var depois = medir();
+      depois.forEach(function (agora, el) {
+        var antigo = antes.get(el);
+        if (antigo) {
+          var dx = antigo.left - agora.left;
+          var dy = antigo.top - agora.top;
+          if (dx || dy) {
+            gsap.fromTo(el, { x: dx, y: dy }, { x: 0, y: 0, duration: 0.65, ease: 'power3.inOut' });
+          }
+        } else {
+          gsap.fromTo(el, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.55, ease: 'power3.out' });
+        }
+      });
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }
+
+    var abas = categorias.filter(function (c) { return temPeca(c.id); });
+
+    /* Uma aba só ("Todas") não é escolha nenhuma: nem mostra a barra. */
+    if (filtros && abas.length > 1) {
+      filtros.hidden = false;
+      abas.forEach(function (c, k) {
+        var chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip' + (k === 0 ? ' is-active' : '');
+        chip.textContent = c.nome;
+        chip.dataset.filtro = c.id;
+        chip.setAttribute('aria-pressed', k === 0 ? 'true' : 'false');
+
+        chip.addEventListener('click', function () {
+          filtros.querySelectorAll('.chip').forEach(function (outro) {
+            var ativo = outro === chip;
+            outro.classList.toggle('is-active', ativo);
+            outro.setAttribute('aria-pressed', ativo ? 'true' : 'false');
+          });
+          filtrar(c.id);
+        });
+
+        filtros.appendChild(chip);
+      });
+    }
+
+    return itens;
   }
 
   /* Desenhos livres: trilho horizontal com encaixe, cada um leva ao direct. */
@@ -242,46 +359,86 @@
 
   /* ------------------------------------------------------------- lupa */
 
+  /* A lupa abre UMA peça e caminha pelos ângulos dela: o close, a foto
+     de longe, o vídeo, a cicatrizada. */
   var lupa = document.getElementById('lupa');
   var palco = document.getElementById('lupaPalco');
   var legenda = document.getElementById('lupaLegenda');
   var contador = document.getElementById('lupaContador');
-  var indice = 0;
+  var tituloLupa = document.getElementById('lupaTitulo');
+  var pontos = document.getElementById('lupaPontos');
+  var btnFecha = document.getElementById('lupaFecha');
+  var btnAnt = document.getElementById('lupaAnt');
+  var btnProx = document.getElementById('lupaProx');
+
+  var angulos = [];
+  var iAngulo = 0;
   var voltarPara = null;
 
-  function pintar() {
-    var item = pecas[indice];
-    if (!item) return;
+  function pintarAngulo() {
+    var a = angulos[iAngulo];
+    if (!a) return;
 
     palco.innerHTML = '';
-    var el;
-    if (item.video) {
-      el = document.createElement('video');
-      el.src = item.src;
+    var el = midiaDe(a, 'img/trabalhos/', true);
+    if (VIDEO.test(a.arquivo)) {
       el.controls = true;
-      el.autoplay = !pouca;
-      el.loop = true;
-      el.playsInline = true;
-    } else {
-      el = document.createElement('img');
-      el.src = item.src;
-      el.alt = item.alt;
+      el.autoplay = !pouca;              /* em reduced-motion fica no poster */
+      el.setAttribute('aria-label', a.alt || '');
     }
     palco.appendChild(el);
 
-    legenda.textContent = item.alt;
-    contador.textContent = (indice + 1) + ' / ' + pecas.length;
+    legenda.textContent = a.alt || '';
+    contador.textContent = angulos.length > 1
+      ? (iAngulo + 1) + ' de ' + angulos.length
+      : '';
+
+    /* Um ponto por ângulo, clicável. */
+    pontos.innerHTML = '';
+    if (angulos.length > 1) {
+      angulos.forEach(function (_, k) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'lupa__ponto' + (k === iAngulo ? ' is-atual' : '');
+        b.setAttribute('aria-label', 'Ângulo ' + (k + 1));
+        b.setAttribute('aria-current', k === iAngulo ? 'true' : 'false');
+        b.addEventListener('click', function () { iAngulo = k; pintarAngulo(); });
+        pontos.appendChild(b);
+      });
+    }
+
+    /* O próximo já vai baixando, para a seta responder na hora. */
+    if (angulos.length > 1) {
+      var seguinte = angulos[(iAngulo + 1) % angulos.length];
+      if (!VIDEO.test(seguinte.arquivo)) {
+        var adiante = new Image();
+        adiante.src = 'img/trabalhos/' + seguinte.arquivo;
+      }
+    }
+
+    if (temGsap && !pouca) {
+      gsap.fromTo(el, { opacity: 0, scale: 0.985 },
+        { opacity: 1, scale: 1, duration: 0.35, ease: 'power3.out' });
+    }
   }
 
-  function abrir(i, origem) {
-    if (!pecas.length) return;
-    indice = i;
+  function abrirPeca(peca, origem) {
+    if (!peca || !peca.angulos || !peca.angulos.length) return;
+
+    angulos = peca.angulos;
+    iAngulo = 0;
     voltarPara = origem || null;
-    pintar();
+    tituloLupa.textContent = peca.titulo || '';
+
+    var sozinha = angulos.length < 2;
+    btnAnt.hidden = sozinha;
+    btnProx.hidden = sozinha;
+
+    pintarAngulo();
     lupa.hidden = false;
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(function () { lupa.setAttribute('data-aberta', ''); });
-    document.getElementById('lupaFecha').focus();
+    btnFecha.focus();
   }
 
   function fechar() {
@@ -290,25 +447,26 @@
     window.setTimeout(function () {
       lupa.hidden = true;
       palco.innerHTML = '';
+      pontos.innerHTML = '';
       if (voltarPara) voltarPara.focus();
     }, pouca ? 0 : 260);
   }
 
   function andar(passo) {
-    if (!pecas.length) return;
-    indice = (indice + passo + pecas.length) % pecas.length;
-    pintar();
+    if (angulos.length < 2) return;
+    iAngulo = (iAngulo + passo + angulos.length) % angulos.length;
+    pintarAngulo();
   }
 
   if (lupa && pecas.length) {
     document.addEventListener('click', function (e) {
-      var peca = e.target.closest && e.target.closest('.peca');
-      if (peca) abrir(Number(peca.dataset.indice), peca);
+      var cartao = e.target.closest && e.target.closest('.peca');
+      if (cartao) abrirPeca(pecas[Number(cartao.dataset.indice)], cartao);
     });
 
-    document.getElementById('lupaFecha').addEventListener('click', fechar);
-    document.getElementById('lupaAnt').addEventListener('click', function () { andar(-1); });
-    document.getElementById('lupaProx').addEventListener('click', function () { andar(1); });
+    btnFecha.addEventListener('click', fechar);
+    btnAnt.addEventListener('click', function () { andar(-1); });
+    btnProx.addEventListener('click', function () { andar(1); });
 
     /* Clique no fundo fecha. Clique na mídia, não. */
     lupa.addEventListener('click', function (e) {
@@ -317,21 +475,24 @@
 
     document.addEventListener('keydown', function (e) {
       if (lupa.hidden) return;
-      if (e.key === 'Escape') { fechar(); return; }
-      if (e.key === 'ArrowLeft') { andar(-1); return; }
-      if (e.key === 'ArrowRight') { andar(1); return; }
+      if (e.key === 'Escape') { e.preventDefault(); fechar(); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); andar(1); return; }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); andar(-1); return; }
       if (e.key !== 'Tab') return;
 
-      /* Foco preso dentro da lupa enquanto ela estiver aberta. */
-      var focaveis = lupa.querySelectorAll('button, video[controls]');
-      if (!focaveis.length) return;
-      var primeiro = focaveis[0];
-      var ultimo = focaveis[focaveis.length - 1];
-      if (e.shiftKey && document.activeElement === primeiro) {
-        e.preventDefault(); ultimo.focus();
-      } else if (!e.shiftKey && document.activeElement === ultimo) {
-        e.preventDefault(); primeiro.focus();
+      /* Foco preso dentro da lupa, passando pelos pontos também. */
+      var focaveis = [btnFecha];
+      if (angulos.length > 1) {
+        focaveis = focaveis.concat(
+          Array.prototype.slice.call(pontos.querySelectorAll('button')),
+          [btnAnt, btnProx]);
       }
+      var atual = focaveis.indexOf(document.activeElement);
+      e.preventDefault();
+      var proximo = e.shiftKey ? atual - 1 : atual + 1;
+      if (proximo < 0) proximo = focaveis.length - 1;
+      if (proximo >= focaveis.length) proximo = 0;
+      focaveis[proximo].focus();
     });
   }
 
@@ -379,9 +540,6 @@
   /* ---------------------------------------------------------- movimento */
 
   var alvos = Array.prototype.slice.call(document.querySelectorAll('.revela'));
-  function revelar(el) { el.setAttribute('data-vista', ''); }
-
-  var temGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
   var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var cursor = document.getElementById('cursor');
 

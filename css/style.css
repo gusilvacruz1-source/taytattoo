@@ -295,7 +295,10 @@ body::after{
   overflow:hidden;
   transition:border-color .26s var(--saida);
 }
-.peca img,.peca video{width:100%}
+/* A moldura carrega a proporção da peça: o espaço fica reservado antes
+   de a foto chegar, e a grade não pula durante o carregamento. */
+.peca__moldura{display:block;width:100%;overflow:hidden}
+.peca img,.peca video{width:100%;height:100%;object-fit:cover}
 .peca:hover{border-color:var(--linha-viva)}
 
 /* O trabalho nasce em preto e branco e ganha cor quando o olhar para
@@ -321,10 +324,52 @@ body::after{
   opacity:0;transition:opacity .26s var(--saida);
 }
 .peca:hover .peca__marca,.peca:focus-visible .peca__marca{opacity:1}
-.peca__video{
-  position:absolute;left:10px;top:10px;
-  display:grid;place-items:center;width:28px;height:28px;
-  background:rgba(11,11,12,.72);border:1px solid var(--linha-viva);color:var(--osso);
+/* Selo de quantos ângulos a peça tem. Sem ele ninguém descobre que há
+   mais de uma foto ali dentro. O triângulo aparece quando um dos
+   ângulos é vídeo. */
+.peca__angulos{
+  position:absolute;top:12px;right:12px;
+  min-width:30px;height:30px;
+  display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  padding-inline:9px;
+  background:rgba(11,11,12,.74);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border:1px solid var(--linha-viva);
+  color:var(--osso);
+  font-size:.68rem;font-weight:600;letter-spacing:.04em;
+  font-variant-numeric:tabular-nums;
+}
+.peca__angulos svg{width:11px;height:11px}
+
+/* Texto que só o leitor de tela ouve. */
+.sr-only{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* ------------------------------------------------------------ filtros */
+
+.filtros{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip{
+  min-height:44px;                          /* alvo de toque no celular */
+  padding:11px 20px;
+  border:1px solid var(--linha-viva);
+  color:var(--osso-suave);
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  transition:background-color .4s var(--saida),color .4s var(--saida),border-color .4s var(--saida);
+}
+.chip:hover{border-color:var(--osso-suave);color:var(--osso)}
+/* A aba ativa inverte. O vermelho não entra aqui: ele é do botão de
+   agendar, e um acento que significa duas coisas não significa nenhuma. */
+.chip.is-active{background:var(--osso);color:var(--breu);border-color:var(--osso)}
+
+.nota{
+  color:var(--osso-suave);
+  font-size:.94rem;
+  max-width:54ch;
+  margin-bottom:clamp(30px,4vw,46px);
 }
 
 /* Vagas: os quadrados da prévia, mostrando onde cada foto vai entrar.
@@ -442,9 +487,35 @@ body::after{
   opacity:0;transition:opacity .26s var(--saida);
 }
 .lupa[data-aberta]{opacity:1}
-.lupa__topo{display:flex;justify-content:flex-end}
-.lupa__palco{display:grid;place-items:center;min-height:0}
-.lupa__palco img,.lupa__palco video{max-width:100%;max-height:100%;object-fit:contain;border:1px solid var(--linha)}
+.lupa__topo{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.lupa__titulo{
+  font-family:var(--display);
+  font-size:clamp(1.15rem,2vw,1.55rem);
+  color:var(--osso);
+}
+.lupa__pontos{display:flex;gap:4px;margin-right:6px}
+/* Redondos, como a bolinha do cursor: são indicadores, não superfícies.
+   A regra de raio zero vale para o que é superfície. */
+.lupa__ponto{width:30px;height:30px;display:grid;place-items:center;padding:0}
+.lupa__ponto::before{
+  content:'';
+  width:7px;height:7px;border-radius:50%;
+  background:var(--osso-suave);
+  transition:background-color .3s var(--saida),transform .3s var(--saida);
+}
+.lupa__ponto:hover::before{background:var(--osso)}
+.lupa__ponto.is-atual::before{background:var(--brasa);transform:scale(1.35)}
+/* Palco: a mídia preenche por posicionamento absoluto e o object-fit é
+   quem a contém. Com max-height:100% a altura percentual não resolvia
+   contra a linha da grade: a foto ia ao tamanho natural, passava do
+   palco e empurrava o contador, os pontos e as setas para fora da tela.
+   Quebrava em celular deitado, que é onde a tela é mais baixa. */
+.lupa__palco{position:relative;min-height:0}
+.lupa__palco img,.lupa__palco video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:contain;
+}
 .lupa__pe{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--osso-suave);font-size:.74rem;letter-spacing:.08em}
 .lupa__legenda{max-width:60ch}
 .lupa__setas{display:flex;align-items:center;gap:8px}

@@ -36,26 +36,53 @@ PRODUCT.md          a verdade do negócio e as pendências
 DESIGN.md           o sistema visual, como construído
 ```
 
-## Publicar uma foto nova
+## Publicar uma peça nova
 
-1. Salve o arquivo em `img/trabalhos/` (ou `img/disponiveis/`).
-2. Abra `js/trabalhos.js`. Tem uma linha de exemplo comentada lá dentro:
-   tire as duas barras da frente e troque o nome do arquivo e a descrição.
+**Cada cartão da grade é uma tatuagem, não uma foto.** Abrindo, as setas
+passam pelos ângulos daquela mesma peça: o close, a foto de longe, o
+vídeo, a cicatrizada. Como numa ficha de imóvel, em que se navega pelos
+cômodos da mesma casa.
+
+1. Salve os arquivos da peça em `img/trabalhos/`.
+2. Abra `js/trabalhos.js` e copie o bloco de exemplo, tirando as barras.
 
 ```js
 const TRABALHOS = [
-  { arquivo: 'cobra-panturrilha.jpg', alt: 'Cobra em blackwork na panturrilha' },
+  {
+    titulo: 'Cobra na panturrilha',
+    categorias: 'blackwork autorais',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'cobra-1.jpg', alt: 'Cobra em blackwork descendo a panturrilha' },
+      { arquivo: 'cobra-2.jpg', alt: 'A mesma cobra vista de lado' },
+      { arquivo: 'cobra.mp4',   alt: 'Vídeo da cobra', capa: 'cobra-capa.jpg' },
+    ],
+  },
 ];
 ```
 
-3. Salve. A galeria se monta sozinha e a seção de "as fotos estão a caminho"
-   some no mesmo instante.
+3. Salve. A grade, o selo de "3 ângulos" e as abas de filtro se montam
+   sozinhos, e a seção de "as fotos estão a caminho" some no mesmo instante.
 
-Vale foto (`.jpg`, `.png`, `.webp`) e vídeo (`.mp4`, `.webm`). Em vídeo dá
-para apontar uma capa: `capa: 'nome.jpg'`.
+| Campo | O que é |
+|---|---|
+| `titulo` | o nome que aparece ao abrir. Escreva como você chamaria conversando |
+| `categorias` | uma ou mais, separadas por espaço, dos ids em `CATEGORIAS`. Uma peça pode ser duas coisas: uma manga delicada já curada é `delicadas cicatrizadas` |
+| `proporcao` | a forma do cartão: `3/4`, `1/1`, `4/5`. Reserva o espaço antes de a foto carregar, para a grade não pular |
+| `angulos` | as fotos e vídeos DA MESMA peça. O primeiro é a capa |
+
+Em cada ângulo: `arquivo`, `alt` e, só para vídeo, `capa` (um quadro dele).
+Vale `.jpg`, `.png`, `.webp`, `.mp4` e `.webm`.
 
 A descrição (`alt`) é lida em voz alta por leitores de tela e aparece se a
 imagem falhar. Escreva o que se vê, nunca "tattoo 1".
+
+### As abas do filtro
+
+Saem da lista `CATEGORIAS`, no topo do mesmo arquivo. **Só aparece a aba
+que tem peça atrás dela**, e a barra inteira some se sobrar só a "Todas":
+filtro que abre no vazio é pior que filtro que não existe. Para criar uma
+aba nova, acrescente em `CATEGORIAS` e use o mesmo id nas peças.
 
 ## A capa: retrato e vídeo de fundo
 

@@ -93,7 +93,10 @@ Seis seções, seis famílias de layout diferentes. Nenhuma se repete:
    num enquadramento 4:5 o rosto fica em cima. No celular a composição se
    desfaz e o retrato desce para baixo do nome, onde ele caberia inteiro
    por cima das letras.
-2. **Trabalhos** · masonry em `columns: 3`, que vira 2 e depois 1.
+2. **Trabalhos** · masonry em `columns: 3`, que vira 2 e depois 1, com
+   a barra de filtros por cima. Cada cartão é uma **peça**, não uma foto:
+   o selo no canto diz quantos ângulos existem lá dentro, e a lupa
+   caminha por eles.
 3. **Traço** · linhas de índice, duas colunas, divisória **só entre** as
    linhas, nunca em cima e embaixo de cada uma.
 4. **Disponíveis** · trilho horizontal com `scroll-snap-type: x mandatory`.
@@ -101,6 +104,38 @@ Seis seções, seis famílias de layout diferentes. Nenhuma se repete:
    para a direita conforme avança.
 6. **Contato** · faixa de duas colunas, texto à esquerda e lista de canais
    à direita.
+
+## A galeria
+
+Portada do site da Eloize Betim, feito antes pela mesma mão, com a mesma
+ideia no centro: **o cartão é uma tatuagem, não uma foto.** Uma peça tem
+o close, a foto de longe, o vídeo e a cicatrizada, e todos moram dentro
+dela. Sem isso a grade vira um álbum onde a mesma tattoo aparece cinco
+vezes e ninguém entende que é a mesma.
+
+Seis mecanismos, todos portados:
+
+1. **Peça com ângulos.** O primeiro ângulo é a capa. Os outros só
+   aparecem quando a peça abre.
+2. **Selo de ângulos** no canto do cartão, com o número e um triângulo
+   quando um dos ângulos é vídeo. Sem ele ninguém descobre que há mais
+   ali dentro.
+3. **Filtros com FLIP feito à mão**: mede a posição de cada cartão, aplica
+   o filtro, mede de novo e anima a diferença. O cartão desliza do lugar
+   antigo para o novo em vez de teleportar.
+4. **Aba só entra se tiver peça atrás dela**, e a barra some se sobrar só
+   a "Todas". Filtro que abre no vazio é pior que filtro que não existe.
+5. **Lupa por peça**, com título, legenda, contador "1 de 3", um ponto
+   clicável por ângulo, setas, `Esc`, `←`, `→` e foco preso lá dentro,
+   passando pelos pontos.
+6. **`proporcao` por peça**, que reserva o espaço do cartão antes de a
+   foto carregar. Sem isso a grade pula durante o carregamento.
+
+Duas coisas mudaram de propósito. Os dados moram em `js/trabalhos.js`, e
+não em JSON escapado dentro de atributo HTML como no site da Eloize:
+quem mantém este site edita uma lista, não `&quot;` no meio da marcação.
+E a pele é a daqui, escura e sem raio, porque a cliente pediu o oposto do
+tema claro daquele site.
 
 ## Ícones
 
@@ -155,6 +190,7 @@ Quatro gestos, cada um com uma razão:
 | Gesto | Por que existe | Ingredientes |
 |---|---|---|
 | Peça sobe por `clip-path` | hierarquia: o trabalho entra em cena | transição CSS .9s, `--saida`, gatilho em `top 90%` |
+| Cartão desliza ao filtrar | evita o teleporte, mostra que é o mesmo cartão | FLIP à mão, `power3.inOut`, .65s |
 | Cinza que vira cor no hover | a recompensa por parar em cima da peça | `filter` .5s, só em `hover:hover` e `pointer:fine` |
 | Figurinhas com parallax | delight, a faixa rara | `yPercent` com `scrub`, entrada em `back.out(1.6)` |
 | Bolinha do cursor | feedback: diz onde a mão pode ir | `gsap.quickTo`, `power3`, .35s |

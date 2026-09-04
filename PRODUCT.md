@@ -39,6 +39,10 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
   publicado. Ver a pendência 4 sobre a contagem de dígitos.
 
 ## Pendências (o que precisa vir da Tay)
+0. **Confirmar as abas do filtro.** Hoje são Autorais, Delicadas,
+   Blackwork e Cicatrizadas. "Delicadas" veio do destaque do perfil dela
+   e "blackwork" do briefing que ela escreveu; as outras duas são leitura
+   nossa. Vale ela dizer como divide o próprio trabalho.
 1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
    seções hoje são estado vazio apontando para o Instagram.
 2. **Retrato dela** para a capa (`img/retrato.jpg`). Sem ele, a moldura
