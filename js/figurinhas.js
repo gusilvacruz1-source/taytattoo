@@ -27,12 +27,19 @@
      fundura   o quanto ela anda no scroll, de 2 (quase parada) a 14
                (bem solta). Acima de 14 embrulha o estômago.
      opacidade opcional, de 0 a 1. O padrão é 1.
-     sangra    opcional: 'esquerda' ou 'direita'. Use quando quiser que a
-               figurinha entre pela borda da página, cortada pela seção.
-               Ela troca a máscara redonda por uma encostada naquele
-               lado, para o desenho parecer que segue para fora do quadro
-               em vez de acabar ali. Combine com um x negativo (sangra
-               pela esquerda) ou acima de 100% (pela direita).
+
+   O ARCO é o outro jeito de colar. Em vez de ficar num canto, a arte
+   atravessa a seção inteira de uma parede à outra, pendurada como fio.
+   Hoje só o arame usa. Os campos mudam:
+
+     arco      true, e aí valem os campos abaixo em vez de largura e x
+     y         a linha do fio, contando do alto da seção. Aceita qualquer
+               medida do CSS, e vale usar clamp() para o arco não cair em
+               cima do título no celular
+     elo       o tamanho de cada pedaço de fio, em pixels. É ele que dá a
+               espessura: quanto menor o elo, mais fino o arame. O número
+               de pedaços o site calcula sozinho pela largura da tela
+     curva     quanto o arco levanta no meio, em graus na ponta. 0 é reto
 
    Regra de ouro: no máximo duas por seção. Passou disso vira poluição,
    e a página deixa de ser sobre o traço da Tay.
@@ -56,12 +63,15 @@ const FIGURINHAS = [
      não é preto de verdade e aparece como halo claro em volta. Nunca em
      arte pontilhada, onde ele come os pontos. */
 
-  /* Trabalhos: a filigrana à direita e o arame entrando pela esquerda.
-     O arame é o único que sangra: ele é um fio, e fio que começa e acaba
-     dentro do quadro vira objeto. Cortado pela borda, com a máscara
-     encostada nela, ele continua para fora da página. */
+  /* Trabalhos: a filigrana à direita e o arame atravessando por cima.
+
+     O arame é o único em arco: ele é um fio, e fio que começa e acaba
+     dentro do quadro vira objeto. Pendurado de uma parede à outra,
+     cortado pelas duas, ele volta a ser fio. Fica na faixa vazia acima do
+     título, que é o único lugar da seção onde ele atravessa inteiro sem
+     passar por cima de nada. */
   { arquivo: 'filigrana.jpg',     secao: 'trabalhos',   largura: 260, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: 1 },
-  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 230, x: '-4%', y: '34%', giro: -4,  fundura: 7, opacidade: 1, contraste: 1.5, sangra: 'esquerda' },
+  { arquivo: 'arame.jpg',         secao: 'trabalhos',   arco: true, elo: 145, curva: 9, y: 'clamp(38px, 9vw, 120px)', fundura: 5, opacidade: 1, contraste: 1.5 },
 
   /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
   { arquivo: 'lirio.jpg',         secao: 'traco',       largura: 240, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: 1 },

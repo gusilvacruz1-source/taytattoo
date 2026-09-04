@@ -166,7 +166,7 @@ editar nada:
 | Arquivo | Onde cola | O que é |
 |---|---|---|
 | `filigrana.jpg` | trabalhos, direita | os arabescos com as estrelinhas |
-| `arame.jpg` | trabalhos, esquerda | o arame farpado |
+| `arame.jpg` | trabalhos, em arco de parede a parede | o arame farpado |
 | `lirio.jpg` | traço, esquerda | o lírio de traço fino |
 | `arabesco.jpg` | traço, direita | o arabesco pontilhado |
 | `tulipas.jpg` | disponíveis, direita | as tulipas gravadas |
@@ -197,20 +197,35 @@ discreta: deixa ela com ar de fantasma aceso, porque o traço perde corpo
 mas continua sendo a única coisa clara na tela. Para deixar alguma mais
 discreta, diminua a `largura`, não a opacidade.
 
-Há três ajustes opcionais por figurinha:
+Há dois ajustes de imagem opcionais por figurinha:
 
 | Campo | Para quê |
 |---|---|
 | `inverter: true` | arte que veio com fundo claro. Sem isso o branco vira um retângulo estourado |
 | `contraste: 1.5` | arte de fundo fotográfico, cujo preto não é preto de verdade e aparece como halo claro em volta. **Nunca use em arte pontilhada**: o contraste come os pontos |
-| `sangra: 'esquerda'` | a figurinha entra pela borda da página, cortada pela seção, como se o desenho seguisse para fora. Vale também `'direita'` |
 
-O `sangra` anda junto com o `x`: pela esquerda o `x` fica negativo (o
-arame está em `-4%`), pela direita passa de `100%`. Sem ele a beirada
-cortada apareceria apagada pela máscara redonda, o que denuncia o fim do
-arquivo em vez de sugerir que o traço continua. É por isso que o arame usa
-os dois: fio que começa e acaba dentro do quadro vira objeto; cortado pela
-borda, vira fio.
+### O arame é diferente: ele é um arco
+
+Fio que começa e acaba dentro do quadro vira objeto. Por isso o arame não
+fica colado num canto como as outras: ele atravessa a seção Trabalhos de
+uma parede à outra, pendurado na faixa vazia acima do título, e as duas
+pontas são cortadas pelas bordas da página.
+
+Por baixo ele não é uma imagem esticada, e sim uma **corrente**: várias
+cópias curtas da mesma arte, uma espelhando a outra para a linha correr
+sem dente de serra. Se fosse uma cópia só esticada no vão inteiro, a
+espessura do arame cresceria junto com o comprimento e o fio viraria uma
+viga atravessada na seção.
+
+| Campo | Para quê |
+|---|---|
+| `arco: true` | liga esse modo. Substitui `largura` e `x` |
+| `y` | a linha do fio, contando do alto da seção. Aceita qualquer medida do CSS — hoje é um `clamp()`, para o arco não cair em cima do título no celular |
+| `elo: 145` | o tamanho de cada pedaço de fio, em pixels. **É esse número que dá a espessura**: quanto menor o elo, mais fino o arame. Quantos pedaços cabem, o site calcula sozinho pela largura da tela |
+| `curva: 9` | quanto o arco levanta no meio, em graus na ponta. `0` deixa reto |
+
+Para deixar o arame mais grosso ou mais fino, mexa no `elo`. Para deixar o
+arco mais ou menos curvado, no `curva`. Para subir ou descer o fio, no `y`.
 
 Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de

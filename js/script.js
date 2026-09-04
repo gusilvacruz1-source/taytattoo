@@ -627,6 +627,19 @@
       var secao = document.getElementById(f.secao);
       if (!secao) return;
 
+      /* Arco: a figurinha atravessa a seção de parede a parede, em vez de
+         ficar colada num canto. São duas cópias da mesma arte, a segunda
+         espelhada, deitadas e encontrando-se no meio: o fio do arame já
+         vem com uma curva no arquivo, e a cópia espelhada continua essa
+         curva do outro lado. As duas pontas de fora são cortadas pela
+         seção, então o fio entra por uma parede e sai pela outra. */
+      if (f.arco) {
+        var arco = montarArco(f);
+        secao.appendChild(arco);
+        coladas.push({ el: arco, secao: secao, fundura: f.fundura || 5 });
+        return;
+      }
+
       var img = document.createElement('img');
       img.className = 'figurinha';
       img.src = 'img/figurinhas/' + f.arquivo;
@@ -658,15 +671,6 @@
       if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
       if (lentes.length) img.style.filter = lentes.join(' ');
 
-      /* "sangra" troca a máscara redonda por uma encostada na borda: do
-         lado que sai da página o desenho fica inteiro, e só os outros
-         três lados dissolvem. Sem isto a figurinha cortada pela seção
-         aparece com a beirada apagada, que denuncia o fim do arquivo em
-         vez de sugerir que ela continua para fora. */
-      if (f.sangra === 'esquerda' || f.sangra === 'direita') {
-        img.classList.add('figurinha--sangra-' + f.sangra);
-      }
-
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { img.remove(); });
 
@@ -675,6 +679,81 @@
     });
 
     return coladas;
+  }
+
+  /* Monta o arco: o fio pendurado de uma parede à outra.
+
+     Uma cópia só, esticada no vão inteiro, não serve: a espessura do
+     arame cresce junto com o comprimento, e o fio vira uma viga que
+     engole a seção. Então o arco é uma CORRENTE de elos, cada um uma
+     cópia da mesma arte, e o fio fica fino porque cada elo é curto.
+
+     Os elos alternam espelhados. Sem isso o desenho subiria em cada um e
+     a emenda viraria dente de serra: o fim de um elo em cima, o começo do
+     seguinte embaixo. Espelhado, o elo par desce de onde o ímpar parou, e
+     a linha corre inteira.
+
+     A curva vem de duas coisas por elo: uma inclinação, que segue a
+     tangente do arco naquele ponto, e uma subida, que segue a flecha. As
+     duas em vw, para o arco ter a mesma forma em qualquer tela.
+
+     A corrente começa e acaba para fora das paredes. É de propósito: a
+     máscara de cada elo dissolve as duas pontas, e é só sobrando para
+     fora que a dissolvida das extremidades cai fora da tela. Dentro, o
+     fio encosta na parede inteiro e a seção o corta. */
+  function montarArco(f) {
+    var curva = f.curva != null ? f.curva : 8;   /* graus de inclinação na ponta */
+    var sobra = 9;                               /* vw para fora de cada parede */
+    var vao = 100 + sobra * 2;
+    var flecha = vao * Math.tan(curva * Math.PI / 180) / 4;   /* vw do meio às pontas */
+
+    /* Quantos elos depende da largura da tela, e não é número fixo: o que
+       precisa ficar igual em toda tela é o TAMANHO do pedaço de fio, que
+       é o que dá a espessura do arame. Com número fixo o fio engrossaria
+       no monitor e sumiria no celular, virando um arranhão. */
+    var vaoPx = window.innerWidth * vao / 100;
+    var elos = Math.max(3, Math.round(vaoPx / (f.elo || 145)));
+
+    var caixa = document.createElement('div');
+    caixa.className = 'arco';
+    caixa.setAttribute('aria-hidden', 'true');
+    caixa.style.top = f.y || '20%';
+    caixa.style.setProperty('--arco-sobra', sobra + 'vw');
+    caixa.style.setProperty('--arco-elos', elos);
+    if (f.opacidade != null) caixa.style.opacity = String(f.opacidade);
+
+    var lentes = [];
+    if (f.inverter) lentes.push('invert(1)');
+    if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
+
+    for (var i = 0; i < elos; i++) {
+      var t = (i + 0.5) / elos;
+      var espelhado = i % 2 === 1;
+      var inclina = -curva * (1 - 2 * t);
+      /* O espelho inverte o sentido do giro junto com a arte, então a
+         inclinação do elo par entra trocada de sinal para o arco não
+         quebrar bem no meio. */
+      if (espelhado) inclina = -inclina;
+
+      var elo = document.createElement('span');
+      elo.className = 'arco__elo' + (espelhado ? ' arco__elo--espelho' : '');
+      elo.style.setProperty('--elo-giro', inclina.toFixed(2) + 'deg');
+      elo.style.setProperty('--elo-sobe', (-4 * flecha * t * (1 - t)).toFixed(2) + 'vw');
+
+      var img = document.createElement('img');
+      img.src = 'img/figurinhas/' + f.arquivo;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      if (lentes.length) img.style.filter = lentes.join(' ');
+      /* Arquivo que não existe some inteiro, sem deixar meia corrente. */
+      img.addEventListener('error', function () { caixa.remove(); });
+
+      elo.appendChild(img);
+      caixa.appendChild(elo);
+    }
+
+    return caixa;
   }
 
   var figurinhas = colarFigurinhas(typeof FIGURINHAS !== 'undefined' ? FIGURINHAS : []);
