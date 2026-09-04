@@ -36,8 +36,9 @@ const FIGURINHAS = [
      propósito: em "screen" sobre o breu o traço perde muita força, e
      abaixo de ~.7 a figurinha simplesmente não se vê. */
 
-  /* Trabalhos: a filigrana na borda direita. */
+  /* Trabalhos: a filigrana à direita e o arame descendo pela esquerda. */
   { arquivo: 'filigrana.jpg',     secao: 'trabalhos',   largura: 150, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: .80 },
+  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 135, x: '1%',  y: '34%', giro: -4,  fundura: 7, opacidade: .82 },
 
   /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
   { arquivo: 'lirio.jpg',         secao: 'traco',       largura: 140, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: .80 },

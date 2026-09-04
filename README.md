@@ -152,6 +152,7 @@ editar nada:
 | Arquivo | Onde cola | O que é |
 |---|---|---|
 | `filigrana.jpg` | trabalhos, direita | os arabescos com as estrelinhas |
+| `arame.jpg` | trabalhos, esquerda | o arame farpado |
 | `lirio.jpg` | traço, esquerda | o lírio de traço fino |
 | `arabesco.jpg` | traço, direita | o arabesco pontilhado |
 | `tulipas.jpg` | disponíveis, direita | as tulipas gravadas |
