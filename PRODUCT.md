@@ -70,7 +70,13 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
 8. **Estilos**: o texto da seção Traço descreve tatuagem autoral, delicadas e
    projeto ilustrado. "Delicadas" veio do destaque dela; os outros dois vieram
    da bio ("agendamentos de tatuo e projetos"). Vale ela confirmar a redação.
-9. **Cidade.** Não está no site porque não foi confirmada.
+9. **Cidade, endereço e horário.** Não estão no site porque não foram
+   confirmados. No rodapé há um comentário marcando o lugar deles, na
+   coluna do estúdio: são as duas coisas que fazem alguém sair de casa.
+10. **Política de idade.** O site da Eloize traz "não realizamos
+   tatuagens em menores de 18 anos" no rodapé. Aqui a frase **não**
+   entrou: é uma afirmação sobre a prática da Tay, e ninguém confirmou.
+   Vale perguntar a ela e, se for o caso, acrescentar.
 
 ## Compromissos de marca
 - Tema escuro do começo ao fim, sem seção clara no meio. É o pedido dela.

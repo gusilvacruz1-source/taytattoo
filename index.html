@@ -305,13 +305,47 @@
 </main>
 
 <footer class="rodape">
-  <div class="container rodape__inner">
-    <a href="#capa" class="marca">
-      <svg class="marca__selo" aria-hidden="true"><use href="#selo"/></svg>
-      <span class="marca__nome">Tay Machado<small>ARTE TATTOO</small></span>
-    </a>
-    <p class="rodape__nota">OctoInk Tattoo Studio · <span id="ano"></span></p>
+  <div class="container">
+    <div class="rodape__cols">
+      <div class="rodape__col">
+        <p class="olho">Navegar</p>
+        <ul>
+          <li><a href="#trabalhos">Trabalhos</a></li>
+          <li><a href="#traco">Traço</a></li>
+          <li><a href="#disponiveis">Disponíveis</a></li>
+          <li><a href="#agendar">Agendar</a></li>
+        </ul>
+      </div>
+
+      <div class="rodape__col">
+        <p class="olho">Falar comigo</p>
+        <ul>
+          <li><a href="https://wa.me/554291251759?text=Oi%2C%20Tay!%20Vim%20pelo%20site%20e%20queria%20um%20or%C3%A7amento." target="_blank" rel="noopener">WhatsApp</a></li>
+          <li><a href="https://instagram.com/tay_arte_tattoo" target="_blank" rel="noopener">@tay_arte_tattoo</a></li>
+          <li><a href="https://instagram.com/ilustra_tay" target="_blank" rel="noopener">@ilustra_tay</a></li>
+        </ul>
+      </div>
+
+      <div class="rodape__col">
+        <p class="olho">Estúdio</p>
+        <ul>
+          <li>OctoInk Tattoo Studio</li>
+          <li><a href="https://instagram.com/octo.inktattoo" target="_blank" rel="noopener">@octo.inktattoo</a></li>
+          <!-- ENDEREÇO e HORÁRIO entram aqui quando a Tay confirmar. Não
+               invente: são as duas coisas que fazem alguém sair de casa. -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- A frase de menor de idade que o site da Eloize traz não entrou:
+         é uma afirmação sobre a prática da Tay, e ninguém confirmou. -->
+    <p class="rodape__legal">© <span id="ano"></span> · Tay Machado · Arte Tattoo</p>
   </div>
+
+  <!-- O nome gigante, cortado ao meio pela borda de baixo da página.
+       Decorativo: o contêiner tem metade da altura da letra e esconde o
+       resto. Fica fora da árvore de acessibilidade. -->
+  <div class="rodape__marca" aria-hidden="true"><span>TAY MACHADO</span></div>
 </footer>
 
 <!-- A lupa abre UMA peça e caminha pelos ângulos dela: o close, a foto

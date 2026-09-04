@@ -112,6 +112,13 @@ Seis seções, seis famílias de layout diferentes. Nenhuma se repete:
 6. **Contato** · faixa de duas colunas, texto à esquerda e lista de canais
    à direita.
 
+O **rodapé** é portado do site da Eloize: três colunas de links, a linha
+legal separada por um fio, e o nome gigante cortado ao meio pela borda de
+baixo. O corte é um contêiner de altura fixa, por volta de metade da
+altura da letra, com o `overflow` do rodapé escondendo o resto: a palavra
+some para dentro da margem em vez de terminar. O nome ali é massa, não
+texto: fica em `#212126` e sai da árvore de acessibilidade.
+
 ## A galeria
 
 Portada do site da Eloize Betim, feito antes pela mesma mão, com a mesma
