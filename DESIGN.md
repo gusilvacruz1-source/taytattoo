@@ -194,6 +194,14 @@ Quatro gestos, cada um com uma razão:
 | Cinza que vira cor no hover | a recompensa por parar em cima da peça | `filter` .5s, só em `hover:hover` e `pointer:fine` |
 | Figurinhas com parallax | delight, a faixa rara | `yPercent` com `scrub`, entrada em `back.out(1.6)` |
 | Bolinha do cursor | feedback: diz onde a mão pode ir | `gsap.quickTo`, `power3`, .35s |
+| Arrastar entre ângulos | gesto: no celular a seta de 42px é alvo pequeno | segue o dedo a 60%, volta em `elastic.out(1, .55)` |
+
+Dentro da lupa dá para **arrastar** de um ângulo para o outro. Quase todo
+mundo chega aqui pelo Instagram, no celular, e ali a seta de 42px é alvo
+pequeno: o dedo quer arrastar. O arraste segue o dedo a 60% para ter peso,
+troca de ângulo passando de 16% da largura do palco, e volta elástico se
+não passar. Um arraste que termina em cima do palco não conta como
+clique, senão fecharia a lupa sem querer.
 
 A bolinha cresce por **escala**, nunca por largura ou altura, e o cursor
 do sistema continua visível por baixo: escondê-lo quebra quem depende
@@ -211,6 +219,16 @@ O hover magnético dos botões anda no máximo 8px e volta em
 Uma rede de segurança roda dois segundos depois de carregar: chama
 `ScrollTrigger.refresh()` e, para o que ainda estiver escondido dentro da
 tela, põe `data-vista` na mão.
+
+## Acesso
+
+Primeira parada do `Tab` é um link de pular, para quem navega por teclado
+não atravessar o menu inteiro. Filtrar avisa quantas peças sobraram numa
+região `aria-live`, porque a grade muda em silêncio para quem usa leitor
+de tela. A lupa prende o foco enquanto está aberta, passando também pelos
+pontos, e devolve o foco ao cartão de origem ao fechar. As abas do filtro
+têm 44px de alvo de toque e `aria-pressed`. O selo de ângulos tem texto
+só para leitor de tela, dizendo "peça com 3 ângulos" em vez de só "3".
 
 ## Superfícies do navegador
 

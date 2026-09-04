@@ -208,6 +208,15 @@
       if (vazioCat) vazioCat.hidden = visiveis.length > 0;
       alvo.hidden = visiveis.length === 0;
 
+      /* A grade muda em silêncio para quem usa leitor de tela. Este aviso
+         é o retorno que o clique no filtro não dá sozinho. */
+      var aviso = document.getElementById('avisoFiltro');
+      if (aviso) {
+        aviso.textContent = visiveis.length === 0
+          ? 'Nenhuma peça nessa aba.'
+          : (visiveis.length === 1 ? '1 peça' : visiveis.length + ' peças');
+      }
+
       /* Cartão que entrou agora precisa estar revelado, senão o
          clip-path da entrada o deixaria invisível. */
       visiveis.forEach(revelar);
@@ -433,6 +442,7 @@
     var sozinha = angulos.length < 2;
     btnAnt.hidden = sozinha;
     btnProx.hidden = sozinha;
+    palco.classList.toggle('pode-arrastar', !sozinha);
 
     pintarAngulo();
     lupa.hidden = false;
@@ -468,8 +478,60 @@
     btnAnt.addEventListener('click', function () { andar(-1); });
     btnProx.addEventListener('click', function () { andar(1); });
 
-    /* Clique no fundo fecha. Clique na mídia, não. */
+    /* Arrastar para trocar de ângulo. Quase todo mundo chega desta página
+       pelo Instagram, no celular, e ali a seta de 42px é alvo pequeno: o
+       dedo quer arrastar. O arraste segue o dedo a 60% para dar peso, e
+       volta elástico se não passar do limite. */
+    var arrastando = false, x0 = 0, dx = 0, moveu = false, midiaArraste = null;
+
+    function porX(el, valor) {
+      if (temGsap) gsap.set(el, { x: valor });
+      else el.style.transform = 'translateX(' + valor + 'px)';
+    }
+
+    palco.addEventListener('pointerdown', function (e) {
+      if (angulos.length < 2) return;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      midiaArraste = palco.firstElementChild;
+      if (!midiaArraste) return;
+      arrastando = true; moveu = false; x0 = e.clientX; dx = 0;
+      try { palco.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+
+    palco.addEventListener('pointermove', function (e) {
+      if (!arrastando) return;
+      dx = e.clientX - x0;
+      if (Math.abs(dx) > 4) moveu = true;
+      porX(midiaArraste, dx * 0.6);
+    });
+
+    function soltar(e) {
+      if (!arrastando) return;
+      arrastando = false;
+      try { palco.releasePointerCapture(e.pointerId); } catch (err) {}
+
+      var limite = Math.min(110, palco.getBoundingClientRect().width * 0.16);
+
+      if (Math.abs(dx) > limite) {
+        /* pintarAngulo recria a mídia, então o deslocamento some junto */
+        andar(dx < 0 ? 1 : -1);
+      } else if (midiaArraste) {
+        if (temGsap && !pouca) {
+          gsap.to(midiaArraste, { x: 0, duration: 0.45, ease: 'elastic.out(1, 0.55)' });
+        } else {
+          porX(midiaArraste, 0);
+        }
+      }
+      dx = 0;
+    }
+
+    palco.addEventListener('pointerup', soltar);
+    palco.addEventListener('pointercancel', soltar);
+
+    /* Clique no fundo fecha. Clique na mídia, não. E arraste que terminou
+       em cima do palco não conta como clique: fecharia sem querer. */
     lupa.addEventListener('click', function (e) {
+      if (moveu) { moveu = false; return; }
       if (e.target === lupa || e.target.id === 'lupaPalco') fechar();
     });
 

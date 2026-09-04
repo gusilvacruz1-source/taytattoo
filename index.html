@@ -22,6 +22,10 @@
      movimento reduzido, e o JS a remove do documento nesses casos. -->
 <div class="cursor" id="cursor" aria-hidden="true"></div>
 
+<!-- Primeira parada do Tab: quem navega por teclado não precisa
+     atravessar o menu inteiro para chegar ao conteúdo. -->
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
 <!-- Ícones do Tabler Icons 3.31.0 (MIT), traço 2, viewBox 24. Copiados do
      pacote, não desenhados à mão. O selo, logo abaixo, é a única forma
      autoral: um monograma circular, e sai assim que o logo real chegar. -->
@@ -75,7 +79,7 @@
   </div>
 </header>
 
-<main>
+<main id="conteudo" tabindex="-1">
 
   <!-- ===================================================== 1. CAPA ===== -->
   <section class="capa" id="capa">
@@ -152,6 +156,10 @@
       <div class="galeria" id="galeria" hidden></div>
 
       <p class="lead revela" id="categoriaVazia" hidden>Ainda não há peça publicada nessa aba.</p>
+
+      <!-- Sem isto, quem filtra usando leitor de tela não recebe
+           retorno nenhum: a grade muda em silêncio. -->
+      <p class="sr-only" id="avisoFiltro" role="status" aria-live="polite"></p>
 
       <div class="painel revela" id="galeriaVazia">
         <h3>As fotos estão a caminho</h3>
