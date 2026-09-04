@@ -129,13 +129,52 @@ em 100ms, com `cubic-bezier(.16,1,.3,1)`. O **repouso é o estado visível** e
 a animação parte do escondido com `both`: se ela não rodar, a capa aparece
 inteira em vez de ficar em branco.
 
-Revelação na rolagem: `IntersectionObserver`, nunca `addEventListener
-('scroll')`. Micro-interações em 220 a 300ms com a mesma curva: cartão de
+Revelação na rolagem: ScrollTrigger, nunca `addEventListener('scroll')`. Micro-interações em 220 a 300ms com a mesma curva: cartão de
 peça em `scale(1.035)`, seta do botão em `translateX(4px)`, botão em
 `translateY(1px)` no `:active`.
 
 `prefers-reduced-motion: reduce` zera animação e transição, revela tudo e
 fixa a espiral desenhada.
+
+## A camada de movimento
+
+GSAP 3.12.7 e ScrollTrigger, tirados do pacote do npm e servidos pelo
+próprio site em `js/vendor/` (116 KB). Não há CDN: a página continua sem
+nenhuma requisição a terceiros.
+
+**Nada depende do GSAP para ser legível.** A classe `.motion` só entra no
+`<html>` depois que o GSAP responde presente e o visitante não pediu menos
+movimento. É essa classe que autoriza o CSS a esconder qualquer coisa. Sem
+ela, a página aparece inteira. Nenhum `gsap.from` esconde conteúdo: um
+`from` com ScrollTrigger deixa o elemento invisível até o gatilho disparar,
+e se ele nunca dispara a seção some para sempre. Quem esconde é o CSS, sob
+`.motion`, e quem revela é um `onEnter` que põe `data-vista`.
+
+Quatro gestos, cada um com uma razão:
+
+| Gesto | Por que existe | Ingredientes |
+|---|---|---|
+| Peça sobe por `clip-path` | hierarquia: o trabalho entra em cena | transição CSS .9s, `--saida`, gatilho em `top 90%` |
+| Cinza que vira cor no hover | a recompensa por parar em cima da peça | `filter` .5s, só em `hover:hover` e `pointer:fine` |
+| Figurinhas com parallax | delight, a faixa rara | `yPercent` com `scrub`, entrada em `back.out(1.6)` |
+| Bolinha do cursor | feedback: diz onde a mão pode ir | `gsap.quickTo`, `power3`, .35s |
+
+A bolinha cresce por **escala**, nunca por largura ou altura, e o cursor
+do sistema continua visível por baixo: escondê-lo quebra quem depende
+dele. Ela é a única forma redonda do site, e é uma exceção declarada à
+regra de raio zero, porque é um ponteiro e não uma superfície. Some no
+toque e em movimento reduzido, onde o JS a remove do documento.
+
+O cinza que vira cor mora dentro de `@media (hover:hover) and
+(pointer:fine)`. No celular não existe hover: fora dessa media query a
+foto nasce colorida, em vez de ficar cinza para sempre.
+
+O hover magnético dos botões anda no máximo 8px e volta em
+`elastic.out(1, .4)`: a ida é curta porque é feedback, a volta é que sobra.
+
+Uma rede de segurança roda dois segundos depois de carregar: chama
+`ScrollTrigger.refresh()` e, para o que ainda estiver escondido dentro da
+tela, põe `data-vista` na mão.
 
 ## Superfícies do navegador
 

@@ -23,11 +23,14 @@ python3 -m http.server 8080
 index.html          a página inteira
 css/style.css       tokens, componentes e as seis seções
 js/trabalhos.js     A LISTA DE FOTOS. É só aqui que se mexe para publicar
-js/script.js        menu, galerias, lupa e revelação na rolagem
+js/figurinhas.js    A LISTA DE ADESIVOS. Onde cada figurinha cola
+js/script.js        menu, galerias, lupa, cursor e a camada de movimento
+js/vendor/          GSAP e ScrollTrigger, servidos pelo próprio site
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
 img/retrato.jpg     o retrato da capa (ainda não existe)
 img/hero-fundo.mp4  o vídeo de fundo da capa (ainda não existe)
+img/figurinhas/     os adesivos em PNG (ainda vazio)
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
 PRODUCT.md          a verdade do negócio e as pendências
 DESIGN.md           o sistema visual, como construído
@@ -75,6 +78,37 @@ mirando menos de 1 MB:
 ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fundo.mp4
 ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
 ```
+
+## Colar uma figurinha
+
+Os adesivos ficam no fundo das seções, atrás do texto, e andam devagar
+quando a página rola. São decoração pura: não recebem clique e leitor de
+tela ignora.
+
+1. Salve o PNG **com fundo transparente** em `img/figurinhas/`.
+2. Abra `js/figurinhas.js` e copie uma das linhas de exemplo, tirando as
+   duas barras da frente.
+
+```js
+const FIGURINHAS = [
+  { arquivo: 'olho.png', secao: 'trabalhos', largura: 132,
+    x: '3%', y: '14%', giro: -8, fundura: 7 },
+];
+```
+
+| Campo | O que faz |
+|---|---|
+| `secao` | onde cola. Vale `capa`, `trabalhos`, `traco`, `disponiveis`, `agendar`, `contato` |
+| `largura` | largura em pixels no desktop |
+| `x`, `y` | posição dentro da seção, em % |
+| `giro` | inclinação em graus. Adesivo colado à mão nunca fica reto |
+| `fundura` | o quanto anda no scroll, de 2 (quase parada) a 14 (solta) |
+| `opacidade` | opcional, de 0 a 1 |
+
+**Duas por seção, no máximo.** Passou disso a página deixa de ser sobre o
+traço da Tay. E prefira as bordas: o meio é do texto. O conteúdo sempre
+fica por cima, mas uma figurinha atrás de um título deixa o título pior
+de ler mesmo estando embaixo.
 
 ## Publicar no Netlify
 

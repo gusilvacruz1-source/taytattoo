@@ -51,6 +51,7 @@
 
   /* Escala de empilhamento, declarada uma vez */
   --z-grao:60;
+  --z-cursor:90;
   --z-topo:50;
   --z-lupa:100;
 }
@@ -102,7 +103,8 @@ body::after{
 .container{width:100%;max-width:var(--largura);margin-inline:auto;padding-inline:var(--pad-x)}
 
 /* Ritmo vertical definido UMA vez. Nenhuma seção sobrescreve. */
-.secao{padding-block:clamp(84px,11vw,148px);border-top:1px solid var(--linha)}
+/* relative: é a âncora das figurinhas, que se posicionam em % da seção */
+.secao{position:relative;padding-block:clamp(84px,11vw,148px);border-top:1px solid var(--linha)}
 
 .olho{
   font-size:.7rem;font-weight:600;letter-spacing:.24em;
@@ -293,9 +295,24 @@ body::after{
   overflow:hidden;
   transition:border-color .26s var(--saida);
 }
-.peca img,.peca video{width:100%;filter:saturate(.9) contrast(1.04);transition:transform .5s var(--saida),filter .35s var(--saida)}
+.peca img,.peca video{width:100%}
 .peca:hover{border-color:var(--linha-viva)}
-.peca:hover img,.peca:hover video{transform:scale(1.035);filter:saturate(1) contrast(1.08)}
+
+/* O trabalho nasce em preto e branco e ganha cor quando o olhar para
+   nele. É a recompensa por parar em cima da peça. Só com mouse de
+   verdade: no toque não há hover, e a foto ficaria cinza para sempre. */
+@media (hover:hover) and (pointer:fine){
+  .peca img,.peca video,
+  .flash__foto img{
+    filter:grayscale(1) contrast(1.06);
+    transition:filter .5s var(--saida),transform .7s var(--saida);
+  }
+  .peca:hover img,.peca:hover video,
+  .flash:hover .flash__foto img{
+    filter:grayscale(0) contrast(1.04);
+    transform:scale(1.04);
+  }
+}
 
 .peca__marca{
   position:absolute;right:10px;bottom:10px;
@@ -421,11 +438,56 @@ body::after{
 
 /* --------------------------------------------------------- revelação */
 
-.js .revela{
+.motion .revela{
   opacity:0;transform:translateY(18px);
   transition:opacity .7s var(--saida),transform .7s var(--saida);
 }
-.js .revela[data-vista]{opacity:1;transform:none}
+.motion .revela[data-vista]{opacity:1;transform:none}
+
+/* A peça entra por baixo, como tinta subindo na pele. Por transição de
+   CSS, e não por gsap.from: um "from" com ScrollTrigger deixa o elemento
+   escondido até o gatilho disparar, e se ele nunca dispara a galeria some.
+   Aqui o repouso é o estado visível. Só o clip-path: a escala fica
+   reservada para o hover, para as duas não brigarem pelo transform. */
+.motion .peca{
+  clip-path:inset(100% 0% 0% 0%);
+  transition:clip-path .9s var(--saida),border-color .26s var(--saida);
+}
+.motion .peca[data-vista]{clip-path:inset(0% 0% 0% 0%)}
+
+/* ------------------------------------------------------- cursor bolinha */
+
+/* Exceção declarada à regra de raio zero: isto é um ponteiro, não uma
+   superfície. O cursor nativo continua visível por baixo, de propósito:
+   esconder o cursor do sistema quebra quem depende dele.
+   O crescimento é por scale, nunca por width/height. */
+.cursor{
+  position:fixed;top:0;left:0;
+  z-index:var(--z-cursor);
+  width:12px;height:12px;margin:-6px 0 0 -6px;
+  border-radius:50%;
+  background:var(--osso);
+  mix-blend-mode:difference;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .3s var(--saida);
+}
+.cursor.is-on{opacity:1}
+@media (hover:none),(pointer:coarse){.cursor{display:none}}
+
+/* --------------------------------------------------------- figurinhas */
+
+.figurinha{
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  user-select:none;
+  height:auto;
+  max-width:42vw;
+  will-change:transform;
+}
+/* O conteúdo sempre por cima dos adesivos. */
+.secao>.container,.capa__inner{position:relative;z-index:1}
 
 /* ------------------------------------------------------------- telas */
 
@@ -475,5 +537,6 @@ body::after{
   }
   .sobe>*{animation:none}
   .capa__selo .selo__espiral{stroke-dashoffset:0}
-  .js .revela{opacity:1;transform:none}
+  .motion .revela{opacity:1;transform:none}
+  .motion .peca{clip-path:none}
 }

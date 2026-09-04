@@ -287,39 +287,186 @@
     });
   }
 
-  /* -------------------------------------------------- revelar rolando */
+  /* ------------------------------------------------------- figurinhas */
+
+  /* Cola os adesivos de js/figurinhas.js no fundo das seções. Isso roda
+     com ou sem GSAP: figurinha é conteúdo, não animação. O parallax é
+     que depende do GSAP, e entra depois. */
+  function colarFigurinhas(lista) {
+    var coladas = [];
+
+    (lista || []).forEach(function (f) {
+      if (!f || !f.arquivo || !f.secao) return;
+
+      var secao = document.getElementById(f.secao);
+      if (!secao) return;
+
+      var img = document.createElement('img');
+      img.className = 'figurinha';
+      img.src = 'img/figurinhas/' + f.arquivo;
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.style.width = (f.largura || 140) + 'px';
+      img.style.left = f.x || '4%';
+      img.style.top = f.y || '20%';
+      /* Adesivo colado à mão nunca fica reto. O GSAP lê esta rotação e a
+         mantém enquanto anima o deslocamento. */
+      img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
+      if (f.opacidade != null) img.style.opacity = String(f.opacidade);
+
+      /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
+      img.addEventListener('error', function () { img.remove(); });
+
+      secao.appendChild(img);
+      coladas.push({ el: img, secao: secao, fundura: f.fundura || 6 });
+    });
+
+    return coladas;
+  }
+
+  var figurinhas = colarFigurinhas(typeof FIGURINHAS !== 'undefined' ? FIGURINHAS : []);
+
+  /* ---------------------------------------------------------- movimento */
 
   var alvos = Array.prototype.slice.call(document.querySelectorAll('.revela'));
-
   function revelar(el) { el.setAttribute('data-vista', ''); }
-  function revelarTudo() { alvos.forEach(revelar); }
 
-  if (pouca || !('IntersectionObserver' in window)) {
-    revelarTudo();
+  var temGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
+  var fino = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var cursor = document.getElementById('cursor');
+
+  /* Sem GSAP, ou com movimento reduzido, a classe .motion nunca entra no
+     <html>: o CSS então não esconde nada e a página aparece inteira. É
+     por isso que a revelação depende do GSAP estar de pé, e não do JS. */
+  if (!temGsap || pouca) {
+    if (cursor) cursor.remove();
+
   } else {
-    var olho = new IntersectionObserver(function (entradas) {
-      entradas.forEach(function (entrada) {
-        if (!entrada.isIntersecting) return;
-        revelar(entrada.target);
-        olho.unobserve(entrada.target);
+    gsap.registerPlugin(ScrollTrigger);
+    document.documentElement.classList.add('motion');
+
+    /* 1. Revelação das seções. Quem move é a transição do CSS; o
+       ScrollTrigger só diz a hora. Transição, e não keyframe, porque
+       retoma do valor atual se a pessoa rolar para trás no meio. */
+    alvos.forEach(function (el) {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 88%',
+        once: true,
+        onEnter: function () { revelar(el); }
       });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    });
 
-    alvos.forEach(function (el) { olho.observe(el); });
+    /* 2. As peças entram por baixo, como tinta subindo na pele. Mesmo
+       mecanismo da revelação: quem move é o CSS, o gatilho só diz a hora. */
+    Array.prototype.slice.call(document.querySelectorAll('.peca')).forEach(function (peca) {
+      alvos.push(peca);
+      ScrollTrigger.create({
+        trigger: peca,
+        start: 'top 90%',
+        once: true,
+        onEnter: function () { revelar(peca); }
+      });
+    });
 
-    /* Rede de segurança, uma única medição, sem ouvir a rolagem.
-       Há contextos em que o observer responde mas nunca acusa interseção
-       (a página é montada sem nunca ser pintada: aba de fundo, captura
-       headless, algumas webviews). Ali, a seção ficaria invisível para
-       sempre. Dois segundos depois medimos na mão o que já está na tela
-       e revelamos. O que está abaixo da dobra segue com o observer. */
+    /* 3. Figurinhas: assentam como se tivessem acabado de ser coladas, e
+       depois andam devagar com a rolagem. */
+    figurinhas.forEach(function (o) {
+      gsap.from(o.el, {
+        scale: 0.84,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'back.out(1.6)',
+        scrollTrigger: { trigger: o.secao, start: 'top 78%', once: true }
+      });
+
+      gsap.fromTo(o.el,
+        { yPercent: -o.fundura },
+        {
+          yPercent: o.fundura,
+          ease: 'none',
+          scrollTrigger: { trigger: o.secao, start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+    });
+
+    /* 4. O vídeo da capa anda menos que a página. A escala de 1.08 existe
+       para o movimento não descobrir a borda. */
+    var video = document.getElementById('capaVideo');
+    if (video) {
+      gsap.fromTo(video,
+        { yPercent: -4, scale: 1.08 },
+        {
+          yPercent: 4,
+          ease: 'none',
+          scrollTrigger: { trigger: '.capa', start: 'top top', end: 'bottom top', scrub: true }
+        });
+    }
+
+    /* 5. Hover magnético nos botões de ação: no máximo 8px, com volta
+       elástica. É feedback, por isso a ida é curta e a volta é que sobra. */
+    if (fino) {
+      document.querySelectorAll('[data-magnetico]').forEach(function (el) {
+        el.addEventListener('mousemove', function (e) {
+          var r = el.getBoundingClientRect();
+          var dx = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+          var dy = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+          gsap.to(el, { x: dx * 8, y: dy * 8, duration: 0.4, ease: 'power3.out' });
+        });
+        el.addEventListener('mouseleave', function () {
+          gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+        });
+      });
+    }
+
+    /* 6. A bolinha. Cresce em cima do que dá para abrir, e um pouco no
+       que dá para clicar: é ela dizendo onde a mão pode ir. Cresce por
+       escala, nunca por largura. O cursor do sistema continua visível. */
+    if (cursor && fino) {
+      var paraX = gsap.quickTo(cursor, 'x', { duration: 0.35, ease: 'power3' });
+      var paraY = gsap.quickTo(cursor, 'y', { duration: 0.35, ease: 'power3' });
+
+      document.addEventListener('mousemove', function (e) {
+        cursor.classList.add('is-on');
+        paraX(e.clientX);
+        paraY(e.clientY);
+      });
+
+      document.addEventListener('mouseover', function (e) {
+        if (!e.target.closest) return;
+        var obra = e.target.closest('.peca, .flash');
+        var clicavel = e.target.closest('a, button');
+        gsap.to(cursor, {
+          scale: obra ? 3.6 : (clicavel ? 2 : 1),
+          duration: 0.4,
+          ease: 'power3.out'
+        });
+      });
+
+      document.addEventListener('mouseleave', function () { cursor.classList.remove('is-on'); });
+
+    } else if (cursor) {
+      cursor.remove();
+    }
+
+    /* As fotos mudam a altura da página conforme carregam. Sem isto o
+       ScrollTrigger dispara nos lugares errados. */
+    window.addEventListener('load', function () { ScrollTrigger.refresh(); });
+
+    /* Rede de segurança, uma única medição. Há contextos em que o
+       ScrollTrigger não chega a disparar (aba de fundo, captura headless,
+       algumas webviews) e a seção ficaria invisível para sempre. */
     window.setTimeout(function () {
+      /* Primeiro dá uma chance ao próprio ScrollTrigger: o refresh dispara
+         o que já está na tela e não chegou a ser medido. */
+      ScrollTrigger.refresh();
+
       var altura = window.innerHeight || document.documentElement.clientHeight;
       alvos.forEach(function (el) {
         if (el.hasAttribute('data-vista')) return;
         if (el.getBoundingClientRect().top > altura * 0.95) return;
         revelar(el);
-        olho.unobserve(el);
       });
     }, 2000);
   }

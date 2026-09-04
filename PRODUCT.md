@@ -53,12 +53,15 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
    `(42) 99125-1759`. **Clique no botão do site e veja se abre a conversa
    dela.** Se não abrir, é só acrescentar um 9 nos dois lugares da mesma
    linha do `index.html` (o `href` e o texto visível) e no JSON-LD.
-5. **Logo real** do selo. O que está no ar é um monograma provisório.
-6. **Domínio**, se ela quiser um. Hoje o site sobe em subdomínio do Netlify.
-7. **Estilos**: o texto da seção Traço descreve tatuagem autoral, delicadas e
+5. **As figurinhas.** O sistema está pronto e a pasta `img/figurinhas/`
+   está vazia de propósito: os adesivos são escolha da Tay, e o README
+   explica como colar cada um.
+6. **Logo real** do selo. O que está no ar é um monograma provisório.
+7. **Domínio**, se ela quiser um. Hoje o site sobe em subdomínio do Netlify.
+8. **Estilos**: o texto da seção Traço descreve tatuagem autoral, delicadas e
    projeto ilustrado. "Delicadas" veio do destaque dela; os outros dois vieram
    da bio ("agendamentos de tatuo e projetos"). Vale ela confirmar a redação.
-8. **Cidade.** Não está no site porque não foi confirmada.
+9. **Cidade.** Não está no site porque não foi confirmada.
 
 ## Compromissos de marca
 - Tema escuro do começo ao fim, sem seção clara no meio. É o pedido dela.

@@ -10,9 +10,6 @@
 <link rel="preload" href="fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/style.css">
-<!-- Marca que há JS antes de a página pintar: é o que autoriza o CSS a
-     esconder seções para revelá-las na rolagem. Sem isso, tudo visível. -->
-<script>document.documentElement.classList.add('js')</script>
 
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Tay Machado · Tatuadora">
@@ -20,6 +17,10 @@
 <meta property="og:locale" content="pt_BR">
 </head>
 <body>
+
+<!-- A bolinha que segue o mouse. Some sozinha em toque e em
+     movimento reduzido, e o JS a remove do documento nesses casos. -->
+<div class="cursor" id="cursor" aria-hidden="true"></div>
 
 <!-- Ícones do Tabler Icons 3.31.0 (MIT), traço 2, viewBox 24. Copiados do
      pacote, não desenhados à mão. O selo, logo abaixo, é a única forma
@@ -63,7 +64,7 @@
       <a href="#contato">Contato</a>
     </nav>
 
-    <a class="btn btn--tinta" href="https://instagram.com/tay_arte_tattoo" target="_blank" rel="noopener">
+    <a class="btn btn--tinta" data-magnetico href="https://instagram.com/tay_arte_tattoo" target="_blank" rel="noopener">
       Agendar no direct <svg aria-hidden="true"><use href="#i-seta"/></svg>
     </a>
 
@@ -122,10 +123,10 @@
         </span>
         <span class="sobe">
           <div class="capa__acoes">
-            <a class="btn btn--tinta" href="https://instagram.com/tay_arte_tattoo" target="_blank" rel="noopener">
+            <a class="btn btn--tinta" data-magnetico href="https://instagram.com/tay_arte_tattoo" target="_blank" rel="noopener">
               Agendar no direct <svg aria-hidden="true"><use href="#i-seta"/></svg>
             </a>
-            <a class="btn btn--fio" href="#trabalhos">
+            <a class="btn btn--fio" data-magnetico href="#trabalhos">
               Ver trabalhos <svg aria-hidden="true"><use href="#i-seta"/></svg>
             </a>
           </div>
@@ -317,7 +318,13 @@
 }
 </script>
 
+<!-- GSAP 3.12.7 servido pelo próprio site, tirado do pacote do npm.
+     Nada de CDN: a página continua sem nenhuma requisição a terceiros,
+     e se estes dois arquivos sumirem o site inteiro continua de pé. -->
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
 <script src="js/trabalhos.js"></script>
+<script src="js/figurinhas.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
