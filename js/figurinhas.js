@@ -15,8 +15,11 @@
      secao     onde ela cola. Vale: capa, trabalhos, traco,
                disponiveis, agendar, contato
      largura   largura em pixels no desktop (encolhe junto no celular)
-     x, y      posição dentro da seção, em % (0% 0% é o canto de cima
-               à esquerda). Prefira as bordas: o meio é do texto.
+     x, y      posição dentro da seção, em %. Prefira as bordas: o meio
+               é do texto.
+               Pode passar da borda: a seção corta o excesso, e a
+               figurinha sangra para fora do texto sem empurrar a página
+               nem criar rolagem lateral.
                **Mantenha o y entre 5% e 55%.** Mais para baixo a
                figurinha vaza pela borda da seção, e o bloco seguinte a
                corta em linha reta: aparece o retângulo dela.
@@ -48,26 +51,26 @@ const FIGURINHAS = [
      arte pontilhada, onde ele come os pontos. */
 
   /* Trabalhos: a filigrana à direita e o arame descendo pela esquerda. */
-  { arquivo: 'filigrana.jpg',     secao: 'trabalhos',   largura: 150, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: 1 },
-  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 135, x: '1%',  y: '34%', giro: -4,  fundura: 7, opacidade: 1, contraste: 1.5 },
+  { arquivo: 'filigrana.jpg',     secao: 'trabalhos',   largura: 260, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: 1 },
+  { arquivo: 'arame.jpg',         secao: 'trabalhos',   largura: 230, x: '1%',  y: '34%', giro: -4,  fundura: 7, opacidade: 1, contraste: 1.5 },
 
   /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
-  { arquivo: 'lirio.jpg',         secao: 'traco',       largura: 140, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: 1 },
-  { arquivo: 'arabesco.jpg',      secao: 'traco',       largura: 160, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: 1 },
+  { arquivo: 'lirio.jpg',         secao: 'traco',       largura: 240, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: 1 },
+  { arquivo: 'arabesco.jpg',      secao: 'traco',       largura: 275, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: 1 },
 
   /* Disponíveis: as tulipas à direita e a flor vermelha à esquerda. A
      flor é a única cor da página fora o vermelho do botão, e por sorte é
      o mesmo vermelho de tinta. */
-  { arquivo: 'tulipas.jpg',       secao: 'disponiveis', largura: 200, x: '82%', y: '10%', giro: 5,   fundura: 5, opacidade: 1 },
-  { arquivo: 'flor-vermelha.jpg', secao: 'disponiveis', largura: 115, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1 },
+  { arquivo: 'tulipas.jpg',       secao: 'disponiveis', largura: 330, x: '82%', y: '10%', giro: 5,   fundura: 5, opacidade: 1 },
+  { arquivo: 'flor-vermelha.jpg', secao: 'disponiveis', largura: 200, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1 },
 
   /* Agendar: a mão do chifrinho. */
-  { arquivo: 'mao.jpg',           secao: 'agendar',     largura: 120, x: '85%', y: '48%', giro: 9,   fundura: 7, opacidade: 1 },
+  { arquivo: 'mao.jpg',           secao: 'agendar',     largura: 210, x: '87%', y: '48%', giro: 9,   fundura: 7, opacidade: 1 },
 
   /* Contato: a pontilhada à direita e o olho à esquerda. O olho veio com
      fundo branco, por isso o "inverter". */
-  { arquivo: 'pontilhada.jpg',    secao: 'contato',     largura: 220, x: '80%', y: '38%', giro: 10,  fundura: 7, opacidade: 1 },
-  { arquivo: 'olho-grande.jpg',   secao: 'contato',     largura: 130, x: '3%',  y: '52%', giro: -7,  fundura: 6, opacidade: 1, inverter: true },
+  { arquivo: 'pontilhada.jpg',    secao: 'contato',     largura: 360, x: '80%', y: '38%', giro: 10,  fundura: 7, opacidade: 1 },
+  { arquivo: 'olho-grande.jpg',   secao: 'contato',     largura: 225, x: '3%',  y: '52%', giro: -7,  fundura: 6, opacidade: 1, inverter: true },
 
   /* ------------------------------------------------------------------
      Cinco ficaram fora do ar. Para pôr qualquer uma, tire as barras.

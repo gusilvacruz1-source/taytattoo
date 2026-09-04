@@ -138,7 +138,7 @@ const FIGURINHAS = [
 |---|---|
 | `secao` | onde cola. Vale `capa`, `trabalhos`, `traco`, `disponiveis`, `agendar`, `contato` |
 | `largura` | largura em pixels no desktop |
-| `x`, `y` | posição dentro da seção, em % |
+| `x`, `y` | posição dentro da seção, em %. Pode passar da borda: a seção corta o excesso |
 | `giro` | inclinação em graus. Adesivo colado à mão nunca fica reto |
 | `fundura` | o quanto anda no scroll, de 2 (quase parada) a 14 (solta) |
 | `opacidade` | opcional, de 0 a 1 |

@@ -111,8 +111,16 @@ body::after{
 .container{width:100%;max-width:var(--largura);margin-inline:auto;padding-inline:var(--pad-x)}
 
 /* Ritmo vertical definido UMA vez. Nenhuma seção sobrescreve. */
-/* relative: é a âncora das figurinhas, que se posicionam em % da seção */
-.secao{position:relative;padding-block:clamp(84px,11vw,148px);border-top:1px solid var(--linha)}
+/* relative: é a âncora das figurinhas, que se posicionam em % da seção.
+   clip: as figurinhas sangram de propósito para fora do texto, e sem
+   isto o excesso empurra a página e cria rolagem lateral. "clip" corta
+   sem virar container de rolagem, que é o que "hidden" faria. */
+.secao{
+  position:relative;
+  overflow-x:clip;
+  padding-block:clamp(84px,11vw,148px);
+  border-top:1px solid var(--linha);
+}
 
 .olho{
   font-size:.7rem;font-weight:600;letter-spacing:.24em;
