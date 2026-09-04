@@ -27,6 +27,7 @@ js/script.js        menu, galerias, lupa e revelação na rolagem
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
 img/retrato.jpg     o retrato da capa (ainda não existe)
+img/hero-fundo.mp4  o vídeo de fundo da capa (ainda não existe)
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
 PRODUCT.md          a verdade do negócio e as pendências
 DESIGN.md           o sistema visual, como construído
@@ -53,10 +54,27 @@ para apontar uma capa: `capa: 'nome.jpg'`.
 A descrição (`alt`) é lida em voz alta por leitores de tela e aparece se a
 imagem falhar. Escreva o que se vê, nunca "tattoo 1".
 
-## O retrato da capa
+## A capa: retrato e vídeo de fundo
 
-Salve o retrato como `img/retrato.jpg` (900x1125 ou maior) e ele entra
-sozinho na moldura. Sem o arquivo, fica o selo girando, e está tudo bem.
+São três arquivos, todos opcionais. O que faltar, o site contorna sozinho.
+
+| Arquivo | O que é | Se faltar |
+|---|---|---|
+| `img/retrato.jpg` | o retrato dela, 900x1125 ou maior | fica o selo girando |
+| `img/hero-fundo.mp4` | o vídeo que roda atrás, H.264 | fica só o breu |
+| `img/hero-fundo.jpg` | um quadro do vídeo, para aparecer antes de ele carregar | nada aparece antes |
+
+O vídeo é mudo, roda em loop e fica em preto e branco, igual às fotos. Ele
+não toca para quem pediu menos movimento no sistema: nesse caso fica o
+poster parado.
+
+Vídeo de celular costuma vir em `.mov` e pesado. Converta antes de subir,
+mirando menos de 1 MB:
+
+```
+ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fundo.mp4
+ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
+```
 
 ## Publicar no Netlify
 
@@ -69,6 +87,5 @@ sozinho na moldura. Sem o arquivo, fica o selo girando, e está tudo bem.
 ## Pendências
 
 Estão listadas em `PRODUCT.md`, com a origem de cada dado. As duas mais
-urgentes: **as fotos** e a **confirmação do WhatsApp** (o bloco está pronto
-e comentado no `index.html`, e não deve ir para o ar antes de a Tay
-autorizar o número).
+urgentes: **as fotos e o vídeo**, e **conferir os dígitos do WhatsApp**
+(clique no botão do site e veja se abre a conversa dela).

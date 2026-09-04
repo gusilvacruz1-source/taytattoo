@@ -34,17 +34,25 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
   pesar a mão, quero que ainda sim tenha seu traço profissional".
 - Sem preço, sem prazo, sem política de sinal, sem endereço e sem horário
   publicados. **Não afirmar nenhum.**
-- Sem foto no site ainda. Ela ficou de mandar fotos e vídeos.
+- Sem foto nem vídeo no site ainda. Ela ficou de mandar os dois.
+- Telefone: **(42) 9125-1759**, lido da conversa dela com o Gu. Está
+  publicado. Ver a pendência 4 sobre a contagem de dígitos.
 
 ## Pendências (o que precisa vir da Tay)
 1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
    seções hoje são estado vazio apontando para o Instagram.
 2. **Retrato dela** para a capa (`img/retrato.jpg`). Sem ele, a moldura
    mostra o selo.
-3. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
-4. **WhatsApp.** O número (42) 9125-1759 apareceu na conversa com ela, mas
-   ninguém confirmou que pode ir para o ar. O bloco está pronto e comentado
-   em `index.html`, na seção de contato. Não publicar antes de perguntar.
+3. **Vídeo de fundo da capa** (`img/hero-fundo.mp4`) e um quadro dele como
+   poster (`img/hero-fundo.jpg`). Sem os dois, a capa fica no breu com o
+   véu por cima, que continua legível.
+4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
+4. **Conferir os dígitos do WhatsApp.** O número está no ar como
+   `(42) 9125-1759`, lido da conversa com ela. São 8 dígitos depois do DDD,
+   e celular no Brasil tem 9 desde 2016: pode ser que o certo seja
+   `(42) 99125-1759`. **Clique no botão do site e veja se abre a conversa
+   dela.** Se não abrir, é só acrescentar um 9 nos dois lugares da mesma
+   linha do `index.html` (o `href` e o texto visível) e no JSON-LD.
 5. **Logo real** do selo. O que está no ar é um monograma provisório.
 6. **Domínio**, se ela quiser um. Hoje o site sobe em subdomínio do Netlify.
 7. **Estilos**: o texto da seção Traço descreve tatuagem autoral, delicadas e

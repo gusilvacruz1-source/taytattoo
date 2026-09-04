@@ -85,8 +85,14 @@ cabelo de 1px. Declarado uma vez, nunca repetido por seção.
 
 Seis seções, seis famílias de layout diferentes. Nenhuma se repete:
 
-1. **Capa** · split assimétrico 1.05fr / .95fr, texto à esquerda e moldura
-   de retrato 4:5 à direita. `min-height: 100dvh`, nunca `vh`.
+1. **Capa** · vídeo cobrindo a seção inteira, véu por cima, e o nome e o
+   retrato dividindo a mesma célula da grade: a foto na frente, as letras
+   reaparecendo dos dois lados e embaixo. `min-height: 100dvh`, nunca `vh`.
+   O nome fica numa linha só e o retrato tem 21vw: é o que garante letra
+   sobrando de cada lado. Ele cruza o **terço de baixo** da foto, porque
+   num enquadramento 4:5 o rosto fica em cima. No celular a composição se
+   desfaz e o retrato desce para baixo do nome, onde ele caberia inteiro
+   por cima das letras.
 2. **Trabalhos** · masonry em `columns: 3`, que vira 2 e depois 1.
 3. **Traço** · linhas de índice, duas colunas, divisória **só entre** as
    linhas, nunca em cima e embaixo de cada uma.
@@ -108,7 +114,13 @@ quando o logo real da Tay chegar.
 
 ## Movimento
 
-Um único momento autoral: **o selo**. O anel de texto gira em 120s e a
+O fundo da capa é vídeo, em preto e branco como as fotos, com um véu de
+três paradas por cima. Sem o véu o Cormorant claro não se sustenta, e ele
+fecha mais embaixo, onde ficam a frase e os botões. O vídeo **não** tem
+`autoplay` no HTML: quem manda tocar é o JS, e só quando o visitante não
+pediu menos movimento. Em `reduced-motion` fica o poster parado.
+
+Um único momento autoral no primeiro plano: **o selo**. O anel de texto gira em 120s e a
 espiral se desenha em 3,2s com `stroke-dashoffset`. Nenhuma outra parte da
 página repete esse gesto.
 
@@ -134,7 +146,7 @@ qualquer container que role.
 
 ## Dívida conhecida
 
-- **A página não tem uma foto.** É a dívida que mais pesa, e não é técnica:
+- **A página não tem uma foto nem o vídeo.** É a dívida que mais pesa, e não é técnica:
   as fotos ainda não chegaram. Duas seções são estado vazio apontando para o
   Instagram. Elas se preenchem sozinhas conforme os arquivos entram em
   `js/trabalhos.js`.

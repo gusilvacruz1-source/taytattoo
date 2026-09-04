@@ -190,51 +190,87 @@ body::after{
 .menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
 .menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-3px) rotate(-45deg)}
 
-/* ============================================ 1. CAPA (split assimétrico) */
+/* ================================== 1. CAPA (vídeo ao fundo, foto na frente) */
 
 .capa{
   position:relative;
   min-height:100dvh;                        /* dvh, nunca vh: a barra do Safari */
   display:grid;align-content:center;
-  padding-block:calc(var(--topo-altura) + clamp(48px,8vh,88px)) clamp(56px,9vh,104px);
+  padding-block:calc(var(--topo-altura) + clamp(36px,6vh,72px)) clamp(44px,8vh,88px);
   overflow:hidden;
 }
-.capa__grade{
-  display:grid;
-  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
-  gap:clamp(32px,5vw,72px);
-  align-items:center;
+
+/* Fundo: o vídeo ocupa a seção inteira, em preto e branco como as fotos.
+   O véu por cima é o que segura a legibilidade do Cormorant claro, e fecha
+   mais embaixo, onde ficam a frase e os botões. */
+.capa__fundo{position:absolute;inset:0;overflow:hidden;z-index:0}
+.capa__video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
+.capa__veu{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    rgba(11,11,12,.80) 0%,
+    rgba(11,11,12,.72) 42%,
+    rgba(11,11,12,.95) 100%);
 }
-.capa__texto{min-width:0}
+
+.capa__inner{
+  position:relative;z-index:2;
+  display:grid;justify-items:center;text-align:center;
+  gap:clamp(22px,3.4vh,38px);
+}
+
+/* Palco: no celular o retrato desce para baixo do nome. Do tablet para
+   cima os dois dividem a mesma célula, e as letras reaparecem em volta. */
+.capa__palco{display:grid;justify-items:center;gap:28px;width:100%}
 
 .capa__nome{
-  font-size:clamp(3.4rem,10.5vw,8.4rem);
-  font-weight:300;line-height:.86;letter-spacing:-.03em;
-  margin-block:20px 26px;
+  font-size:clamp(2.9rem,11.2vw,9.6rem);
+  font-weight:300;line-height:.95;
+  text-transform:uppercase;letter-spacing:.006em;
+  margin:0;
 }
-.capa__frase{
-  font-size:clamp(1.1rem,1.9vw,1.32rem);
-  line-height:1.5;color:var(--osso-texto);
-  max-width:25em;margin-bottom:36px;
-}
-.capa__acoes{display:flex;flex-wrap:wrap;gap:12px}
 
-/* Moldura do retrato. Sem foto, o selo assume o lugar sozinho. */
 .capa__moldura{
-  position:relative;
+  margin:0;
+  width:min(74%,250px);
   aspect-ratio:4/5;
   border:1px solid var(--linha);
   background:var(--carvao);
   display:grid;place-items:center;
   overflow:hidden;
 }
-.capa__moldura img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.06)}
-.capa__selo{width:74%;color:var(--osso);opacity:.22}
+.capa__moldura img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
+.capa__selo{width:76%;color:var(--osso);opacity:.24}
 .capa__selo .selo__anel{animation:gira 120s linear infinite}
 .capa__selo .selo__espiral{stroke-dasharray:1400;stroke-dashoffset:1400;animation:desenha 3.2s var(--saida) .3s forwards}
 
 @keyframes gira{to{transform:rotate(360deg)}}
 @keyframes desenha{to{stroke-dashoffset:0}}
+
+.capa__pe{display:grid;justify-items:center;gap:clamp(22px,3vh,32px)}
+.capa__frase{
+  font-size:clamp(1.06rem,1.8vw,1.28rem);
+  line-height:1.5;color:var(--osso-texto);
+  max-width:30em;
+}
+.capa__acoes{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+
+@media (min-width:761px){
+  .capa__palco{gap:0}
+  /* O nome cruza o terço de baixo do retrato: mais acima ele cortaria
+     o rosto, que num enquadramento 4:5 fica na parte de cima. */
+  .capa__nome{
+    grid-area:1/1;z-index:1;
+    white-space:nowrap;
+    align-self:end;
+    transform:translateY(-10%);
+  }
+  .capa__moldura{
+    grid-area:1/1;place-self:center;
+    z-index:2;
+    width:clamp(176px,21vw,286px);
+  }
+}
 
 /* Entrada da capa. Repouso é o estado VISÍVEL: a animação parte do
    escondido com "both", então se ela não rodar a capa aparece inteira. */
@@ -394,9 +430,6 @@ body::after{
 /* ------------------------------------------------------------- telas */
 
 @media (max-width:1040px){
-  .capa__grade{grid-template-columns:1fr;gap:clamp(30px,6vw,48px)}
-  .capa__moldura{max-width:420px;justify-self:start}
-  .capa__texto{max-width:none}
   .faixa{grid-template-columns:1fr}
 }
 
@@ -427,7 +460,7 @@ body::after{
 @media (max-width:520px){
   .galeria{columns:1}
   .capa__acoes{width:100%}
-  .capa__acoes .btn{flex:1 1 100%;justify-content:space-between}
+  .capa__acoes .btn{flex:1 1 100%;justify-content:center}
   .lupa__legenda{display:none}
 }
 

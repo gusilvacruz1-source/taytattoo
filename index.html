@@ -33,6 +33,7 @@
     <symbol id="i-instagram" viewBox="0 0 24 24"><path d="M4 8a4 4 0 0 1 4 -4h8a4 4 0 0 1 4 4v8a4 4 0 0 1 -4 4h-8a4 4 0 0 1 -4 -4z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/><path d="M16.5 7.5v.01"/></symbol>
     <symbol id="i-lapis" viewBox="0 0 24 24"><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"/><path d="M13.5 6.5l4 4"/></symbol>
     <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4v16l13 -8z"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9"/><path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1"/></symbol>
   </g>
   <symbol id="selo" viewBox="0 0 120 120">
     <defs><path id="selo-volta" d="M60 12a48 48 0 010 96 48 48 0 010-96"/></defs>
@@ -76,13 +77,46 @@
 
   <!-- ===================================================== 1. CAPA ===== -->
   <section class="capa" id="capa">
-    <div class="container capa__grade">
-      <div class="capa__texto">
-        <span class="sobe"><p class="olho">Tatuadora e ilustradora</p></span>
-        <h1 class="capa__nome">
-          <span class="sobe"><span>Tay</span></span>
-          <span class="sobe"><span>Machado</span></span>
-        </h1>
+
+    <!-- Vídeo de fundo da seção inteira. O poster aparece antes de o vídeo
+         carregar e fica no lugar dele se não tocar. Sem os dois arquivos,
+         a camada some sozinha (o JS remove no erro) e sobra o breu.
+         Por cima, o véu: sem ele o Cormorant claro não se sustenta. -->
+    <div class="capa__fundo" id="capaFundo" aria-hidden="true">
+      <video class="capa__video" id="capaVideo" muted loop playsinline
+             preload="metadata" poster="img/hero-fundo.jpg" tabindex="-1">
+        <source src="img/hero-fundo.mp4" type="video/mp4">
+      </video>
+      <div class="capa__veu"></div>
+    </div>
+
+    <div class="container capa__inner">
+      <span class="sobe"><p class="olho">Tatuadora e ilustradora</p></span>
+
+      <!-- O nome e o retrato dividem a mesma célula da grade: a foto fica
+           na frente e as letras reaparecem dos dois lados e embaixo dela. -->
+      <div class="capa__palco">
+        <h1 class="capa__nome"><span class="sobe"><span>Tay Machado</span></span></h1>
+
+        <!-- SLOT DE FOTO: salve o retrato como img/retrato.jpg (900x1125 ou
+             maior) e ele entra aqui sozinho. Sem o arquivo, fica o selo. -->
+        <figure class="capa__moldura">
+          <img id="retrato" src="img/retrato.jpg" alt="Retrato da Tay Machado" hidden>
+          <svg class="capa__selo" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="volta-capa" d="M60 12a48 48 0 010 96 48 48 0 010-96"/></defs>
+            <g class="selo__anel" style="transform-origin:60px 60px">
+              <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1"/>
+              <circle cx="60" cy="60" r="46" fill="none" stroke="currentColor" stroke-width=".6" opacity=".5"/>
+              <text font-family="Archivo,sans-serif" font-size="8.6" font-weight="600" letter-spacing="5.4" fill="currentColor">
+                <textPath href="#volta-capa" startOffset="1%">TAY MACHADO · ARTE TATTOO ·</textPath>
+              </text>
+            </g>
+            <path class="selo__espiral" d="M62.2 60.0L62.6 60.6L62.8 61.3L62.8 62.2L62.6 63.1L62.0 64.0L61.2 64.8L60.2 65.4L58.9 65.7L57.5 65.7L56.1 65.4L54.6 64.7L53.3 63.7L52.3 62.2L51.5 60.5L51.1 58.6L51.3 56.5L51.8 54.4L52.9 52.5L54.5 50.7L56.6 49.3L58.9 48.4L61.5 48.0L64.3 48.2L67.0 49.0L69.5 50.5L71.8 52.6L73.5 55.2L74.7 58.2L75.2 61.5L74.9 64.9L73.9 68.3L72.1 71.4L69.6 74.2L66.4 76.3L62.8 77.8L58.8 78.4L54.7 78.1L50.6 76.9L46.9 74.8L43.6 71.8L41.0 68.1L39.2 63.9L38.4 59.2L38.7 54.4L40.0 49.7L42.4 45.3L45.7 41.5L49.9 38.4L54.8 36.3L60.1 35.3L65.6 35.4L71.0 36.8L76.1 39.4L80.5 43.2L84.1 47.9L86.6 53.3L87.9 59.3L87.8 65.5L86.4 71.6L83.6 77.3L79.5 82.4L74.4 86.5L68.4 89.4L61.8 91.0L54.9 91.1L48.1 89.7L41.6 86.7L35.9 82.4L31.2 76.8L27.8 70.2L25.9 63.0L25.6 55.4L27.0 47.9L30.1 40.7L34.7 34.4L40.7 29.1L47.7 25.2L55.6 22.9L63.8 22.4L72.1 23.7L80.0 26.8L87.0 31.6L92.9 38.0L97.4 45.5L100.1 54.0L100.9 62.9L99.7 71.9L96.5 80.5L91.5 88.2L84.9 94.8L76.9 99.8L67.8 103.0L58.3 104.1L48.6 103.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+          </svg>
+        </figure>
+      </div>
+
+      <div class="capa__pe">
         <span class="sobe">
           <p class="capa__frase">Do traço delicado ao preto fechado, sem perder o detalhe.</p>
         </span>
@@ -97,23 +131,6 @@
           </div>
         </span>
       </div>
-
-      <!-- SLOT DE FOTO: salve o retrato como img/retrato.jpg (900x1125 ou
-           maior) e ele entra aqui sozinho. Sem o arquivo, fica o selo. -->
-      <figure class="capa__moldura">
-        <img id="retrato" src="img/retrato.jpg" alt="Retrato da Tay Machado" hidden>
-        <svg class="capa__selo" viewBox="0 0 120 120" aria-hidden="true">
-          <defs><path id="volta-capa" d="M60 12a48 48 0 010 96 48 48 0 010-96"/></defs>
-          <g class="selo__anel" style="transform-origin:60px 60px">
-            <circle cx="60" cy="60" r="57" fill="none" stroke="currentColor" stroke-width="1"/>
-            <circle cx="60" cy="60" r="46" fill="none" stroke="currentColor" stroke-width=".6" opacity=".5"/>
-            <text font-family="Archivo,sans-serif" font-size="8.6" font-weight="600" letter-spacing="5.4" fill="currentColor">
-              <textPath href="#volta-capa" startOffset="1%">TAY MACHADO · ARTE TATTOO ·</textPath>
-            </text>
-          </g>
-          <path class="selo__espiral" d="M62.2 60.0L62.6 60.6L62.8 61.3L62.8 62.2L62.6 63.1L62.0 64.0L61.2 64.8L60.2 65.4L58.9 65.7L57.5 65.7L56.1 65.4L54.6 64.7L53.3 63.7L52.3 62.2L51.5 60.5L51.1 58.6L51.3 56.5L51.8 54.4L52.9 52.5L54.5 50.7L56.6 49.3L58.9 48.4L61.5 48.0L64.3 48.2L67.0 49.0L69.5 50.5L71.8 52.6L73.5 55.2L74.7 58.2L75.2 61.5L74.9 64.9L73.9 68.3L72.1 71.4L69.6 74.2L66.4 76.3L62.8 77.8L58.8 78.4L54.7 78.1L50.6 76.9L46.9 74.8L43.6 71.8L41.0 68.1L39.2 63.9L38.4 59.2L38.7 54.4L40.0 49.7L42.4 45.3L45.7 41.5L49.9 38.4L54.8 36.3L60.1 35.3L65.6 35.4L71.0 36.8L76.1 39.4L80.5 43.2L84.1 47.9L86.6 53.3L87.9 59.3L87.8 65.5L86.4 71.6L83.6 77.3L79.5 82.4L74.4 86.5L68.4 89.4L61.8 91.0L54.9 91.1L48.1 89.7L41.6 86.7L35.9 82.4L31.2 76.8L27.8 70.2L25.9 63.0L25.6 55.4L27.0 47.9L30.1 40.7L34.7 34.4L40.7 29.1L47.7 25.2L55.6 22.9L63.8 22.4L72.1 23.7L80.0 26.8L87.0 31.6L92.9 38.0L97.4 45.5L100.1 54.0L100.9 62.9L99.7 71.9L96.5 80.5L91.5 88.2L84.9 94.8L76.9 99.8L67.8 103.0L58.3 104.1L48.6 103.1" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
-        </svg>
-      </figure>
     </div>
   </section>
 
@@ -247,17 +264,16 @@
           <svg class="canal__seta" aria-hidden="true"><use href="#i-seta"/></svg>
         </a>
 
-        <!-- WHATSAPP: descomente quando a Tay confirmar que o número pode
-             ir para o ar, e troque os dígitos depois de /55.
-        <a class="canal" href="https://wa.me/55XXXXXXXXXXX?text=Oi%2C%20Tay!%20Vim%20pelo%20site%20e%20queria%20um%20or%C3%A7amento.">
-          <svg aria-hidden="true"><use href="#i-seta"/></svg>
+        <!-- O número está escrito em dois lugares nesta linha: no href e no
+             texto visível. Se precisar trocar, troque nos dois. -->
+        <a class="canal" href="https://wa.me/554291251759?text=Oi%2C%20Tay!%20Vim%20pelo%20site%20e%20queria%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+          <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
           <span class="canal__texto">
             <span class="canal__rotulo">WhatsApp</span>
-            <span class="canal__valor">(00) 00000-0000</span>
+            <span class="canal__valor">(42) 9125-1759</span>
           </span>
           <svg class="canal__seta" aria-hidden="true"><use href="#i-seta"/></svg>
         </a>
-        -->
       </div>
     </div>
   </section>
@@ -295,6 +311,7 @@
   "@type":"Person",
   "name":"Tay Machado",
   "jobTitle":"Tatuadora e ilustradora",
+  "telephone":"+554291251759",
   "founder":{"@type":"Organization","name":"OctoInk Tattoo Studio","sameAs":"https://instagram.com/octo.inktattoo"},
   "sameAs":["https://instagram.com/tay_arte_tattoo","https://instagram.com/ilustra_tay"]
 }

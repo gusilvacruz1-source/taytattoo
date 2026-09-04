@@ -38,6 +38,18 @@
     });
   }
 
+  /* ---------------------------------------------------- vídeo da capa */
+  /* Sem autoplay no HTML de propósito: quem manda tocar é o JS, e só
+     quando o visitante não pediu menos movimento. Em reduced-motion fica
+     o poster parado. Sem os arquivos, o elemento não pinta nada e sobra
+     o breu com o véu por cima, que é um degradê discreto e serve. */
+  var video = document.getElementById('capaVideo');
+  if (video && !pouca) {
+    var tocar = function () { video.play().catch(function () {}); };
+    if (video.readyState >= 2) tocar();
+    else video.addEventListener('loadeddata', tocar, { once: true });
+  }
+
   /* --------------------------------------------------------- retrato */
   /* O arquivo manda: existindo img/retrato.jpg, ele aparece e o selo sai.
      Faltando, nada acontece e o selo continua ocupando a moldura. */
