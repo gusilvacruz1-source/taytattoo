@@ -157,15 +157,34 @@ editar nada:
 
 | Arquivo | Onde cola | O que é |
 |---|---|---|
-| `filigrana.png` | trabalhos, borda direita | os arabescos com as estrelinhas |
-| `lirio.png` | traço, embaixo à esquerda | o lírio de traço fino |
-| `tulipas.png` | disponíveis, à direita | as tulipas gravadas |
-| `linhas.png` | agendar, à esquerda | a forma orgânica de linhas |
-| `pontilhada.png` | contato, à direita | a figura pontilhada |
+| `filigrana.jpg` | trabalhos, borda direita | os arabescos com as estrelinhas |
+| `brilho.jpg` | trabalhos, embaixo à esquerda | o estouro de brilho |
+| `lirio.jpg` | traço, embaixo à esquerda | o lírio de traço fino |
+| `arabesco.jpg` | traço, à direita | o arabesco pontilhado |
+| `tulipas.jpg` | disponíveis, à direita | as tulipas gravadas |
+| `linhas.jpg` | agendar, à esquerda | a forma orgânica de linhas |
+| `pontilhada.jpg` | contato, à direita | a figura pontilhada |
 
-Enquanto o arquivo não existe, nada acontece: o site remove a figurinha
+Sobrou `olhos.jpg`, que está no repositório mas fora do ar: é a arte mais
+pesada das oito, e a cliente pediu "sem pesar a mão". A linha dela está
+comentada em `js/figurinhas.js`, pronta para entrar.
+
+Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de
 qualquer uma, é só mexer nos números em `js/figurinhas.js`.
+
+### Sobre os arquivos
+
+As artes que estão no ar são **JPG de fundo preto**, e o site as compõe
+em `mix-blend-mode: screen`, que apaga o preto e deixa só o traço claro.
+Por cima disso vai uma **máscara radial** que dissolve a borda do arquivo:
+sem ela, um JPG cujo fundo não é preto de verdade (o das linhas é
+azul-marinho) entrega o próprio retângulo e vira um bloco colado na
+seção.
+
+Isso funciona bem para desenho de traço claro sobre fundo escuro, que é o
+caso de todas. Se um dia chegar **PNG com transparência**, é melhor
+ainda, e nada precisa mudar no código.
 
 **Duas por seção, no máximo.** Passou disso a página deixa de ser sobre o
 traço da Tay. E prefira as bordas: o meio é do texto. O conteúdo sempre

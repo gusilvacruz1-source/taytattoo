@@ -639,17 +639,18 @@
       });
     });
 
-    /* 3. Figurinhas: assentam como se tivessem acabado de ser coladas, e
-       depois andam devagar com a rolagem. */
-    figurinhas.forEach(function (o) {
-      gsap.from(o.el, {
-        scale: 0.84,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'back.out(1.6)',
-        scrollTrigger: { trigger: o.secao, start: 'top 78%', once: true }
-      });
+    /* 3. Figurinhas: andam devagar com a rolagem.
 
+       Não há entrada de "assentar como adesivo recém-colado" aqui, e a
+       ausência é deliberada: um gsap.from deixa o elemento no estado
+       inicial (opacidade 0) até o gatilho disparar, e onde o gatilho não
+       dispara a figurinha fica invisível para sempre. Foi exatamente o
+       que aconteceu. Um fromTo com immediateRender:false resolveria a
+       invisibilidade, mas ao custo de um piscão: a figurinha apareceria,
+       sumiria e voltaria. Entre a entrada bonita e a figurinha existir,
+       fica a segunda. O parallax abaixo já dá vida, e é um fromTo que em
+       repouso não esconde nada. */
+    figurinhas.forEach(function (o) {
       gsap.fromTo(o.el,
         { yPercent: -o.fundura },
         {

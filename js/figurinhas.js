@@ -27,23 +27,31 @@
    ===================================================================== */
 
 const FIGURINHAS = [
-  /* As cinco abaixo já estão posicionadas e esperando o arquivo. Suba o
-     PNG em img/figurinhas/ com o nome exato da coluna "arquivo" e ela
-     aparece sozinha. Enquanto o arquivo não existe, nada acontece: o
-     site remove a figurinha em silêncio, sem deixar buraco na seção. */
+  /* As artes são JPG de fundo preto. O CSS as compõe em "screen", que
+     apaga o preto e deixa só o traço claro. Por isso as opacidades são
+     medidas: em screen sobre o breu, abaixo de ~.45 o traço some, e
+     acima de ~.6 ele começa a competir com o trabalho da Tay, que é o
+     assunto da página. */
 
-  /* A filigrana com as estrelinhas, na borda direita da galeria. */
-  { arquivo: 'filigrana.png',  secao: 'trabalhos',   largura: 168, x: '86%', y: '16%', giro: 7,   fundura: 8, opacidade: .55 },
+  /* Trabalhos: a filigrana na borda direita. */
+  { arquivo: 'filigrana.jpg',  secao: 'trabalhos',   largura: 150, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: .55 },
 
-  /* O lírio, embaixo à esquerda, onde a lista de traços deixa espaço. */
-  { arquivo: 'lirio.png',      secao: 'traco',       largura: 150, x: '2%',  y: '62%', giro: -9,  fundura: 6, opacidade: .5 },
+  /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
+  { arquivo: 'lirio.jpg',      secao: 'traco',       largura: 140, x: '2%',  y: '58%', giro: -9,  fundura: 6, opacidade: .50 },
+  { arquivo: 'arabesco.jpg',   secao: 'traco',       largura: 160, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: .46 },
 
-  /* As tulipas gravadas, à direita dos desenhos disponíveis. */
-  { arquivo: 'tulipas.png',    secao: 'disponiveis', largura: 196, x: '80%', y: '8%',  giro: 5,   fundura: 5, opacidade: .45 },
+  /* Disponíveis: as tulipas gravadas à direita. */
+  { arquivo: 'tulipas.jpg',    secao: 'disponiveis', largura: 200, x: '82%', y: '10%', giro: 5,   fundura: 5, opacidade: .52 },
 
-  /* As linhas orgânicas, à esquerda dos três passos. */
-  { arquivo: 'linhas.png',     secao: 'agendar',     largura: 176, x: '3%',  y: '22%', giro: -6,  fundura: 9, opacidade: .5 },
+  /* Agendar: as linhas orgânicas à esquerda, soltas no scroll. */
+  { arquivo: 'linhas.jpg',     secao: 'agendar',     largura: 170, x: '1%',  y: '20%', giro: -6,  fundura: 9, opacidade: .50 },
 
-  /* A figura pontilhada, grande, fechando a página no contato. */
-  { arquivo: 'pontilhada.png', secao: 'contato',     largura: 230, x: '78%', y: '48%', giro: 10,  fundura: 7, opacidade: .4 },
+  /* Contato: a pontilhada fechando a página. */
+  { arquivo: 'pontilhada.jpg', secao: 'contato',     largura: 220, x: '80%', y: '40%', giro: 10,  fundura: 7, opacidade: .50 },
+
+  /* Os olhos ficaram de fora: é a arte mais pesada das oito, de área
+     cheia e alto contraste, e a cliente pediu "sem pesar a mão". Para
+     pôr no ar, tire as barras da frente da linha abaixo. */
+  { arquivo: 'brilho.jpg',     secao: 'trabalhos',   largura: 210, x: '2%',  y: '68%', giro: -5,  fundura: 5, opacidade: .30 },
+  // { arquivo: 'olhos.jpg',   secao: 'capa',        largura: 160, x: '4%',  y: '62%', giro: -8,  fundura: 6, opacidade: .22 },
 ];

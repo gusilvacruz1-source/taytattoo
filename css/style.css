@@ -610,6 +610,19 @@ body::after{
 .figurinha{
   position:absolute;
   z-index:0;
+  /* As artes vieram em JPG, que não tem transparência: sem isto cada uma
+     seria um retângulo preto sobre o breu, que não é preto puro. O modo
+     "screen" apaga o preto e deixa só o traço claro, que é exatamente o
+     material aqui. Se um dia chegar PNG com transparência, isto continua
+     certo: sobre fundo escuro o screen não muda o que já é transparente. */
+  mix-blend-mode:screen;
+  /* Máscara radial: dissolve a borda do arquivo. As artes são retângulos
+     de fundo escuro, e algumas não são pretas de verdade (a das linhas
+     tem fundo azul-marinho). Sem isto o "screen" entrega o retângulo e a
+     figurinha vira um bloco colado por cima da seção, em vez de um traço
+     que aparece do escuro. */
+  -webkit-mask-image:radial-gradient(closest-side,#000 48%,transparent 96%);
+  mask-image:radial-gradient(closest-side,#000 48%,transparent 96%);
   pointer-events:none;
   user-select:none;
   height:auto;
