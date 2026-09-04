@@ -35,8 +35,8 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
 - Sem preço, sem prazo, sem política de sinal, sem endereço e sem horário
   publicados. **Não afirmar nenhum.**
 - Sem foto nem vídeo no site ainda. Ela ficou de mandar os dois.
-- Telefone: **(42) 9125-1759**, lido da conversa dela com o Gu. Está
-  publicado. Ver a pendência 4 sobre a contagem de dígitos.
+- WhatsApp: **(42) 99125-1759**, confirmado pela Tay. Está publicado no
+  botão, no rodapé e no JSON-LD.
 
 ## Pendências (o que precisa vir da Tay)
 0. **Confirmar as abas do filtro.** Hoje são Autorais, Delicadas,
@@ -54,17 +54,10 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
    poster (`img/hero-fundo.jpg`). Sem os dois, a capa fica no breu com o
    véu por cima, que continua legível.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
-4. **Conferir os dígitos do WhatsApp.** O número está no ar como
-   `(42) 9125-1759`, lido da conversa com ela. São 8 dígitos depois do DDD,
-   e celular no Brasil tem 9 desde 2016: pode ser que o certo seja
-   `(42) 99125-1759`. **Clique no botão do site e veja se abre a conversa
-   dela.** Se não abrir, é só acrescentar um 9 nos dois lugares da mesma
-   linha do `index.html` (o `href` e o texto visível) e no JSON-LD.
-5. **As figurinhas.** Cinco já estão posicionadas no código, esperando o
-   arquivo: `filigrana`, `lirio`, `tulipas`, `linhas` e `pontilhada`.
-   Falta subir os PNGs em `img/figurinhas/` com esses nomes. **Confirmar
-   antes quem é o autor de cada uma**: são artes que vão para o site
-   comercial de uma tatuadora, e imagem achada na internet pode ter dono.
+5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
+   fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o
+   autor de cada uma**: são artes que vão para o site comercial de uma
+   tatuadora, e imagem achada na internet pode ter dono.
 6. **Logo real** do selo. O que está no ar é um monograma provisório.
 7. **Domínio**, se ela quiser um. Hoje o site sobe em subdomínio do Netlify.
 8. **Estilos**: o texto da seção Traço descreve tatuagem autoral, delicadas e
