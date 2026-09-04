@@ -621,8 +621,8 @@ body::after{
      tem fundo azul-marinho). Sem isto o "screen" entrega o retângulo e a
      figurinha vira um bloco colado por cima da seção, em vez de um traço
      que aparece do escuro. */
-  -webkit-mask-image:radial-gradient(closest-side,#000 48%,transparent 96%);
-  mask-image:radial-gradient(closest-side,#000 48%,transparent 96%);
+  -webkit-mask-image:radial-gradient(closest-side,#000 66%,transparent 100%);
+  mask-image:radial-gradient(closest-side,#000 66%,transparent 100%);
   pointer-events:none;
   user-select:none;
   height:auto;

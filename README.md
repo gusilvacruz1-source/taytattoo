@@ -152,12 +152,10 @@ editar nada:
 | Arquivo | Onde cola | O que é |
 |---|---|---|
 | `filigrana.jpg` | trabalhos, direita | os arabescos com as estrelinhas |
-| `brilho.jpg` | trabalhos, embaixo à esquerda | o estouro de brilho |
-| `lirio.jpg` | traço, embaixo à esquerda | o lírio de traço fino |
+| `lirio.jpg` | traço, esquerda | o lírio de traço fino |
 | `arabesco.jpg` | traço, direita | o arabesco pontilhado |
 | `tulipas.jpg` | disponíveis, direita | as tulipas gravadas |
 | `flor-vermelha.jpg` | disponíveis, esquerda | a flor vermelha, a única cor da página fora o botão |
-| `linhas.jpg` | agendar, esquerda | a forma orgânica de linhas |
 | `mao.jpg` | agendar, direita | a mão do chifrinho |
 | `pontilhada.jpg` | contato, direita | a figura pontilhada |
 | `olho-grande.jpg` | contato, esquerda | o olho, com `inverter: true` |
@@ -166,11 +164,22 @@ Arte que veio com **fundo claro** precisa de `inverter: true` na linha
 dela. Sem isso o fundo branco vira um retângulo estourado; invertida, o
 branco vira preto e some, e o traço escuro acende.
 
-Três ficaram fora do ar, com a linha comentada em `js/figurinhas.js`:
-`olhos.jpg` e `flor-lateral.jpg`, porque a página já está no teto de duas
-por seção, e `olho-meiotom.jpg`, que veio com o quadriculado de
-transparência assado dentro do JPG (mesmo invertido, o xadrez aparece
-como textura; para usar de verdade, recorte o fundo e salve em PNG).
+**Cinco ficaram fora do ar**, com a linha comentada em `js/figurinhas.js`:
+
+- `brilho.jpg` e `linhas.jpg` não são desenho de traço, são imagens de
+  área cheia. Sob `screen` as duas levantam um retângulo claro que a
+  máscara não dissolve, e na página parecem mancha, não adesivo.
+- `olho-meiotom.jpg` veio com o quadriculado de transparência assado
+  dentro do JPG. Mesmo invertido, o xadrez aparece como textura.
+- `olhos.jpg` e `flor-lateral.jpg` porque a página já está no teto de
+  duas figurinhas por seção.
+
+Nos três primeiros, o conserto de verdade é recortar o fundo e salvar em
+PNG com transparência.
+
+**As opacidades são altas** (entre .72 e .88) de propósito: em `screen`
+sobre o breu o traço perde muita força, e abaixo de ~.7 a figurinha
+simplesmente não se vê.
 
 Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de
