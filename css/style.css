@@ -1,0 +1,446 @@
+/* =====================================================================
+   TAY MACHADO · ARTE TATTOO
+   Portfólio de tatuagem. Tema travado no escuro, do começo ao fim:
+   é o pedido da cliente ("vibe mais escura, voltada ao darkwork"), e é
+   o que separa este site do da Eloize, que alterna tinta e papel.
+
+   Forma: raio zero em tudo. Uma escala só, sem exceção. Blackwork não
+   tem canto redondo, e a página é uma folha de flash, não um app.
+
+   Acento: um só, o vermelho de tinta seca. Aparece no botão principal,
+   no anel de foco e na seleção de texto. Em lugar nenhum mais.
+
+   Fontes servidas pelo próprio site (fonts/, subconjunto latino, 72 KB).
+   Nenhuma requisição a terceiros: nem fonte, nem script, nem ícone.
+   ===================================================================== */
+
+@font-face{
+  font-family:'Cormorant Garamond';
+  src:url('../fonts/cormorant.woff2') format('woff2');
+  font-weight:300 600;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:'Archivo';
+  src:url('../fonts/archivo.woff2') format('woff2');
+  font-weight:400 700;font-style:normal;font-display:swap;
+}
+
+:root{
+  --breu:#0B0B0C;
+  --carvao:#131315;
+  --carvao-alto:#1B1B1E;
+  --linha:#2A2A2F;
+  --linha-viva:#3C3C43;
+  --cinza-numeral:#6F6960;  /* numerais dos passos: 3,6:1 sobre o breu */
+
+  --osso:#EDE7DD;        /* títulos            15,5:1 sobre o breu */
+  --osso-texto:#C9C2B7;  /* corpo              11,1:1 */
+  --osso-suave:#A39C91;  /* etiquetas e meta    7,1:1 */
+
+  --sangue:#A32E24;      /* único acento, campo do botão (5,6:1 com osso) */
+  --sangue-alto:#BE3A2D;
+  --brasa:#D4685C;       /* o mesmo acento clareado para foco e link */
+
+  --display:'Cormorant Garamond',Garamond,'Times New Roman',Georgia,serif;
+  --ui:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  --largura:1240px;
+  --pad-x:clamp(20px,5vw,48px);
+  --saida:cubic-bezier(.16,1,.3,1);
+  --topo-altura:68px;
+
+  /* Escala de empilhamento, declarada uma vez */
+  --z-grao:60;
+  --z-topo:50;
+  --z-lupa:100;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:calc(var(--topo-altura) + 24px);
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--breu);
+  color:var(--osso-texto);
+  font-family:var(--ui);
+  font-size:clamp(.95rem,1.05vw,1.0625rem);
+  line-height:1.68;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1,h2,h3{margin:0;font-family:var(--display);color:var(--osso);font-weight:400;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+p{margin:0}
+img,video{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+svg{display:block}
+[hidden]{display:none !important}
+
+::selection{background:var(--sangue);color:var(--osso)}
+:focus-visible{outline:2px solid var(--brasa);outline-offset:3px}
+
+/* Grão: camada única, fixa, sem captura de clique. Nunca em container
+   que rola, para não repintar a GPU a cada quadro. */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  z-index:var(--z-grao);
+  pointer-events:none;
+  opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* --------------------------------------------------------- estrutura */
+
+.container{width:100%;max-width:var(--largura);margin-inline:auto;padding-inline:var(--pad-x)}
+
+/* Ritmo vertical definido UMA vez. Nenhuma seção sobrescreve. */
+.secao{padding-block:clamp(84px,11vw,148px);border-top:1px solid var(--linha)}
+
+.olho{
+  font-size:.7rem;font-weight:600;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--osso-suave);
+}
+
+.titulo{font-size:clamp(2.1rem,4.8vw,3.6rem)}
+.lead{font-size:1.05em;color:var(--osso-texto);max-width:54ch}
+
+.pontos{
+  height:3px;border:0;margin:0;
+  background-image:radial-gradient(circle at 1.5px 50%,var(--linha-viva) 1.4px,transparent 1.5px);
+  background-size:8px 100%;
+}
+
+/* -------------------------------------------------------------- botões */
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:15px 24px;
+  font-size:.78rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  white-space:nowrap;                       /* rótulo de CTA nunca quebra linha */
+  border:1px solid transparent;
+  transition:background .24s var(--saida),border-color .24s var(--saida),transform .18s var(--saida);
+}
+.btn svg{width:15px;height:15px;flex:none;transition:transform .24s var(--saida)}
+.btn:hover svg{transform:translateX(4px)}
+.btn:active{transform:translateY(1px)}
+
+.btn--tinta{background:var(--sangue);color:var(--osso);border-color:var(--sangue)}
+.btn--tinta:hover{background:var(--sangue-alto);border-color:var(--sangue-alto)}
+.btn--fio{color:var(--osso);border-color:var(--linha-viva)}
+.btn--fio:hover{background:var(--carvao);border-color:var(--osso-suave)}
+
+/* Link de texto com sublinhado que acende no acento */
+.elo{
+  color:var(--osso);
+  border-bottom:1px solid var(--linha-viva);
+  padding-bottom:2px;
+  transition:border-color .24s var(--saida);
+}
+.elo:hover{border-color:var(--brasa)}
+
+/* ---------------------------------------------------------------- topo */
+
+.topo{
+  position:fixed;inset:0 0 auto;z-index:var(--z-topo);
+  height:var(--topo-altura);
+  background:rgba(11,11,12,.78);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--linha);
+}
+.topo__inner{height:100%;display:flex;align-items:center;gap:24px}
+
+.marca{display:flex;align-items:center;gap:12px;margin-right:auto}
+.marca__selo{width:30px;height:30px;flex:none;color:var(--osso)}
+.marca__nome{font-family:var(--display);font-size:1.3rem;color:var(--osso);line-height:1}
+.marca__nome small{
+  display:block;font-family:var(--ui);font-size:.55rem;font-weight:600;
+  letter-spacing:.28em;color:var(--osso-suave);margin-top:4px;
+}
+
+.nav{display:flex;gap:26px}
+.nav a{
+  font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--osso-suave);padding-block:6px;position:relative;
+  transition:color .24s var(--saida);
+}
+.nav a::after{
+  content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
+  background:var(--brasa);transform:scaleX(0);transform-origin:left;
+  transition:transform .28s var(--saida);
+}
+.nav a:hover{color:var(--osso)}
+.nav a:hover::after{transform:scaleX(1)}
+
+.topo .btn{padding:11px 18px;font-size:.7rem}
+
+.menu-btn{
+  display:none;width:42px;height:38px;border:1px solid var(--linha-viva);
+  place-items:center;gap:5px;
+}
+.menu-btn span{display:block;width:16px;height:1px;background:var(--osso);transition:transform .26s var(--saida),opacity .2s linear}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(3px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-3px) rotate(-45deg)}
+
+/* ============================================ 1. CAPA (split assimétrico) */
+
+.capa{
+  position:relative;
+  min-height:100dvh;                        /* dvh, nunca vh: a barra do Safari */
+  display:grid;align-content:center;
+  padding-block:calc(var(--topo-altura) + clamp(48px,8vh,88px)) clamp(56px,9vh,104px);
+  overflow:hidden;
+}
+.capa__grade{
+  display:grid;
+  grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(32px,5vw,72px);
+  align-items:center;
+}
+.capa__texto{min-width:0}
+
+.capa__nome{
+  font-size:clamp(3.4rem,10.5vw,8.4rem);
+  font-weight:300;line-height:.86;letter-spacing:-.03em;
+  margin-block:20px 26px;
+}
+.capa__frase{
+  font-size:clamp(1.1rem,1.9vw,1.32rem);
+  line-height:1.5;color:var(--osso-texto);
+  max-width:25em;margin-bottom:36px;
+}
+.capa__acoes{display:flex;flex-wrap:wrap;gap:12px}
+
+/* Moldura do retrato. Sem foto, o selo assume o lugar sozinho. */
+.capa__moldura{
+  position:relative;
+  aspect-ratio:4/5;
+  border:1px solid var(--linha);
+  background:var(--carvao);
+  display:grid;place-items:center;
+  overflow:hidden;
+}
+.capa__moldura img{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.06)}
+.capa__selo{width:74%;color:var(--osso);opacity:.22}
+.capa__selo .selo__anel{animation:gira 120s linear infinite}
+.capa__selo .selo__espiral{stroke-dasharray:1400;stroke-dashoffset:1400;animation:desenha 3.2s var(--saida) .3s forwards}
+
+@keyframes gira{to{transform:rotate(360deg)}}
+@keyframes desenha{to{stroke-dashoffset:0}}
+
+/* Entrada da capa. Repouso é o estado VISÍVEL: a animação parte do
+   escondido com "both", então se ela não rodar a capa aparece inteira. */
+.sobe{display:block;overflow:hidden}
+.sobe>*{animation:sobe .9s var(--saida) both}
+.sobe>span{display:block}
+.sobe:nth-of-type(1)>*{animation-delay:.05s}
+.sobe:nth-of-type(2)>*{animation-delay:.15s}
+.sobe:nth-of-type(3)>*{animation-delay:.25s}
+.sobe:nth-of-type(4)>*{animation-delay:.35s}
+@keyframes sobe{from{transform:translateY(110%)}}
+
+/* ================================================ 2. TRABALHOS (masonry) */
+
+.galeria{columns:3;column-gap:14px}
+.peca{
+  break-inside:avoid;margin-bottom:14px;
+  position:relative;display:block;width:100%;padding:0;
+  border:1px solid var(--linha);background:var(--carvao);
+  overflow:hidden;
+  transition:border-color .26s var(--saida);
+}
+.peca img,.peca video{width:100%;filter:saturate(.9) contrast(1.04);transition:transform .5s var(--saida),filter .35s var(--saida)}
+.peca:hover{border-color:var(--linha-viva)}
+.peca:hover img,.peca:hover video{transform:scale(1.035);filter:saturate(1) contrast(1.08)}
+
+.peca__marca{
+  position:absolute;right:10px;bottom:10px;
+  width:28px;height:28px;display:grid;place-items:center;
+  background:rgba(11,11,12,.72);border:1px solid var(--linha-viva);color:var(--osso);
+  opacity:0;transition:opacity .26s var(--saida);
+}
+.peca:hover .peca__marca,.peca:focus-visible .peca__marca{opacity:1}
+.peca__video{
+  position:absolute;left:10px;top:10px;
+  display:grid;place-items:center;width:28px;height:28px;
+  background:rgba(11,11,12,.72);border:1px solid var(--linha-viva);color:var(--osso);
+}
+
+/* Vazio dos trabalhos: painel largo emoldurado, ocupando a área da grade */
+.painel{
+  border:1px solid var(--linha);background:var(--carvao);
+  padding:clamp(30px,5vw,56px);
+  display:grid;gap:18px;justify-items:start;
+}
+.painel h3{font-size:clamp(1.5rem,2.6vw,2rem)}
+.painel p{max-width:52ch}
+.painel .pontos{width:clamp(110px,26%,180px)}
+
+/* ============================================ 3. TRAÇO (linhas de índice) */
+
+.traco{
+  display:grid;grid-template-columns:minmax(170px,.85fr) 2fr;
+  gap:18px 44px;padding-block:30px;align-items:baseline;
+}
+/* Divisória só ENTRE as linhas, nunca em cima e embaixo de cada uma */
+.traco + .traco{border-top:1px solid var(--linha)}
+.traco h3{font-size:clamp(1.45rem,2.5vw,1.95rem)}
+.traco p{color:var(--osso-suave)}
+
+/* ==================================== 4. DISPONÍVEIS (trilho com encaixe) */
+
+.trilho{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,282px);
+  gap:14px;
+  overflow-x:auto;overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  padding-bottom:14px;
+  scrollbar-width:thin;scrollbar-color:var(--linha-viva) transparent;
+}
+.trilho>*{scroll-snap-align:start}
+.flash{border:1px solid var(--linha);background:var(--carvao);display:grid}
+.flash__foto{aspect-ratio:3/4;overflow:hidden;background:var(--carvao-alto)}
+.flash__foto img{width:100%;height:100%;object-fit:cover}
+.flash__pe{padding:16px 18px 18px;display:grid;gap:10px;justify-items:start}
+.flash__nome{font-family:var(--display);font-size:1.25rem;color:var(--osso)}
+.flash .btn{padding:11px 16px;font-size:.68rem}
+
+/* ================================= 5. AGENDAR (sequência assimétrica) */
+
+.passos{display:grid;gap:0}
+.passo{
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  gap:clamp(20px,4vw,52px);
+  padding-block:clamp(26px,3.4vw,40px);
+}
+.passo + .passo{border-top:1px solid var(--linha)}
+.passo__n{
+  font-family:var(--display);font-size:clamp(2.4rem,5vw,4rem);font-weight:300;
+  line-height:.9;color:var(--cinza-numeral);font-variant-numeric:tabular-nums;
+}
+.passo__corpo{display:grid;gap:8px;max-width:56ch}
+.passo h3{font-size:clamp(1.3rem,2.2vw,1.7rem)}
+.passo p{color:var(--osso-suave)}
+/* Recuo crescente: a sequência anda para a direita conforme avança */
+.passo:nth-child(2) .passo__corpo{padding-left:clamp(0px,3vw,44px)}
+.passo:nth-child(3) .passo__corpo{padding-left:clamp(0px,6vw,88px)}
+
+/* ================================ 6. CONTATO (faixa de largura cheia) */
+
+.faixa{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:start}
+.faixa__texto{display:grid;gap:20px;justify-items:start}
+
+.canais{display:grid;gap:1px;background:var(--linha);border:1px solid var(--linha)}
+.canal{
+  background:var(--breu);display:flex;align-items:center;gap:16px;
+  padding:20px 22px;transition:background .24s var(--saida);
+}
+.canal:hover{background:var(--carvao)}
+.canal>svg:first-child{width:20px;height:20px;flex:none;color:var(--osso-suave);transition:color .24s var(--saida)}
+.canal:hover>svg:first-child{color:var(--brasa)}
+.canal__texto{display:grid;gap:2px;margin-right:auto}
+.canal__rotulo{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--osso-suave)}
+.canal__valor{color:var(--osso);font-size:1rem}
+.canal__seta{width:18px;height:18px;color:var(--osso-suave);transition:transform .24s var(--saida),color .24s var(--saida)}
+.canal:hover .canal__seta{transform:translateX(4px);color:var(--osso)}
+
+/* ---------------------------------------------------------- lupa (modal) */
+
+.lupa{
+  position:fixed;inset:0;z-index:var(--z-lupa);
+  background:rgba(7,7,8,.95);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:14px;padding:16px;
+  opacity:0;transition:opacity .26s var(--saida);
+}
+.lupa[data-aberta]{opacity:1}
+.lupa__topo{display:flex;justify-content:flex-end}
+.lupa__palco{display:grid;place-items:center;min-height:0}
+.lupa__palco img,.lupa__palco video{max-width:100%;max-height:100%;object-fit:contain;border:1px solid var(--linha)}
+.lupa__pe{display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--osso-suave);font-size:.74rem;letter-spacing:.08em}
+.lupa__legenda{max-width:60ch}
+.lupa__setas{display:flex;align-items:center;gap:8px}
+.lupa__contador{font-variant-numeric:tabular-nums;margin-right:8px}
+.icone-btn{
+  width:42px;height:42px;display:grid;place-items:center;
+  border:1px solid var(--linha-viva);color:var(--osso);
+  transition:background .22s var(--saida),border-color .22s var(--saida);
+}
+.icone-btn:hover{background:var(--carvao-alto);border-color:var(--osso-suave)}
+.icone-btn svg{width:17px;height:17px}
+
+/* ------------------------------------------------------------- rodapé */
+
+.rodape{border-top:1px solid var(--linha);padding-block:34px 42px}
+.rodape__inner{display:flex;flex-wrap:wrap;align-items:center;gap:18px 28px}
+.rodape__nota{font-size:.74rem;color:var(--osso-suave);margin-left:auto}
+
+/* --------------------------------------------------------- revelação */
+
+.js .revela{
+  opacity:0;transform:translateY(18px);
+  transition:opacity .7s var(--saida),transform .7s var(--saida);
+}
+.js .revela[data-vista]{opacity:1;transform:none}
+
+/* ------------------------------------------------------------- telas */
+
+@media (max-width:1040px){
+  .capa__grade{grid-template-columns:1fr;gap:clamp(30px,6vw,48px)}
+  .capa__moldura{max-width:420px;justify-self:start}
+  .capa__texto{max-width:none}
+  .faixa{grid-template-columns:1fr}
+}
+
+@media (max-width:900px){
+  .galeria{columns:2}
+}
+
+@media (max-width:760px){
+  .menu-btn{display:grid}
+  .topo .btn{display:none}
+  .nav{
+    position:fixed;inset:var(--topo-altura) 0 auto;
+    flex-direction:column;gap:0;
+    background:var(--breu);border-bottom:1px solid var(--linha);
+    padding:8px var(--pad-x) 22px;
+    transform:translateY(-120%);transition:transform .34s var(--saida);
+  }
+  .nav[data-aberto]{transform:none}
+  .nav a{padding-block:15px;border-bottom:1px solid var(--linha);font-size:.8rem}
+  .nav a::after{display:none}
+  .traco{grid-template-columns:1fr;gap:6px}
+  .passo{grid-template-columns:1fr;gap:8px}
+  .passo__corpo,
+  .passo:nth-child(2) .passo__corpo,
+  .passo:nth-child(3) .passo__corpo{padding-left:0}
+}
+
+@media (max-width:520px){
+  .galeria{columns:1}
+  .capa__acoes{width:100%}
+  .capa__acoes .btn{flex:1 1 100%;justify-content:space-between}
+  .lupa__legenda{display:none}
+}
+
+/* ------------------------------------------------- movimento reduzido */
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .sobe>*{animation:none}
+  .capa__selo .selo__espiral{stroke-dashoffset:0}
+  .js .revela{opacity:1;transform:none}
+}

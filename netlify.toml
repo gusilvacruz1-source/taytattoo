@@ -1,0 +1,18 @@
+# O site é HTML, CSS e JS puros: não há nada para compilar.
+# A raiz do repositório já é a raiz do site.
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# As fontes não mudam de nome: podem ficar guardadas por um ano.
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
