@@ -585,6 +585,10 @@
          mantém enquanto anima o deslocamento. */
       img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
       if (f.opacidade != null) img.style.opacity = String(f.opacidade);
+      /* Arte que veio com fundo claro precisa ser invertida antes do
+         "screen": sem isso o fundo branco vira um retângulo estourado.
+         Invertida, o branco vira preto (some) e o traço escuro acende. */
+      if (f.inverter) img.style.filter = 'invert(1)';
 
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { img.remove(); });

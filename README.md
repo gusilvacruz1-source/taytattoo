@@ -151,17 +151,26 @@ editar nada:
 
 | Arquivo | Onde cola | O que é |
 |---|---|---|
-| `filigrana.jpg` | trabalhos, borda direita | os arabescos com as estrelinhas |
+| `filigrana.jpg` | trabalhos, direita | os arabescos com as estrelinhas |
 | `brilho.jpg` | trabalhos, embaixo à esquerda | o estouro de brilho |
 | `lirio.jpg` | traço, embaixo à esquerda | o lírio de traço fino |
-| `arabesco.jpg` | traço, à direita | o arabesco pontilhado |
-| `tulipas.jpg` | disponíveis, à direita | as tulipas gravadas |
-| `linhas.jpg` | agendar, à esquerda | a forma orgânica de linhas |
-| `pontilhada.jpg` | contato, à direita | a figura pontilhada |
+| `arabesco.jpg` | traço, direita | o arabesco pontilhado |
+| `tulipas.jpg` | disponíveis, direita | as tulipas gravadas |
+| `flor-vermelha.jpg` | disponíveis, esquerda | a flor vermelha, a única cor da página fora o botão |
+| `linhas.jpg` | agendar, esquerda | a forma orgânica de linhas |
+| `mao.jpg` | agendar, direita | a mão do chifrinho |
+| `pontilhada.jpg` | contato, direita | a figura pontilhada |
+| `olho-grande.jpg` | contato, esquerda | o olho, com `inverter: true` |
 
-Sobrou `olhos.jpg`, que está no repositório mas fora do ar: é a arte mais
-pesada das oito, e a cliente pediu "sem pesar a mão". A linha dela está
-comentada em `js/figurinhas.js`, pronta para entrar.
+Arte que veio com **fundo claro** precisa de `inverter: true` na linha
+dela. Sem isso o fundo branco vira um retângulo estourado; invertida, o
+branco vira preto e some, e o traço escuro acende.
+
+Três ficaram fora do ar, com a linha comentada em `js/figurinhas.js`:
+`olhos.jpg` e `flor-lateral.jpg`, porque a página já está no teto de duas
+por seção, e `olho-meiotom.jpg`, que veio com o quadriculado de
+transparência assado dentro do JPG (mesmo invertido, o xadrez aparece
+como textura; para usar de verdade, recorte o fundo e salve em PNG).
 
 Enquanto um arquivo não existe, nada acontece: o site remove a figurinha
 em silêncio, sem deixar buraco na seção. Para trocar a posição de
