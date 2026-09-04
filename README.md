@@ -79,6 +79,23 @@ ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fun
 ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
 ```
 
+## Ver onde as fotos vão entrar (modo prévia)
+
+Abra o site com `?previa` no fim do endereço:
+
+```
+http://localhost:8080/?previa
+```
+
+Aparecem os quadrados tracejados no lugar de cada foto, numerados, com
+proporções desencontradas de propósito, porque foto de tatuagem nunca vem
+toda do mesmo tamanho. Serve para ver o desenho da página antes de as
+fotos chegarem.
+
+**Sem o `?previa` os quadrados não aparecem.** É de propósito: caixa
+escrita "foto aqui" na frente de quem quer ver tatuagem é pior que a
+seção mandando para o Instagram, que pelo menos tem trabalho de verdade.
+
 ## Colar uma figurinha
 
 Os adesivos ficam no fundo das seções, atrás do texto, e andam devagar
@@ -104,6 +121,24 @@ const FIGURINHAS = [
 | `giro` | inclinação em graus. Adesivo colado à mão nunca fica reto |
 | `fundura` | o quanto anda no scroll, de 2 (quase parada) a 14 (solta) |
 | `opacidade` | opcional, de 0 a 1 |
+
+### As cinco que já estão posicionadas
+
+O código já espera cinco figurinhas, cada uma com lugar, giro e fundura
+definidos. **Suba o PNG com o nome exato** e ela aparece sozinha, sem
+editar nada:
+
+| Arquivo | Onde cola | O que é |
+|---|---|---|
+| `filigrana.png` | trabalhos, borda direita | os arabescos com as estrelinhas |
+| `lirio.png` | traço, embaixo à esquerda | o lírio de traço fino |
+| `tulipas.png` | disponíveis, à direita | as tulipas gravadas |
+| `linhas.png` | agendar, à esquerda | a forma orgânica de linhas |
+| `pontilhada.png` | contato, à direita | a figura pontilhada |
+
+Enquanto o arquivo não existe, nada acontece: o site remove a figurinha
+em silêncio, sem deixar buraco na seção. Para trocar a posição de
+qualquer uma, é só mexer nos números em `js/figurinhas.js`.
 
 **Duas por seção, no máximo.** Passou disso a página deixa de ser sobre o
 traço da Tay. E prefira as bordas: o meio é do texto. O conteúdo sempre

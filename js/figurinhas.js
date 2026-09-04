@@ -27,8 +27,23 @@
    ===================================================================== */
 
 const FIGURINHAS = [
-  // { arquivo: 'olho.png',    secao: 'trabalhos',   largura: 132, x: '3%',  y: '14%',  giro: -8,  fundura: 7 },
-  // { arquivo: 'cobra.png',   secao: 'traco',       largura: 190, x: '82%', y: '58%',  giro: 12,  fundura: 5 },
-  // { arquivo: 'lua.png',     secao: 'disponiveis', largura: 118, x: '6%',  y: '70%',  giro: -14, fundura: 9, opacidade: .8 },
-  // { arquivo: 'rabisco.png', secao: 'agendar',     largura: 210, x: '76%', y: '10%',  giro: 6,   fundura: 4 },
+  /* As cinco abaixo já estão posicionadas e esperando o arquivo. Suba o
+     PNG em img/figurinhas/ com o nome exato da coluna "arquivo" e ela
+     aparece sozinha. Enquanto o arquivo não existe, nada acontece: o
+     site remove a figurinha em silêncio, sem deixar buraco na seção. */
+
+  /* A filigrana com as estrelinhas, na borda direita da galeria. */
+  { arquivo: 'filigrana.png',  secao: 'trabalhos',   largura: 168, x: '86%', y: '16%', giro: 7,   fundura: 8, opacidade: .55 },
+
+  /* O lírio, embaixo à esquerda, onde a lista de traços deixa espaço. */
+  { arquivo: 'lirio.png',      secao: 'traco',       largura: 150, x: '2%',  y: '62%', giro: -9,  fundura: 6, opacidade: .5 },
+
+  /* As tulipas gravadas, à direita dos desenhos disponíveis. */
+  { arquivo: 'tulipas.png',    secao: 'disponiveis', largura: 196, x: '80%', y: '8%',  giro: 5,   fundura: 5, opacidade: .45 },
+
+  /* As linhas orgânicas, à esquerda dos três passos. */
+  { arquivo: 'linhas.png',     secao: 'agendar',     largura: 176, x: '3%',  y: '22%', giro: -6,  fundura: 9, opacidade: .5 },
+
+  /* A figura pontilhada, grande, fechando a página no contato. */
+  { arquivo: 'pontilhada.png', secao: 'contato',     largura: 230, x: '78%', y: '48%', giro: 10,  fundura: 7, opacidade: .4 },
 ];

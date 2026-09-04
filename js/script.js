@@ -192,6 +192,54 @@
   var pecas = montarGaleria(listaTrabalhos);
   montarFlashes(listaDisponiveis);
 
+  /* ------------------------------------------------- modo prévia (?previa) */
+
+  /* Os quadrados que mostram onde cada foto vai entrar. Ficam atrás de
+     ?previa no endereço, e não no ar por padrão: caixa escrita "foto
+     aqui" na frente de quem quer ver tatuagem é pior que a seção
+     mandando para o Instagram, que pelo menos tem trabalho de verdade. */
+  function abrirVaga(i, proporcao) {
+    var vaga = document.createElement('div');
+    vaga.className = 'vaga';
+    if (proporcao) vaga.style.aspectRatio = proporcao;
+
+    var n = document.createElement('span');
+    n.className = 'vaga__n';
+    n.textContent = i < 9 ? '0' + (i + 1) : String(i + 1);
+
+    var t = document.createElement('span');
+    t.className = 'vaga__t';
+    t.textContent = 'foto aqui';
+
+    vaga.appendChild(n);
+    vaga.appendChild(t);
+    return vaga;
+  }
+
+  function mostrarVagas() {
+    /* Proporções desencontradas de propósito: foto de tatuagem nunca vem
+       toda do mesmo tamanho, e a grade precisa mostrar isso. */
+    var formatos = ['4/5', '1/1', '3/4', '4/5', '2/3', '1/1', '3/4', '4/5'];
+
+    var galeria = document.getElementById('galeria');
+    var vazioG = document.getElementById('galeriaVazia');
+    if (galeria && !pecas.length) {
+      if (vazioG) vazioG.hidden = true;
+      galeria.hidden = false;
+      for (var i = 0; i < 8; i++) galeria.appendChild(abrirVaga(i, formatos[i]));
+    }
+
+    var trilho = document.getElementById('flashes');
+    var vazioF = document.getElementById('flashesVazio');
+    if (trilho && !trilho.children.length) {
+      if (vazioF) vazioF.hidden = true;
+      trilho.hidden = false;
+      for (var j = 0; j < 5; j++) trilho.appendChild(abrirVaga(j));
+    }
+  }
+
+  if (location.search.indexOf('previa') > -1) mostrarVagas();
+
   /* ------------------------------------------------------------- lupa */
 
   var lupa = document.getElementById('lupa');

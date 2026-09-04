@@ -327,6 +327,33 @@ body::after{
   background:rgba(11,11,12,.72);border:1px solid var(--linha-viva);color:var(--osso);
 }
 
+/* Vagas: os quadrados da prévia, mostrando onde cada foto vai entrar.
+   Só aparecem com ?previa no endereço. Tracejado de propósito: é um
+   lugar reservado, não uma peça. */
+.vaga{
+  break-inside:avoid;
+  margin-bottom:14px;
+  border:1px dashed var(--linha-viva);
+  background:var(--carvao);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:8px;
+  padding:18px;
+  text-align:center;
+}
+.vaga__n{
+  font-family:var(--display);
+  font-size:1.9rem;font-weight:300;line-height:1;
+  color:var(--cinza-numeral);
+  font-variant-numeric:tabular-nums;
+}
+.vaga__t{
+  font-size:.63rem;font-weight:600;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--osso-suave);
+}
+.trilho .vaga{margin-bottom:0;aspect-ratio:3/4}
+
 /* Vazio dos trabalhos: painel largo emoldurado, ocupando a área da grade */
 .painel{
   border:1px solid var(--linha);background:var(--carvao);
