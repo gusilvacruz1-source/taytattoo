@@ -53,15 +53,51 @@
   }
 
   /* --------------------------------------------------------- retrato */
-  /* O arquivo manda: existindo img/retrato.jpg, ele aparece e o selo sai.
-     Faltando, nada acontece e o selo continua ocupando a moldura. */
+
+  /* A moldura da capa tem três degraus, e o arquivo é quem manda: o
+     vídeo dela tatuando ganha da foto parada, que ganha do selo. Nada
+     precisa ser editado aqui: cada um aparece se o arquivo existir, e
+     some sem barulho se não existir. */
+  var retratoVideo = document.getElementById('retratoVideo');
   var retrato = document.getElementById('retrato');
+
+  function assumirMoldura(el) {
+    el.hidden = false;
+    var selo = document.querySelector('.capa__selo');
+    if (selo) selo.remove();
+  }
+
+  function assumirVideo() {
+    assumirMoldura(retratoVideo);
+    if (retrato) retrato.remove();       /* o vídeo já traz o poster */
+    if (!pouca) retratoVideo.play().catch(function () {});
+  }
+
+  function assumirFoto() {
+    if (retratoVideo && !retratoVideo.hidden) return;   /* o vídeo já assumiu */
+    assumirMoldura(retrato);
+  }
+
+  if (retratoVideo) {
+    retratoVideo.addEventListener('loadeddata', assumirVideo, { once: true });
+
+    /* Sem o mp4 o elemento sai de cena e a foto assume. Se ele ficasse,
+       o poster dele mostraria a foto parada e a foto real entraria por
+       baixo, duplicada. */
+    retratoVideo.addEventListener('error', function () { retratoVideo.remove(); });
+
+    /* Estes dois "se já estiver pronto" não são zelo excessivo: o vídeo
+       e a foto estão escritos no HTML, então o navegador começa a
+       baixá-los antes deste script existir. Quando o arquivo vem do
+       cache, ele termina de carregar ANTES de a gente escutar, o evento
+       nunca chega e a moldura fica no selo para sempre. Foi o que
+       aconteceu no primeiro teste com a foto no lugar. */
+    if (retratoVideo.readyState >= 2) assumirVideo();
+  }
+
   if (retrato) {
-    retrato.addEventListener('load', function () {
-      retrato.hidden = false;
-      var selo = document.querySelector('.capa__selo');
-      if (selo) selo.remove();
-    });
+    retrato.addEventListener('load', assumirFoto);
+    if (retrato.complete && retrato.naturalWidth > 0) assumirFoto();
   }
 
   /* -------------------------------------------------------- galerias */

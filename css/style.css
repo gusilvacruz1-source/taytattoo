@@ -260,7 +260,8 @@ body::after{
   display:grid;place-items:center;
   overflow:hidden;
 }
-.capa__moldura img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
+.capa__moldura img,
+.capa__moldura video{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.06)}
 .capa__selo{width:76%;color:var(--osso);opacity:.24}
 .capa__selo .selo__anel{animation:gira 120s linear infinite}
 .capa__selo .selo__espiral{stroke-dasharray:1400;stroke-dashoffset:1400;animation:desenha 3.2s var(--saida) .3s forwards}

@@ -45,8 +45,11 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
    nossa. Vale ela dizer como divide o próprio trabalho.
 1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
    seções hoje são estado vazio apontando para o Instagram.
-2. **Retrato dela** para a capa (`img/retrato.jpg`). Sem ele, a moldura
-   mostra o selo.
+2. **A moldura da capa**, que é o quadro no meio do nome. Aceita três
+   coisas, e a primeira que existir manda: um **vídeo dela tatuando**
+   (`img/retrato.mp4`, mudo e em loop), o **retrato parado**
+   (`img/retrato.jpg`) ou, sem nenhum dos dois, o selo. A cliente pediu
+   o vídeo tatuando; ele ainda não chegou.
 3. **Vídeo de fundo da capa** (`img/hero-fundo.mp4`) e um quadro dele como
    poster (`img/hero-fundo.jpg`). Sem os dois, a capa fica no breu com o
    véu por cima, que continua legível.

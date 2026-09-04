@@ -88,10 +88,14 @@ aba nova, acrescente em `CATEGORIAS` e use o mesmo id nas peças.
 
 São três arquivos, todos opcionais. O que faltar, o site contorna sozinho.
 
+A moldura do meio do nome funciona em **três degraus**. O primeiro que
+existir manda, e nada precisa ser editado no código:
+
 | Arquivo | O que é | Se faltar |
 |---|---|---|
-| `img/retrato.jpg` | o retrato dela, 900x1125 ou maior | fica o selo girando |
-| `img/hero-fundo.mp4` | o vídeo que roda atrás, H.264 | fica só o breu |
+| `img/retrato.mp4` | **um vídeo dela tatuando**, mudo e em loop | cai para a foto |
+| `img/retrato.jpg` | o retrato parado (e a capa do vídeo) | cai para o selo |
+| `img/hero-fundo.mp4` | o vídeo que roda atrás da seção inteira, H.264 | fica só o breu |
 | `img/hero-fundo.jpg` | um quadro do vídeo, para aparecer antes de ele carregar | nada aparece antes |
 
 O vídeo é mudo, roda em loop e fica em preto e branco, igual às fotos. Ele
@@ -102,9 +106,19 @@ Vídeo de celular costuma vir em `.mov` e pesado. Converta antes de subir,
 mirando menos de 1 MB:
 
 ```
+# o vídeo de fundo da seção
 ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fundo.mp4
 ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
+
+# o vídeo da moldura, em pé (a moldura é 4:5)
+ffmpeg -i tatuando.mov -vcodec libx264 -crf 30 -an -vf "scale=900:-2,crop=900:1125" img/retrato.mp4
+ffmpeg -i img/retrato.mp4 -vframes 1 -q:v 3 img/retrato.jpg
 ```
+
+O vídeo da moldura fica **mudo e em loop**, e não toca para quem pediu
+menos movimento no sistema: nesse caso aparece o `retrato.jpg` parado.
+Mire em menos de 2 MB: é o elemento central da capa e carrega antes de
+tudo.
 
 ## Os quadrados de "foto aqui"
 
