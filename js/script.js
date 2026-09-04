@@ -318,12 +318,15 @@
   var pecas = montarGaleria(listaTrabalhos);
   montarFlashes(listaDisponiveis);
 
-  /* ------------------------------------------------- modo prévia (?previa) */
+  /* --------------------------------------------------------- as vagas */
 
-  /* Os quadrados que mostram onde cada foto vai entrar. Ficam atrás de
-     ?previa no endereço, e não no ar por padrão: caixa escrita "foto
-     aqui" na frente de quem quer ver tatuagem é pior que a seção
-     mandando para o Instagram, que pelo menos tem trabalho de verdade. */
+  /* Os quadrados que mostram onde cada foto vai entrar. Aparecem enquanto
+     não houver peça publicada, e somem sozinhos no instante em que a
+     primeira entrar em js/trabalhos.js: quem decide é a lista, não um
+     sinalizador no endereço.
+
+     O painel que manda para o Instagram continua embaixo deles, porque
+     hoje é a única coisa da página que leva a trabalho de verdade. */
   function abrirVaga(i, proporcao) {
     var vaga = document.createElement('div');
     vaga.className = 'vaga';
@@ -348,23 +351,19 @@
     var formatos = ['4/5', '1/1', '3/4', '4/5', '2/3', '1/1', '3/4', '4/5'];
 
     var galeria = document.getElementById('galeria');
-    var vazioG = document.getElementById('galeriaVazia');
     if (galeria && !pecas.length) {
-      if (vazioG) vazioG.hidden = true;
       galeria.hidden = false;
       for (var i = 0; i < 8; i++) galeria.appendChild(abrirVaga(i, formatos[i]));
     }
 
     var trilho = document.getElementById('flashes');
-    var vazioF = document.getElementById('flashesVazio');
     if (trilho && !trilho.children.length) {
-      if (vazioF) vazioF.hidden = true;
       trilho.hidden = false;
       for (var j = 0; j < 5; j++) trilho.appendChild(abrirVaga(j));
     }
   }
 
-  if (location.search.indexOf('previa') > -1) mostrarVagas();
+  mostrarVagas();
 
   /* ------------------------------------------------------------- lupa */
 

@@ -106,22 +106,16 @@ ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fun
 ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
 ```
 
-## Ver onde as fotos vão entrar (modo prévia)
+## Os quadrados de "foto aqui"
 
-Abra o site com `?previa` no fim do endereço:
+Enquanto não houver nenhuma peça publicada, a galeria mostra quadrados
+tracejados e numerados no lugar de cada foto, com proporções
+desencontradas de propósito, porque foto de tatuagem nunca vem toda do
+mesmo tamanho.
 
-```
-http://localhost:8080/?previa
-```
-
-Aparecem os quadrados tracejados no lugar de cada foto, numerados, com
-proporções desencontradas de propósito, porque foto de tatuagem nunca vem
-toda do mesmo tamanho. Serve para ver o desenho da página antes de as
-fotos chegarem.
-
-**Sem o `?previa` os quadrados não aparecem.** É de propósito: caixa
-escrita "foto aqui" na frente de quem quer ver tatuagem é pior que a
-seção mandando para o Instagram, que pelo menos tem trabalho de verdade.
+**Eles somem sozinhos** no instante em que a primeira peça entrar em
+`js/trabalhos.js`. Quem decide é a lista: não há botão nem endereço
+especial para ligar ou desligar.
 
 ## Colar uma figurinha
 
