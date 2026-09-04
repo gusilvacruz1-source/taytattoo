@@ -110,12 +110,36 @@ traço da Tay. E prefira as bordas: o meio é do texto. O conteúdo sempre
 fica por cima, mas uma figurinha atrás de um título deixa o título pior
 de ler mesmo estando embaixo.
 
+## Publicar no GitHub Pages
+
+O site é estático e mora na raiz do repositório, então o Pages serve ele
+direto, sem workflow e sem build.
+
+1. No repositório, abra **Settings** e clique em **Pages**, na coluna da
+   esquerda.
+2. Em **Source**, escolha **Deploy from a branch**.
+3. Em **Branch**, escolha **main** e a pasta **/ (root)**. **Save**.
+
+Um ou dois minutos depois o site fica em:
+
+```
+https://gusilvacruz1-source.github.io/taytattoo/
+```
+
+A partir daí, todo push na `main` republica sozinho.
+
+Todos os caminhos do site são relativos, então ele funciona igual servido
+nessa subpasta ou na raiz de um domínio próprio.
+
 ## Publicar no Netlify
 
 1. Entre em **netlify.com** e faça login **com o GitHub**.
 2. **Add new site → Import an existing project → GitHub →** este repositório.
 3. Não mexa em "Build command" nem em "Publish directory": o `netlify.toml`
    já diz que o site é a raiz e que não há nada para compilar.
+
+Dá para usar os dois ao mesmo tempo. O Netlify é o caminho se ela quiser
+um domínio próprio depois.
 4. **Deploy**.
 
 ## Pendências
