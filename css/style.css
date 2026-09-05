@@ -838,8 +838,13 @@ html.lenis,html.lenis body{height:auto}
 .teia__parte img{display:block;width:100%;height:auto}
 /* O espelho é do CSS: a arte é uma só, e o navegador não a baixa duas
    vezes. Espelhar as cópias alternadas evita que a emenda entre uma e
-   outra repita o mesmo lado e vire padrão de papel de parede. */
-.teia__parte--espelho{transform:scaleX(-1)}
+   outra repita o mesmo lado e vire padrão de papel de parede.
+
+   Junto com o espelho, a cópia par desce um pouco. Só espelhar ainda
+   deixava os centros das teias todos na mesma linha, e linha de centros
+   igualmente espaçados é o que o olho lê como padrão. Descendo uma sim,
+   outra não, a fileira vira teia irregular — que é como teia é. */
+.teia__parte--espelho{transform:scaleX(-1) translateY(7%)}
 /* Repouso é o estado VISÍVEL: sem GSAP de pé a faixa nasce no lugar. */
 .teia--fita{opacity:var(--presenca,.5)}
 
