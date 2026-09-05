@@ -222,6 +222,7 @@ Cada gesto tem uma razão. Nenhum existe só para a página se mexer:
 | Rolagem com inércia | a roda do mouse move em degraus, e o degrau é o que faz um site parecer duro | Lenis 1.1.18, `duration: 1.1`, saída exponencial |
 | Rabisco que se desenha | a marca de caneta chega escrevendo, como caneta chega | `stroke-dashoffset` 100→0, 1.1s, atraso de .25s |
 | Figurinha que assenta | ela chega com a seção, em vez de já estar lá | sobe 26px, cresce de 93% e endireita a inclinação; 1,15s, `--saida` |
+| Figurinha que balança | a página não fica parada enquanto ninguém rola | 7px e 1 grau, 8,5 a 16s, ease-in-out, vai e volta sem parar |
 
 Os quatro últimos entraram juntos. Três deles são de rolagem contínua
 (`scrub`), que é o oposto de animação que dispara: a pessoa é quem move, e
@@ -364,11 +365,27 @@ tamanho e **assenta** na inclinação — entra torta para o lado contrário ao
 dela e endireita, que é o gesto de um adesivo sendo pressionado. É a mesma
 ideia do "adesivo colado à mão nunca fica reto", só que em movimento.
 
-Ela vai em **duas camadas**, e a divisão tem uma razão de engenharia:
-parallax e entrada são os dois `transform`, e um elemento só não carrega os
-dois — o GSAP reescreve o transform a cada quadro da rolagem e apagaria a
-entrada no meio dela. Então o **berço** fica com o lugar na seção, a
-inclinação e o parallax; e a **arte**, dentro dele, fica com a entrada.
+Ela vai em **três camadas**, e a divisão tem uma razão de engenharia: são
+três movimentos e todos são `transform`, e um elemento só não carrega os
+três — o GSAP reescreve o transform a cada quadro da rolagem e apagaria os
+outros dois no meio do caminho.
+
+| Camada | O que carrega | Quem move |
+|---|---|---|
+| `.fig` (berço) | o lugar na seção, a inclinação, o parallax | GSAP, na rolagem |
+| `.fig__boia` | o balanço lento, que nunca para | keyframes do CSS |
+| `.figurinha` (arte) | a entrada, que acontece uma vez | transição do CSS |
+
+**O balanço** é de sete pixels e um grau, em ciclos de 8,5 a 16 segundos —
+cada figurinha no seu tempo, e metade delas no sentido contrário. Se todas
+tivessem a mesma duração elas subiriam e desceriam juntas, e um punhado de
+coisas balançando em uníssono não parece vivo: parece máquina. Os números
+vêm da ordem na lista, então são sempre os mesmos — o site não muda de
+humor a cada visita.
+
+É pequeno de propósito. Figurinha é fundo, e fundo que se mexe demais rouba
+a leitura do texto que está por cima. O que se quer é que a página não
+pareça parada, não que ela chame atenção para o canto.
 
 **A opacidade não entra nisto, e é de propósito.** As figurinhas ficam
 posicionadas em absoluto dentro da seção, e o gatilho de rolagem não é

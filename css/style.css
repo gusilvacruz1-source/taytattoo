@@ -792,10 +792,36 @@ body::after{
   will-change:transform;
 }
 
-/* A ARTE, dentro do berço. É ela que anima na entrada. Berço e arte são
-   dois elementos porque parallax e entrada são os dois transform, e um só
-   não carrega os dois: o GSAP reescreve o transform a cada quadro da
-   rolagem e apagaria a entrada no meio dela. */
+/* A BOIA: o balanço que nunca para. Fica entre o berço e a arte porque
+   cada camada carrega um transform só — o berço tem o parallax, a boia
+   tem o balanço, a arte tem a entrada. Fossem menos camadas, os três
+   disputariam o mesmo transform e se apagariam.
+
+   O balanço é pequeno de propósito: sete pixels e um grau. Figurinha é
+   fundo, e fundo que se mexe demais rouba a leitura do texto que está por
+   cima. O que se quer é que a página não pareça parada, não que ela
+   chame atenção para o canto.
+
+   Vai e volta em ease-in-out, sem começo nem fim visíveis: coisa
+   pendurada não arranca nem freia, ela só oscila. */
+.fig__boia{display:block}
+
+.motion .fig__boia{
+  animation:boia var(--boia-dur,11s) var(--boia-atraso,0s) ease-in-out infinite alternate;
+}
+/* Metade delas balança ao contrário, para as vizinhas não subirem juntas. */
+.motion .fig__boia--avessa{animation-name:boia-avessa}
+
+@keyframes boia{
+  from{transform:translateY(-5px) rotate(-.7deg)}
+  to  {transform:translateY(7px)  rotate(1deg)}
+}
+@keyframes boia-avessa{
+  from{transform:translateY(6px)  rotate(.9deg)}
+  to  {transform:translateY(-6px) rotate(-.8deg)}
+}
+
+/* A ARTE, dentro da boia. É ela que anima na entrada. */
 .figurinha{
   display:block;
   width:100%;
@@ -1052,4 +1078,5 @@ html.lenis,html.lenis body{height:auto}
   .motion .rabisco path{stroke-dasharray:none;stroke-dashoffset:0}
   .motion .teia--fita{opacity:var(--presenca,.5)}
   .motion .figurinha{transform:none}
+  .motion .fig__boia{animation:none}
 }

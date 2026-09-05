@@ -683,7 +683,7 @@
   function colarFigurinhas(lista) {
     var coladas = [];
 
-    (lista || []).forEach(function (f) {
+    (lista || []).forEach(function (f, ordem) {
       /* Toda figurinha precisa de seção, e de uma das duas fontes de
          desenho: um arquivo de imagem ou uma teia, que é desenhada. */
       if (!f || !f.secao || (!f.arquivo && !f.teia)) return;
@@ -753,7 +753,31 @@
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { berco.remove(); });
 
-      berco.appendChild(img);
+      /* A BOIA, entre o berço e a arte. É a terceira camada, e cada uma
+         das três carrega um transform só:
+
+           berço  o lugar na seção, a inclinação e o parallax (GSAP)
+           boia   o balanço lento, que nunca para (keyframes do CSS)
+           arte   a entrada, que acontece uma vez (transição do CSS)
+
+         Fossem duas camadas, o balanço e a entrada disputariam o mesmo
+         transform e um apagaria o outro no meio do caminho. */
+      var boia = document.createElement('span');
+      boia.className = 'fig__boia';
+      /* Cada figurinha balança no seu tempo. Se todas tivessem a mesma
+         duração elas subiriam e desceriam juntas, e um punhado de coisas
+         balançando em uníssono não parece vivo: parece máquina. Os
+         números vêm da ordem na lista, então são sempre os mesmos — o
+         site não muda de humor a cada visita. */
+      boia.style.setProperty('--boia-dur', (8.5 + (ordem % 5) * 1.9).toFixed(1) + 's');
+      /* Atraso negativo: em vez de esperarem para começar, elas já entram
+         no meio do próprio ciclo, cada uma num ponto diferente. */
+      boia.style.setProperty('--boia-atraso', '-' + ((ordem * 2.7) % 9).toFixed(1) + 's');
+      /* O sentido alterna, para as vizinhas não subirem sempre juntas. */
+      if (ordem % 2) boia.classList.add('fig__boia--avessa');
+
+      boia.appendChild(img);
+      berco.appendChild(boia);
       secao.appendChild(berco);
       coladas.push({ el: berco, secao: secao, fundura: f.fundura || 6 });
     });
