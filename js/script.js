@@ -701,45 +701,61 @@
         return;
       }
 
-      var img = document.createElement('img');
-      img.className = 'figurinha';
-      img.src = 'img/figurinhas/' + f.arquivo;
-      img.alt = '';
-      img.setAttribute('aria-hidden', 'true');
-      img.loading = 'lazy';
-      img.decoding = 'async';
+      /* A figurinha vai em duas camadas, e a divisão tem uma razão: o
+         parallax e a entrada são os dois transform, e um só elemento não
+         carrega os dois — o GSAP reescreve o transform a cada quadro da
+         rolagem e apagaria a entrada no meio dela.
+
+         Então o BERÇO fica com o lugar na seção, a inclinação de adesivo
+         colado à mão e o parallax; e a ARTE, dentro dele, fica com a
+         entrada. Cada transform no seu elemento, e os dois convivem. */
+      var berco = document.createElement('span');
+      berco.className = 'fig';
+      berco.setAttribute('aria-hidden', 'true');
+
       /* Posição e tamanho vão em variáveis, e não direto no style: assim o
          CSS pode trocar as três de uma vez no celular, com media query, e
          a troca acontece ao girar o aparelho sem recarregar a página. */
-      img.style.setProperty('--fx', f.x || '4%');
-      img.style.setProperty('--fy', f.y || '20%');
-      img.style.setProperty('--fw', (f.largura || 140) + 'px');
+      berco.style.setProperty('--fx', f.x || '4%');
+      berco.style.setProperty('--fy', f.y || '20%');
+      berco.style.setProperty('--fw', (f.largura || 140) + 'px');
       /* No estreito a seção vira uma coluna só e o texto ocupa a largura
          inteira. O único vão que sobra é a faixa embaixo do último bloco,
          e é para lá que estas medidas mandam a figurinha. */
       if (f.celular) {
-        if (f.celular.x) img.style.setProperty('--fx-cel', f.celular.x);
-        if (f.celular.y) img.style.setProperty('--fy-cel', f.celular.y);
-        if (f.celular.largura) img.style.setProperty('--fw-cel', f.celular.largura + 'px');
+        if (f.celular.x) berco.style.setProperty('--fx-cel', f.celular.x);
+        if (f.celular.y) berco.style.setProperty('--fy-cel', f.celular.y);
+        if (f.celular.largura) berco.style.setProperty('--fw-cel', f.celular.largura + 'px');
       }
       /* Adesivo colado à mão nunca fica reto. O GSAP lê esta rotação e a
          mantém enquanto anima o deslocamento. */
-      img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
+      var giro = f.giro || 0;
+      berco.style.transform = 'rotate(' + giro + 'deg)';
       /* A presença mora numa variável, e não no style.opacity, porque a
-         figurinha chega com uma transição de opacidade: escrever direto no
-         elemento travaria o valor final e a entrada não teria para onde
-         ir. É o mesmo mecanismo da faixa de teia. */
-      img.style.setProperty('--presenca', f.opacidade != null ? String(f.opacidade) : '1');
+         figurinha chega com uma transição: escrever direto no elemento
+         travaria o valor final e a entrada não teria para onde ir. */
+      berco.style.setProperty('--presenca', f.opacidade != null ? String(f.opacidade) : '1');
+      /* De quanto ela endireita ao chegar. O sinal é o contrário da
+         inclinação dela: a figurinha entra torta para o outro lado e
+         assenta na inclinação final, como adesivo que é pressionado. */
+      berco.style.setProperty('--assenta', (giro > 0 ? -1 : 1) * 5 + 'deg');
       /* Arte densa some no celular, onde a coluna é estreita e o texto
          ocupa tudo. Quem decide é o CSS, não o JS: assim ela volta se a
          pessoa girar o aparelho, sem precisar recarregar. */
-      if (f.soLargo) img.classList.add('figurinha--so-largo');
+      if (f.soLargo) berco.classList.add('fig--so-largo');
 
+      var img = document.createElement('img');
+      img.className = 'figurinha';
+      img.src = 'img/figurinhas/' + f.arquivo;
+      img.alt = '';
+      img.loading = 'lazy';
+      img.decoding = 'async';
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
-      img.addEventListener('error', function () { img.remove(); });
+      img.addEventListener('error', function () { berco.remove(); });
 
-      secao.appendChild(img);
-      coladas.push({ el: img, secao: secao, fundura: f.fundura || 6 });
+      berco.appendChild(img);
+      secao.appendChild(berco);
+      coladas.push({ el: berco, secao: secao, fundura: f.fundura || 6 });
     });
 
     return coladas;
@@ -889,7 +905,7 @@
 
        Cada um vira alvo também, para a rede de segurança lá embaixo
        alcançá-los se o gatilho não disparar. */
-    Array.prototype.slice.call(document.querySelectorAll('.teia, .rabisco, .figurinha')).forEach(function (traco) {
+    Array.prototype.slice.call(document.querySelectorAll('.teia, .rabisco, .fig')).forEach(function (traco) {
       alvos.push(traco);
       ScrollTrigger.create({
         trigger: traco,

@@ -772,15 +772,12 @@ body::after{
 
 /* --------------------------------------------------------- figurinhas */
 
-.figurinha{
+.fig{
   position:absolute;
   z-index:0;
   left:var(--fx,4%);
   top:var(--fy,20%);
   width:var(--fw,140px);
-  /* Repouso é o estado VISÍVEL: sem GSAP de pé a figurinha nasce no lugar,
-     com a presença que a configuração pediu. */
-  opacity:var(--presenca,1);
   /* As artes sao WebP com transparencia de verdade, geradas a partir dos
      JPG originais (os .jpg continuam na pasta como fonte). Antes elas
      eram JPG de fundo preto compostas em "screen", e isso dependia de o
@@ -791,9 +788,21 @@ body::after{
      contraste nem de inversao para remendar fundo que nao era preto. */
   pointer-events:none;
   user-select:none;
-  height:auto;
   max-width:42vw;
   will-change:transform;
+}
+
+/* A ARTE, dentro do berço. É ela que anima na entrada. Berço e arte são
+   dois elementos porque parallax e entrada são os dois transform, e um só
+   não carrega os dois: o GSAP reescreve o transform a cada quadro da
+   rolagem e apagaria a entrada no meio dela. */
+.figurinha{
+  display:block;
+  width:100%;
+  height:auto;
+  /* Repouso é o estado VISÍVEL: sem GSAP de pé a arte nasce no lugar, com
+     a presença que a configuração pediu. */
+  opacity:var(--presenca,1);
 }
 
 /* -------------------------------------------------------- rolagem suave
@@ -850,8 +859,12 @@ html.lenis,html.lenis body{height:auto}
 
 /* A faixa chega junto com a seção, e não se desenha: desenho de traço se
    desenha, foto de teia aparece. Sob .motion, e só sob ela. */
+/* Ela ACENDE, e não nasce do nada: começa em 45% da presença e sobe até a
+   cheia. Mesmo motivo da figurinha — uma faixa que começasse em zero
+   sumiria de vez se o gatilho falhasse. Assim o pior caso é uma teia mais
+   fraca, e não uma seção sem teia. */
 .motion .teia--fita{
-  opacity:0;
+  opacity:calc(var(--presenca,.34) * .45);
   transition:opacity 1.2s var(--saida);
 }
 .motion .teia--fita[data-vista]{opacity:var(--presenca,.5)}
@@ -915,16 +928,33 @@ html.lenis,html.lenis body{height:auto}
 }
 .motion .rabisco[data-vista] path{stroke-dashoffset:0}
 
-/* A figurinha chega junto com a seção, em vez de já estar lá quando a
-   pessoa desce. Só opacidade: ela já anda no parallax, e deslocamento por
-   cima de deslocamento faz as duas coisas brigarem pelo mesmo transform.
+/* A ENTRADA. A figurinha chega junto com a seção em vez de já estar lá
+   quando a pessoa desce.
+
+   Ela sobe um palmo, cresce de 93% ao tamanho e ASSENTA na inclinação:
+   entra torta para o lado contrário ao dela e endireita, que é o gesto de
+   um adesivo sendo pressionado. É a mesma ideia do "adesivo colado à mão
+   nunca fica reto", só que em movimento. Sai em ease-out, porque o que
+   chega tem de parecer que encostou, e não que foi desligado.
+
+   A OPACIDADE NÃO ENTRA NISTO, e é de propósito. Estas figurinhas ficam
+   posicionadas em absoluto dentro da seção, e o gatilho de rolagem não é
+   garantido para elas: medi, e com o movimento ligado várias não chegavam
+   a receber o data-vista. Se a entrada apagasse a arte, um gatilho que
+   falha deixaria a figurinha invisível para sempre — que é exatamente o
+   que este site não faz em lugar nenhum.
+
+   Animando só o transform, o pior caso é uma figurinha 26px mais abaixo,
+   7% menor e cinco graus mais torta. Num adesivo colado à mão isso não é
+   defeito: é outro jeito de estar colado.
 
    Sob .motion, e só sob ela. */
 .motion .figurinha{
-  opacity:0;
-  transition:opacity 1.1s var(--saida);
+  transform:translateY(26px) rotate(var(--assenta,4deg)) scale(.93);
+  transform-origin:50% 65%;
+  transition:transform 1.15s var(--saida);
 }
-.motion .figurinha[data-vista]{opacity:var(--presenca,1)}
+.motion .fig[data-vista] .figurinha{transform:none}
 
 /* Figurinha que só entra em tela larga.
 
@@ -948,11 +978,11 @@ html.lenis,html.lenis body{height:auto}
      não tinha no estreito. */
   .secao{padding-bottom:calc(clamp(84px,11vw,148px) + 96px)}
 
-  .figurinha--so-largo{display:none}
+  .fig--so-largo{display:none}
   /* Cada figurinha pode trazer o próprio lugar de celular. Quem não
      trouxer fica onde estava — o fallback de cada variável é a medida de
      tela larga. */
-  .figurinha{
+  .fig{
     left:var(--fx-cel,var(--fx,4%));
     top:var(--fy-cel,var(--fy,20%));
     width:var(--fw-cel,var(--fw,140px));
@@ -1021,5 +1051,5 @@ html.lenis,html.lenis body{height:auto}
   .motion .peca{clip-path:none}
   .motion .rabisco path{stroke-dasharray:none;stroke-dashoffset:0}
   .motion .teia--fita{opacity:var(--presenca,.5)}
-  .motion .figurinha{opacity:var(--presenca,1)}
+  .motion .figurinha{transform:none}
 }

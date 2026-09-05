@@ -221,7 +221,7 @@ Cada gesto tem uma razão. Nenhum existe só para a página se mexer:
 | Selo do topo gira com a rolagem | é o único indicador de posição da página | `rotation: 360`, `scrub: .6`, `start: 0` até `max` |
 | Rolagem com inércia | a roda do mouse move em degraus, e o degrau é o que faz um site parecer duro | Lenis 1.1.18, `duration: 1.1`, saída exponencial |
 | Rabisco que se desenha | a marca de caneta chega escrevendo, como caneta chega | `stroke-dashoffset` 100→0, 1.1s, atraso de .25s |
-| Figurinha que acende | ela chega com a seção, em vez de já estar lá | opacidade 0→presença, 1.1s; só opacidade, porque o parallax já usa o transform |
+| Figurinha que assenta | ela chega com a seção, em vez de já estar lá | sobe 26px, cresce de 93% e endireita a inclinação; 1,15s, `--saida` |
 
 Os quatro últimos entraram juntos. Três deles são de rolagem contínua
 (`scrub`), que é o oposto de animação que dispara: a pessoa é quem move, e
@@ -356,6 +356,34 @@ celular pede antes de subir.
 
 Ele é mudo, roda em `loop`, e quem manda tocar é o JS — nunca o `autoplay`
 do HTML. Quem pediu menos movimento fica com o poster parado.
+
+## A entrada das figurinhas
+
+A figurinha chega junto com a seção: sobe um palmo, cresce de 93% ao
+tamanho e **assenta** na inclinação — entra torta para o lado contrário ao
+dela e endireita, que é o gesto de um adesivo sendo pressionado. É a mesma
+ideia do "adesivo colado à mão nunca fica reto", só que em movimento.
+
+Ela vai em **duas camadas**, e a divisão tem uma razão de engenharia:
+parallax e entrada são os dois `transform`, e um elemento só não carrega os
+dois — o GSAP reescreve o transform a cada quadro da rolagem e apagaria a
+entrada no meio dela. Então o **berço** fica com o lugar na seção, a
+inclinação e o parallax; e a **arte**, dentro dele, fica com a entrada.
+
+**A opacidade não entra nisto, e é de propósito.** As figurinhas ficam
+posicionadas em absoluto dentro da seção, e o gatilho de rolagem não é
+garantido para elas: medindo com o movimento ligado, várias não chegavam a
+receber o `data-vista`. Se a entrada apagasse a arte, um gatilho que falha
+deixaria a figurinha invisível para sempre — que é exatamente o que este
+site não faz em lugar nenhum.
+
+Animando só o transform, o pior caso é uma figurinha 26px mais abaixo, 7%
+menor e cinco graus mais torta. Num adesivo colado à mão isso não é
+defeito: é outro jeito de estar colado.
+
+Pelo mesmo motivo a faixa de teia **acende** em vez de nascer do nada:
+começa em 45% da presença e sobe até a cheia. O pior caso é uma teia mais
+fraca, e não uma seção sem teia.
 
 ## A rolagem
 
