@@ -28,7 +28,7 @@ js/script.js        menu, galerias, lupa, cursor e a camada de movimento
 js/vendor/          GSAP, ScrollTrigger e Lenis, servidos pelo próprio site
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
-img/retrato.jpg     o retrato da capa (ainda não existe)
+img/retrato.jpg     o retrato da Tay, na moldura da capa
 img/hero-fundo.*    o vídeo de fundo da capa: .webm, .mp4 e o poster .jpg
 img/figurinhas/     os adesivos: .webp no ar, .jpg originais como fonte
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
@@ -94,7 +94,7 @@ existir manda, e nada precisa ser editado no código:
 | Arquivo | O que é | Se faltar |
 |---|---|---|
 | `img/retrato.mp4` | **um vídeo dela tatuando**, mudo e em loop | cai para a foto |
-| `img/retrato.jpg` | o retrato parado (e a capa do vídeo) | cai para o selo |
+| `img/retrato.jpg` | o retrato da Tay (e a capa do vídeo). **Está no ar** | cai para o selo |
 | `img/hero-fundo.webm` | o vídeo que roda atrás da capa inteira, VP9. **Está no ar** | cai para o .mp4 |
 | `img/hero-fundo.mp4` | o mesmo vídeo em H.264, para o Safari. **Está no ar** | fica só o breu |
 | `img/hero-fundo.jpg` | um quadro do vídeo, para aparecer antes de ele carregar | nada aparece antes |

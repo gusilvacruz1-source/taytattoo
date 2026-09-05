@@ -50,7 +50,7 @@ Retorno dela por escrito, em 05/09, olhando o site no celular:
 | "essa flor encima da descrição precisa mudar de lugar" | **feito** — o lírio subiu e sai de cena no celular |
 | "os desenhos brancos de fundo pode substituir por teia, crisântemos, punhais e adagas, corvos, velas" | parcial: saíram a mão e o olho, entrou teia; falta a arte dos outros |
 | "o vídeo de fundo está simplesmente incrível" | mantido como está |
-| "onde está a espiral vai ser uma foto minha / não quero nem uma espiral" | esperando a foto |
+| "onde está a espiral vai ser uma foto minha / não quero nem uma espiral" | **feito** — a foto dela está na moldura |
 
 **O que ela usa nas criações dela**, nas palavras dela: teia de aranha,
 crisântemos, punhais e adagas, corvos, velas. É esse o vocabulário que
@@ -64,11 +64,11 @@ próprio site; as outras quatro precisam de arte.
    nossa. Vale ela dizer como divide o próprio trabalho.
 1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
    seções hoje são estado vazio apontando para o Instagram.
-2. **A foto da Tay para a moldura da capa** (`img/retrato.jpg`). Hoje ali
-   está o selo em espiral, e ela foi clara: "não quero nem uma espiral,
-   então pode colocar sim uma foto minha". É a pendência mais visível do
-   site, porque a moldura fica no meio do nome. A moldura também aceita
-   vídeo (`img/retrato.mp4`), que entra na frente da foto se existir.
+2. **O vídeo dela tatuando** (`img/retrato.mp4`), se ela quiser. A foto
+   dela já está na moldura, no lugar do selo em espiral que ela não
+   queria. A moldura tem três degraus e o arquivo é quem manda: se um dia
+   entrar um `retrato.mp4`, ele passa na frente da foto sozinho, sem
+   precisar mexer em código.
 3. **Confirmar a peça do vídeo da capa.** O fundo da capa agora é um vídeo
    de uma tatuagem de asas nas costas, que o Gu mandou. Veio como gravação
    de tela de um reels, então duas coisas precisam de confirmação da Tay:
