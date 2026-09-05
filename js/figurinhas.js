@@ -88,11 +88,17 @@ const FIGURINHAS = [
   { arquivo: 'lirio.webp',         secao: 'traco',       largura: 210, x: '-6%', y: '6%',  giro: -9,  fundura: 6, opacidade: 1, soLargo: true },
   { arquivo: 'arabesco.webp',      secao: 'traco',       largura: 275, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: 1 },
 
-  /* Disponíveis: as tulipas à direita e a flor vermelha à esquerda. A
-     flor é a única cor da página fora o vermelho do botão, e por sorte é
-     o mesmo vermelho de tinta. */
-  { arquivo: 'tulipas.webp',       secao: 'disponiveis', largura: 330, x: '82%', y: '10%', giro: 5,   fundura: 5, opacidade: 1 },
-  { arquivo: 'flor-vermelha.webp', secao: 'disponiveis', largura: 200, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1 },
+  /* Disponíveis: o punhal à direita e a flor vermelha à esquerda.
+
+     O punhal é do vocabulário que a Tay listou — teia, crisântemo, punhal
+     e adaga, corvo, vela — e entrou no lugar das tulipas, que não eram.
+
+     A flor vermelha continua sendo a única cor da página fora o acento.
+     Ela era vermelha ao lado de um botão vermelho; agora o botão é verde,
+     e vermelho e verde são opostos na roda: em vez de sumir um no outro,
+     cada um segura o seu lado. Se algum dia ela incomodar, é uma linha. */
+  { arquivo: 'punhal.webp',        secao: 'disponiveis', largura: 200, x: '83%', y: '6%',  giro: 6,   fundura: 5, opacidade: 1 },
+  { arquivo: 'flor-vermelha.webp', secao: 'disponiveis', largura: 200, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1, soLargo: true },
 
   /* Agendar: teia no canto de cima, à direita.
 
@@ -102,10 +108,18 @@ const FIGURINHAS = [
      teia, que é a assinatura e é desenho, não foto de banco de imagem. */
   { teia: 'canto',                 secao: 'agendar',     largura: 260, x: '74%', y: '8%',  giro: 90,  fundura: 6, opacidade: 1 },
 
-  /* Contato: a pontilhada à direita e a teia no canto de baixo à esquerda.
-     Aqui estava o olho grande, que saiu pelo mesmo motivo da mão. */
+  /* Contato: a pontilhada à direita e a teia desenhada à esquerda.
+
+     Esta teia é arte, e não a que o site desenha sozinho. Vale a troca
+     porque ela é rasgada e irregular como teia de verdade é, e a
+     desenhada é geométrica — boa para atravessar uma seção inteira, seca
+     demais para ficar parada num canto.
+
+     Ela mora abaixo do texto, e não ao lado: colada mais acima caía em
+     cima do parágrafo, que é exatamente o que a Tay apontou no lírio. E
+     sai de cena no celular, onde a coluna é única e não existe vão. */
   { arquivo: 'pontilhada.webp',    secao: 'contato',     largura: 360, x: '80%', y: '38%', giro: 10,  fundura: 7, opacidade: 1 },
-  { teia: 'canto',                 secao: 'contato',     largura: 240, x: '-4%', y: '34%', giro: 0,   fundura: 5, opacidade: 1 },
+  { arquivo: 'teia-arte.webp',     secao: 'contato',     largura: 300, x: '-7%', y: '40%', giro: -6,  fundura: 5, opacidade: 1, soLargo: true },
 
   /* ------------------------------------------------------------------
      TRÊS SAÍRAM DE CENA POR PEDIDO DA TAY, e os arquivos continuam na
@@ -116,6 +130,7 @@ const FIGURINHAS = [
      O arame ela chamou de lindo, e saiu só porque a teia é a assinatura
      dela; se um dia quiser os dois, o arame volta em outra seção. */
   // { arquivo: 'arame.webp',        secao: 'trabalhos', largura: 230, x: '-4%', y: '34%', giro: -4, fundura: 7, opacidade: 1 },
+  // { arquivo: 'tulipas.webp',      secao: 'disponiveis', largura: 330, x: '82%', y: '10%', giro: 5, fundura: 5, opacidade: 1 },
   // { arquivo: 'mao.webp',          secao: 'agendar',   largura: 210, x: '87%', y: '48%', giro: 9,  fundura: 7, opacidade: 1 },
   // { arquivo: 'olho-grande.webp',  secao: 'contato',   largura: 225, x: '3%',  y: '52%', giro: -7, fundura: 6, opacidade: 1 },
 

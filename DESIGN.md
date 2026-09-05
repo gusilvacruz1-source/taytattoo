@@ -14,30 +14,28 @@ começo ao fim, por pedido da cliente. O raio é parecido, um pouco menor.
 
 ## Cor
 
-| Papel | Valor | Onde |
-|---|---|---|
-| Breu | `#0B0B0C` | fundo da página inteira |
-| Carvão | `#131315` | cartões, painéis, moldura da capa |
-| Carvão alto | `#1B1B1E` | estado hover de superfície |
-| Linha | `#2A2A2F` | fio de cabelo entre seções e cartões |
-| Linha viva | `#3C3C43` | borda de botão fantasma e pontilhado |
-| Osso | `#EDE7DD` | títulos e nome |
-| Osso texto | `#C9C2B7` | corpo |
-| Osso suave | `#A39C91` | etiquetas, meta, descrições secundárias |
-| Cinza numeral | `#6F6960` | os "01 02 03" dos passos |
-| Sangue | `#A32E24` | **único acento**: botão principal |
-| Sangue alto | `#BE3A2D` | hover do botão principal |
-| Brasa | `#D4685C` | o mesmo acento clareado: foco e sublinhado de link |
+Breu, osso e um acento. O acento é **verde escuro**, a pedido da Tay, e
+continua sendo um só: o campo do botão principal, o anel de foco e a
+seleção de texto. Em lugar nenhum mais.
 
-Estratégia: monocromático quente com **um acento só**. O vermelho ocupa
-menos de 2% da superfície e aparece em três lugares: o botão de agendar, o
-anel de foco e a seleção de texto. É assim que se faz darkwork sem pesar a
-mão: o preto é campo, o vermelho é detalhe.
+| Token | Cor | Papel | Contraste |
+|---|---|---|---|
+| `--musgo` | `#265C41` | campo do botão principal | 6,3:1 com o osso por cima |
+| `--musgo-alto` | `#2E7050` | o mesmo, um passo aceso, no hover | — |
+| `--seiva` | `#4E9E77` | anel de foco, link, marca de caneta | 6,1:1 sobre o breu |
 
-Contraste medido sobre o breu: osso 15,5:1 · osso-texto 11,1:1 ·
-osso-suave 7,1:1 · cinza-numeral 3,6:1 (texto grande) · osso sobre
-sangue 5,6:1. Texto secundário é tingido do mesmo matiz quente, nunca
-cinza neutro.
+Os três saíram de conta, e não de olho. O verde do botão precisava de duas
+coisas ao mesmo tempo: carregar texto osso por cima com folga sobre o
+mínimo de 4,5:1, e ter sobre o breu a mesma presença que o vermelho
+anterior tinha, para o botão não deixar de saltar. `#265C41` fecha os
+dois — 6,3:1 com o osso e 2,5:1 com o breu, contra os 5,7:1 e 2,5:1 do
+vermelho que saiu.
+
+A **flor vermelha** continua sendo a única outra cor da página. Antes ela
+era vermelha ao lado de um botão vermelho, e a justificativa era que os
+dois se somavam; agora o botão é verde, e vermelho e verde são opostos na
+roda. Em vez de um sumir no outro, cada um segura o seu lado. No celular
+ela sai de cena, junto com as outras figurinhas densas.
 
 ## Tipografia
 

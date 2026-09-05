@@ -53,9 +53,19 @@
   --osso-texto:#C9C2B7;  /* corpo              11,1:1 */
   --osso-suave:#A39C91;  /* etiquetas e meta    7,1:1 */
 
-  --sangue:#A32E24;      /* único acento, campo do botão (5,6:1 com osso) */
-  --sangue-alto:#BE3A2D;
-  --brasa:#D4685C;       /* o mesmo acento clareado para foco e link */
+  /* O acento é verde escuro, a pedido da Tay. Continua sendo UM só: o
+     campo do botão principal, o anel de foco e a seleção de texto. Em
+     lugar nenhum mais.
+
+     Os três tons saíram de conta, não de olho. O musgo carrega texto osso
+     por cima a 6,3:1 — folga sobre o mínimo de 4,5 — e sobre o breu fica
+     em 2,5:1, que é a mesma presença que o vermelho anterior tinha: o
+     botão continua saltando o tanto que saltava. A seiva é o mesmo verde
+     aberto para o escuro, e sobre o breu dá 6,1:1, porque ela vira texto
+     de link e anel de foco. */
+  --musgo:#265C41;       /* acento: campo do botão   (6,3:1 com osso) */
+  --musgo-alto:#2E7050;  /* o mesmo, um passo aceso, para o hover     */
+  --seiva:#4E9E77;       /* o acento aberto: foco e link (6,1:1 com breu) */
 
   --display:'Cormorant Garamond',Garamond,'Times New Roman',Georgia,serif;
   --gotica:'New Rocker','Cormorant Garamond',Garamond,serif;
@@ -111,8 +121,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 svg{display:block}
 [hidden]{display:none !important}
 
-::selection{background:var(--sangue);color:var(--osso)}
-:focus-visible{outline:2px solid var(--brasa);outline-offset:3px}
+::selection{background:var(--musgo);color:var(--osso)}
+:focus-visible{outline:2px solid var(--seiva);outline-offset:3px}
 
 /* Grão: camada única, fixa, sem captura de clique. Nunca em container
    que rola, para não repintar a GPU a cada quadro. */
@@ -170,8 +180,8 @@ body::after{
 .btn:hover svg{transform:translateX(4px)}
 .btn:active{transform:translateY(1px)}
 
-.btn--tinta{background:var(--sangue);color:var(--osso);border-color:var(--sangue)}
-.btn--tinta:hover{background:var(--sangue-alto);border-color:var(--sangue-alto)}
+.btn--tinta{background:var(--musgo);color:var(--osso);border-color:var(--musgo)}
+.btn--tinta:hover{background:var(--musgo-alto);border-color:var(--musgo-alto)}
 .btn--fio{color:var(--osso);border-color:var(--linha-viva)}
 .btn--fio:hover{background:var(--carvao);border-color:var(--osso-suave)}
 
@@ -182,7 +192,7 @@ body::after{
   padding-bottom:2px;
   transition:border-color .24s var(--saida);
 }
-.elo:hover{border-color:var(--brasa)}
+.elo:hover{border-color:var(--seiva)}
 
 /* ---------------------------------------------------------------- topo */
 
@@ -211,7 +221,7 @@ body::after{
 }
 .nav a::after{
   content:'';position:absolute;left:0;bottom:0;width:100%;height:1px;
-  background:var(--brasa);transform:scaleX(0);transform-origin:left;
+  background:var(--seiva);transform:scaleX(0);transform-origin:left;
   transition:transform .28s var(--saida);
 }
 .nav a:hover{color:var(--osso)}
@@ -553,7 +563,7 @@ body::after{
 }
 .canal:hover{background:var(--carvao)}
 .canal>svg:first-child{width:20px;height:20px;flex:none;color:var(--osso-suave);transition:color .24s var(--saida)}
-.canal:hover>svg:first-child{color:var(--brasa)}
+.canal:hover>svg:first-child{color:var(--seiva)}
 .canal__texto{display:grid;gap:2px;margin-right:auto}
 .canal__rotulo{font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--osso-suave)}
 .canal__valor{color:var(--osso);font-size:1rem}
@@ -587,7 +597,7 @@ body::after{
   transition:background-color .3s var(--saida),transform .3s var(--saida);
 }
 .lupa__ponto:hover::before{background:var(--osso)}
-.lupa__ponto.is-atual::before{background:var(--brasa);transform:scale(1.35)}
+.lupa__ponto.is-atual::before{background:var(--seiva);transform:scale(1.35)}
 /* Palco: a mídia preenche por posicionamento absoluto e o object-fit é
    quem a contém. Com max-height:100% a altura percentual não resolvia
    contra a linha da grade: a foto ia ao tamanho natural, passava do
@@ -706,7 +716,7 @@ body::after{
 }
 .faixa-anda__fita span::after{
   content:'·';
-  color:var(--sangue);
+  color:var(--musgo);
   padding-left:1em;
 }
 @keyframes anda{to{transform:translateX(-100%)}}
@@ -866,7 +876,7 @@ html.lenis,html.lenis body{height:auto}
   position:absolute;
   pointer-events:none;
   overflow:visible;
-  color:var(--brasa);
+  color:var(--seiva);
 }
 .rabisco path{
   fill:none;
