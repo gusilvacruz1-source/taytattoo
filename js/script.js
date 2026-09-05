@@ -1034,16 +1034,10 @@
       });
     }
 
-    /* 8. O selo do topo gira com a rolagem. É o único indicador de
-       posição da página, e usa a forma da própria marca para isso. */
-    var seloTopo = document.querySelector('.topo .marca__selo');
-    if (seloTopo) {
-      gsap.to(seloTopo, {
-        rotation: 360,
-        ease: 'none',
-        scrollTrigger: { start: 0, end: 'max', scrub: 0.6 }
-      });
-    }
+    /* 8. (vago) Aqui girava o selo do topo com a rolagem, e ele era o
+       único indicador de posição da página. Saiu junto com a espiral, a
+       pedido da Tay — ela não queria espiral em lugar nenhum. Se um dia
+       entrar uma marca no lugar dela, o giro volta com duas linhas. */
 
     /* 9. A linha dos passos se desenha de cima para baixo enquanto a
        pessoa desce. Conta que aquilo ali é uma sequência, não uma lista. */

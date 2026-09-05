@@ -274,11 +274,16 @@ O desenho é o que a Tay mandou: canto de teia nas duas pontas, fios
 pendurados entre eles e uma aranha descendo por um deles. Ele já nasceu
 para atravessar, ao contrário da arte anterior, que era uma teia redonda.
 
-A faixa usa **duas cópias espelhadas**, e não uma esticada. O arquivo tem
-736px de largura; esticado sozinho até a largura de um monitor ele dobra
-de tamanho, os fios engordam e some a delicadeza do traço à mão. Em duas
-cópias, cada uma fica quase no tamanho de origem e a linha continua fina.
-O espelho é do CSS, então o navegador baixa a arte uma vez só.
+A faixa usa **duas cópias espelhadas**, e não uma esticada: o arquivo tem
+736px, e esticado sozinho até a largura de um monitor ele quase dobra, os
+fios engordam e some a delicadeza do traço à mão.
+
+E cada cópia traz **um canto de teia só** — o recorte para na metade da
+arte. Com a arte inteira as duas cópias encostavam canto com canto no meio
+da parede, e a fileira lia como duas teias, não uma. Cortada, sobra um
+canto para cada parede e os fios pendurados se emendam no meio: uma teia
+só, atravessando. O espelho é do CSS, então o navegador baixa a arte uma
+vez só.
 
 A opacidade é meia de propósito. Em cheio a teia enterra o título da
 seção, que passa por baixo dela.
