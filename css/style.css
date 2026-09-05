@@ -775,6 +775,9 @@ body::after{
 .figurinha{
   position:absolute;
   z-index:0;
+  left:var(--fx,4%);
+  top:var(--fy,20%);
+  width:var(--fw,140px);
   /* As artes sao WebP com transparencia de verdade, geradas a partir dos
      JPG originais (os .jpg continuam na pasta como fonte). Antes elas
      eram JPG de fundo preto compostas em "screen", e isso dependia de o
@@ -915,7 +918,26 @@ html.lenis,html.lenis body{height:auto}
    texto sem disputar com ele. Uma figurinha por seção no celular é o
    bastante: o clima continua, e o texto volta a ser legível. */
 @media (max-width:720px){
+  /* No celular a seção termina com um respiro maior, e não é decoração de
+     espaçamento: é o vão onde a figurinha cabe.
+
+     Numa coluna só, o texto ocupa a largura inteira e não sobra lateral
+     nenhuma — foi o que a Tay apontou quando o lírio caiu em cima de uma
+     descrição. Em vez de encolher a arte até ela sumir, ou escondê-la, a
+     seção abre 96px a mais embaixo. O desenho fica inteiro, sem encostar
+     em linha nenhuma, e a página ganha um respiro entre seções que ela
+     não tinha no estreito. */
+  .secao{padding-bottom:calc(clamp(84px,11vw,148px) + 96px)}
+
   .figurinha--so-largo{display:none}
+  /* Cada figurinha pode trazer o próprio lugar de celular. Quem não
+     trouxer fica onde estava — o fallback de cada variável é a medida de
+     tela larga. */
+  .figurinha{
+    left:var(--fx-cel,var(--fx,4%));
+    top:var(--fy-cel,var(--fy,20%));
+    width:var(--fw-cel,var(--fw,140px));
+  }
 }
 
 /* O conteúdo sempre por cima dos adesivos. */

@@ -293,9 +293,27 @@ com a linha comentada, para voltarem numa linha.
 | Agendar | a aranha e as velas | aranha aqui, e não na galeria: lá a faixa de teia já ocupa o vão, e aranha em cima de teia vira mancha |
 | Contato | a pontilhada e uma teia | a teia abaixo do texto, nunca ao lado: mais acima ela caía no parágrafo |
 
-Toda arte densa sai de cena no celular (`soLargo`). Ali a seção é uma
-coluna só e o texto ocupa a largura inteira: não existe vão, e mudar a
-figurinha de lugar só troca qual parágrafo fica embaixo dela.
+### O vão do celular
+
+No estreito a seção vira uma coluna só e o texto ocupa a largura inteira.
+Não sobra lateral nenhuma — foi o que a Tay apontou quando o lírio caiu em
+cima de uma descrição — e mudar a figurinha de lugar ali só troca qual
+parágrafo fica embaixo dela.
+
+Então o vão é **feito**, e não procurado: no celular cada seção abre 96px
+a mais no rodapé, e é essa faixa que carrega o desenho. Ele fica inteiro,
+sem encostar em linha nenhuma, e a página ganha um respiro entre seções
+que ela não tinha no estreito.
+
+Cada figurinha traz o próprio lugar de celular num campo `celular`, com x,
+y e largura separados. O y costuma ser `calc(100% - alguma coisa)`, que
+conta do pé da seção e por isso não depende da altura dela — a mesma linha
+vale para uma seção de três parágrafos e para uma de dez.
+
+As três medidas vão em variáveis CSS, e não direto no elemento: a troca
+acontece por media query, então girar o aparelho basta, sem recarregar.
+Sobrou o `soLargo`, que some com a figurinha no estreito, mas hoje nenhuma
+usa: ter lugar de celular é sempre melhor que sumir.
 
 ## O nome## O nome
 

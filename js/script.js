@@ -708,9 +708,20 @@
       img.setAttribute('aria-hidden', 'true');
       img.loading = 'lazy';
       img.decoding = 'async';
-      img.style.width = (f.largura || 140) + 'px';
-      img.style.left = f.x || '4%';
-      img.style.top = f.y || '20%';
+      /* Posição e tamanho vão em variáveis, e não direto no style: assim o
+         CSS pode trocar as três de uma vez no celular, com media query, e
+         a troca acontece ao girar o aparelho sem recarregar a página. */
+      img.style.setProperty('--fx', f.x || '4%');
+      img.style.setProperty('--fy', f.y || '20%');
+      img.style.setProperty('--fw', (f.largura || 140) + 'px');
+      /* No estreito a seção vira uma coluna só e o texto ocupa a largura
+         inteira. O único vão que sobra é a faixa embaixo do último bloco,
+         e é para lá que estas medidas mandam a figurinha. */
+      if (f.celular) {
+        if (f.celular.x) img.style.setProperty('--fx-cel', f.celular.x);
+        if (f.celular.y) img.style.setProperty('--fy-cel', f.celular.y);
+        if (f.celular.largura) img.style.setProperty('--fw-cel', f.celular.largura + 'px');
+      }
       /* Adesivo colado à mão nunca fica reto. O GSAP lê esta rotação e a
          mantém enquanto anima o deslocamento. */
       img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';

@@ -27,6 +27,15 @@
      fundura   o quanto ela anda no scroll, de 2 (quase parada) a 14
                (bem solta). Acima de 14 embrulha o estômago.
      opacidade opcional, de 0 a 1. O padrão é 1.
+     celular   opcional: { x, y, largura } só para tela estreita. No
+               celular a seção vira uma coluna e o texto ocupa a largura
+               inteira — o único vão que sobra é a faixa embaixo do último
+               bloco. É para lá que estas medidas mandam a figurinha, e o
+               y costuma ser calc(100% - alguma coisa), que conta do pé da
+               seção e não depende da altura dela.
+     soLargo   opcional: true some no celular. Use só quando não houver
+               vão nenhum — ter lugar de celular é sempre melhor que
+               sumir.
 
    O ARCO é o outro jeito de colar. Em vez de ficar num canto, a arte
    atravessa a seção inteira de uma parede à outra, pendurada como fio.
@@ -92,7 +101,8 @@ const FIGURINHAS = [
      existe lateral: mudar o lírio de lugar só trocaria qual parágrafo
      fica embaixo dele. Fica o arabesco, que é pontilhado e esparso e
      atravessa o texto sem disputar com ele. */
-  { arquivo: 'corvo.webp',         secao: 'traco',       largura: 215, x: '81%', y: '4%',  giro: 5,   fundura: 6, opacidade: 1, soLargo: true },
+  { arquivo: 'corvo.webp',         secao: 'traco',       largura: 215, x: '81%', y: '4%',  giro: 5,   fundura: 6, opacidade: 1,
+    celular: { x: '-7%',  y: 'calc(100% - 178px)', largura: 118 } },
 
   /* Disponíveis: o punhal à direita e a flor vermelha à esquerda.
 
@@ -104,7 +114,8 @@ const FIGURINHAS = [
      e vermelho e verde são opostos na roda: em vez de sumir um no outro,
      cada um segura o seu lado. Se algum dia ela incomodar, é uma linha. */
   { arquivo: 'punhal.webp',        secao: 'disponiveis', largura: 200, x: '83%', y: '6%',  giro: 6,   fundura: 5, opacidade: 1 },
-  { arquivo: 'crisantemo.webp',    secao: 'disponiveis', largura: 320, x: '-2%', y: '42%', giro: -8,  fundura: 8, opacidade: 1, soLargo: true },
+  { arquivo: 'crisantemo.webp',    secao: 'disponiveis', largura: 320, x: '-2%', y: '42%', giro: -8,  fundura: 8, opacidade: 1,
+    celular: { x: '52%',  y: 'calc(100% - 172px)', largura: 158 } },
 
   /* Agendar: a aranha em cima e as velas embaixo, as duas à direita.
 
@@ -115,8 +126,10 @@ const FIGURINHAS = [
 
      A aranha ficou aqui, e não na galeria: lá a faixa de teia já ocupa o
      único vão da seção, e aranha em cima de teia vira mancha. */
-  { arquivo: 'aranha.webp',        secao: 'agendar',     largura: 250, x: '76%', y: '6%',  giro: -5,  fundura: 6, opacidade: 1, soLargo: true },
-  { arquivo: 'vela.webp',          secao: 'agendar',     largura: 230, x: '76%', y: '52%', giro: 3,   fundura: 5, opacidade: 1, soLargo: true },
+  { arquivo: 'aranha.webp',        secao: 'agendar',     largura: 250, x: '76%', y: '6%',  giro: -5,  fundura: 6, opacidade: 1,
+    celular: { x: '-8%',  y: 'calc(100% - 170px)', largura: 160 } },
+  { arquivo: 'vela.webp',          secao: 'agendar',     largura: 230, x: '76%', y: '52%', giro: 3,   fundura: 5, opacidade: 1,
+    celular: { x: '58%',  y: 'calc(100% - 168px)', largura: 150 } },
 
   /* Contato: a pontilhada à direita e a teia desenhada à esquerda.
 
@@ -129,7 +142,8 @@ const FIGURINHAS = [
      cima do parágrafo, que é exatamente o que a Tay apontou no lírio. E
      sai de cena no celular, onde a coluna é única e não existe vão. */
   { arquivo: 'pontilhada.webp',    secao: 'contato',     largura: 360, x: '80%', y: '38%', giro: 10,  fundura: 7, opacidade: 1 },
-  { arquivo: 'teia-arte.webp',     secao: 'contato',     largura: 300, x: '-7%', y: '40%', giro: -6,  fundura: 5, opacidade: 1, soLargo: true },
+  { arquivo: 'teia-arte.webp',     secao: 'contato',     largura: 300, x: '-7%', y: '40%', giro: -6,  fundura: 5, opacidade: 1,
+    celular: { x: '-9%',  y: 'calc(100% - 180px)', largura: 155 } },
 
   /* ------------------------------------------------------------------
      TRÊS SAÍRAM DE CENA POR PEDIDO DA TAY, e os arquivos continuam na
