@@ -45,7 +45,7 @@ Retorno dela por escrito, em 05/09, olhando o site no celular:
 | Ela disse | Estado |
 |---|---|
 | "está bem parecido com o da Elo e nós somos completamente diferente / quero realmente uma estética gótica e dark" | em andamento: entraram a fonte gótica no nome e a teia; a base de tipografia e cor ainda é a mesma |
-| "a fonte do meu nome ainda está um pouco delicada, poderia mudar?" | **feito** — New Rocker, cromada |
+| "a fonte do meu nome ainda está um pouco delicada, poderia mudar?" | **feito** — Eater, cromada, escolhida por ela entre cinco góticas de licença livre |
 | "o arame farpado é lindoooo, mas poderia trocar por teia de aranha / ela é minha assinatura" | **feito** — teia no lugar exato do arame |
 | "essa flor encima da descrição precisa mudar de lugar" | **feito** — o lírio subiu e sai de cena no celular |
 | "os desenhos brancos de fundo pode substituir por teia, crisântemos, punhais e adagas, corvos, velas" | **feito** — os cinco estão no ar, com a arte que ela mandou |
