@@ -733,52 +733,47 @@
   /* A TEIA DE ARANHA.
 
      É a assinatura da Tay nas tatuagens e nas ilustrações, e por isso é o
-     único ornamento que se repete na página. Entrou no lugar do arame
-     farpado, a pedido dela.
+     único ornamento que se repete na página.
 
-     Os caminhos abaixo saíram de geometria, não de mão livre: fios
-     radiais partindo de um centro e, entre cada dois deles, um fio de
-     captura que cede para fora como corda pendurada cede. É essa barriga
-     que faz o olho ler "teia" — sem ela vira leque.
+     Por um tempo ela foi desenhada aqui por geometria — fios radiais e
+     fios de captura calculados —, porque a arte dela ainda não tinha
+     chegado. Chegou, e a geometria saiu: teia de verdade é rasgada e
+     irregular, e nenhuma conta entrega isso. */
 
-     Duas formas. A LARGA pendura no alto da seção com o centro acima da
-     tela, então os fios abrem para baixo e alcançam as duas paredes: é a
-     que substitui o arame, e mantém o que a Tay gostou nele, que era
-     atravessar a página inteira. A de CANTO tem o centro no próprio canto
-     e ocupa um quarto de círculo, que é como teia aparece de verdade. */
-  var TEIAS = {
-    larga: { d: 'M575.6 -53.9L161.7 -17.7 M577.3 -46.8L192.0 108.8 M581.0 -40.6L258.1 220.9 M586.3 -35.7L354.0 308.8 M592.8 -32.6L471.4 364.8 M600.0 -31.5L600.0 384.0 M607.2 -32.6L728.6 364.8 M613.7 -35.7L846.0 308.8 M619.0 -40.6L941.9 220.9 M622.7 -46.8L1008.0 108.8 M624.4 -53.9L1038.3 -17.7 M481.0 -45.6Q466.4 -23.9 489.2 -11.2Q481.6 13.7 507.1 19.2Q507.2 45.3 533.2 43.1Q540.8 68.0 565.1 58.3Q579.7 79.9 600.0 63.5Q620.3 79.9 634.9 58.3Q659.2 68.0 666.8 43.1Q692.8 45.3 692.9 19.2Q718.4 13.7 710.8 -11.2Q733.6 -23.9 719.0 -45.6 M413.0 -39.6Q390.1 -5.6 426.0 14.3Q414.0 53.6 454.1 62.1Q454.2 103.1 495.0 99.6Q507.1 138.8 545.1 123.5Q568.1 157.5 600.0 131.7Q631.9 157.5 654.9 123.5Q692.9 138.8 705.0 99.6Q745.8 103.1 745.9 62.1Q786.0 53.6 774.0 14.3Q809.9 -5.6 787.0 -39.6 M335.6 -32.9Q303.2 15.2 353.9 43.4Q337.0 98.9 393.8 111.0Q393.8 169.0 451.6 164.0Q468.6 219.5 522.4 197.8Q554.9 245.8 600.0 209.4Q645.1 245.8 677.6 197.8Q731.4 219.5 748.4 164.0Q806.2 169.0 806.2 111.0Q863.0 98.9 846.1 43.4Q896.8 15.2 864.4 -32.9 M251.4 -25.5Q208.7 37.9 275.5 75.1Q253.3 148.2 328.0 164.2Q328.1 240.7 404.3 234.1Q426.7 307.2 497.7 278.6Q540.5 342.0 600.0 293.9Q659.5 342.0 702.3 278.6Q773.3 307.2 795.7 234.1Q871.9 240.7 872.0 164.2Q946.7 148.2 924.5 75.1Q991.3 37.9 948.6 -25.5 M161.7 -17.7Q108.0 62.1 192.0 108.8Q164.0 200.8 258.1 220.9Q258.2 317.1 354.0 308.8Q382.2 400.7 471.4 364.8Q525.2 444.4 600.0 384.0Q674.8 444.4 728.6 364.8Q817.8 400.7 846.0 308.8Q941.8 317.1 941.9 220.9Q1036.0 200.8 1008.0 108.8Q1092.0 62.1 1038.3 -17.7', caixa: '0 0 1200 300', proporcao: '1200/300' },
-    canto: { d: 'M15.1 6.6L255.4 23.4 M14.8 8.5L246.7 73.7 M14.1 10.2L227.9 121.2 M13.1 11.7L199.9 163.8 M11.7 13.1L163.8 199.9 M10.2 14.1L121.2 227.9 M8.5 14.8L73.7 246.7 M6.6 15.1L23.4 255.4 M61.8 9.9Q70.5 17.2 59.9 21.2Q66.9 30.1 55.7 31.8Q60.7 41.9 49.4 41.3Q52.3 52.3 41.3 49.4Q41.9 60.7 31.8 55.7Q30.1 66.9 21.2 59.9Q17.2 70.5 9.9 61.8 M103.0 12.8Q118.1 25.5 99.6 32.3Q111.8 47.8 92.3 50.8Q101.1 68.4 81.4 67.4Q86.5 86.5 67.4 81.4Q68.4 101.1 50.8 92.3Q47.8 111.8 32.3 99.6Q25.5 118.1 12.8 103.0 M149.9 16.1Q172.3 34.9 144.9 45.1Q163.0 68.1 134.1 72.5Q147.1 98.6 117.9 97.1Q125.4 125.4 97.1 117.9Q98.6 147.1 72.5 134.1Q68.1 163.0 45.1 144.9Q34.9 172.3 16.1 149.9 M201.0 19.6Q231.3 45.2 194.2 58.9Q218.7 90.1 179.5 96.0Q197.2 131.5 157.6 129.4Q167.7 167.7 129.4 157.6Q131.5 197.2 96.0 179.5Q90.1 218.7 58.9 194.2Q45.2 231.3 19.6 201.0 M255.4 23.4Q294.2 56.1 246.7 73.7Q278.0 113.5 227.9 121.2Q250.5 166.5 199.9 163.8Q212.8 212.8 163.8 199.9Q166.5 250.5 121.2 227.9Q113.5 278.0 73.7 246.7Q56.1 294.2 23.4 255.4', caixa: '0 0 260 260', proporcao: '1/1' }
-  };
+  /* Monta a faixa de teia que atravessa a seção de parede a parede.
 
+     Ela é repetida, e não esticada. Esticar uma teia quase quadrada até a
+     largura de um monitor achata os fios e o desenho deixa de parecer
+     teia; repetida, cada cópia mantém a proporção que tem no arquivo. As
+     cópias alternam espelhadas, para a emenda entre uma e outra não
+     repetir o mesmo lado e virar padrão de papel de parede. */
   function montarTeia(f) {
-    var molde = TEIAS[f.teia];
-    if (!molde) return document.createComment('teia desconhecida: ' + f.teia);
+    {
+      var fita = document.createElement('div');
+      fita.className = 'teia teia--fita';
+      fita.setAttribute('aria-hidden', 'true');
+      fita.style.top = f.y || '4%';
+      /* Mora numa variável, e não no style.opacity, porque a faixa chega
+         com uma transição de opacidade: escrever direto no elemento
+         travaria o valor final e a entrada não teria para onde ir. */
+      if (f.opacidade != null) fita.style.setProperty('--presenca', String(f.opacidade));
+      else fita.style.setProperty('--presenca', '.5');
 
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('class', 'teia teia--' + f.teia);
-    svg.setAttribute('viewBox', molde.caixa);
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('focusable', 'false');
-    svg.style.setProperty('--proporcao', molde.proporcao);
-
-    var caminho = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    caminho.setAttribute('d', molde.d);
-    svg.appendChild(caminho);
-
-    if (f.teia === 'larga') {
-      svg.style.top = f.y || '4%';
-    } else {
-      svg.style.left = f.x || '0%';
-      svg.style.top = f.y || '10%';
-      svg.style.width = (f.largura || 220) + 'px';
-      /* O giro é o que decide para qual canto a teia aponta: 0 abre para
-         baixo e para a direita, 90 para baixo e para a esquerda. */
-      svg.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
+      var vezes = Math.max(2, f.vezes || 3);
+      for (var v = 0; v < vezes; v++) {
+        var meia = document.createElement('span');
+        meia.className = 'teia__parte' + (v % 2 ? ' teia__parte--espelho' : '');
+        var arte = document.createElement('img');
+        arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-arte.webp');
+        arte.alt = '';
+        arte.loading = 'lazy';
+        arte.decoding = 'async';
+        arte.addEventListener('error', function () { fita.remove(); });
+        meia.appendChild(arte);
+        fita.appendChild(meia);
+      }
+      return fita;
     }
-    if (f.opacidade != null) svg.style.opacity = String(f.opacidade);
-
-    return svg;
   }
 
   var figurinhas = colarFigurinhas(typeof FIGURINHAS !== 'undefined' ? FIGURINHAS : []);

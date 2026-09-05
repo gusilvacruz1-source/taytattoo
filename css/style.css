@@ -790,60 +790,6 @@ body::after{
   will-change:transform;
 }
 
-/* --------------------------------------------------------------- teia
-
-   A assinatura da Tay, e o único ornamento que se repete na página. A
-   geometria mora em montarTeia(), em js/script.js, com o porquê de cada
-   parte; aqui fica só como ela se apoia na seção.
-
-   Ela é traço, e traço tem espessura de tela: o vector-effect segura os
-   fios finos do mesmo jeito num celular e num monitor grande, em vez de
-   engrossá-los junto com o desenho. */
-.teia{
-  position:absolute;
-  z-index:0;
-  pointer-events:none;
-  user-select:none;
-  color:var(--linha-viva);
-  will-change:transform;
-}
-.teia path{
-  fill:none;
-  stroke:currentColor;
-  stroke-width:1.35;
-  stroke-linecap:round;
-  vector-effect:non-scaling-stroke;
-}
-
-/* A larga atravessa de parede a parede, que é o que a Tay gostou no
-   arame. Sangra 6vw para fora de cada lado: a seção corta o excesso, e o
-   fio da ponta encosta na parede inteiro em vez de acabar antes dela. */
-.teia--larga{
-  left:-6vw;right:-6vw;
-  width:auto;
-  aspect-ratio:1200/300;
-  color:var(--osso-suave);
-  opacity:.5;
-}
-
-/* A de canto fica atrás do texto, como as outras figurinhas. */
-.teia--canto{
-  aspect-ratio:1/1;
-  height:auto;
-  max-width:52vw;
-  opacity:.62;
-}
-
-/* A teia se desenha quando a seção chega, no mesmo movimento dos
-   rabiscos: teia aparece sendo tecida, e não pronta. Sob .motion, e só
-   sob ela — sem GSAP nasce inteira, como o resto da página. */
-.motion .teia path{
-  stroke-dasharray:100;
-  stroke-dashoffset:100;
-  transition:stroke-dashoffset 1.6s var(--saida) .1s;
-}
-.motion .teia[data-vista] path{stroke-dashoffset:0}
-
 /* -------------------------------------------------------- rolagem suave
 
    As cinco regras que o Lenis pede, escritas aqui em vez de num arquivo
@@ -858,6 +804,46 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
 .lenis.lenis-stopped{overflow:clip}
 .lenis.lenis-smooth iframe{pointer-events:none}
+
+/* --------------------------------------------------------------- teia
+
+   A assinatura da Tay, e o único ornamento que se repete na página. É
+   arte dela: por um tempo o site desenhava a teia por geometria, porque a
+   arte ainda não tinha chegado — chegou, e a geometria saiu. Teia de
+   verdade é rasgada e irregular, e nenhuma conta entrega isso.
+
+   A montagem está em montarTeia(), em js/script.js. Aqui fica só como a
+   faixa se apoia na seção. */
+.teia{
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  user-select:none;
+  will-change:transform;
+}
+/* Sangra para fora das duas paredes: a seção corta o excesso, e a ponta
+   encosta na parede inteira em vez de acabar antes dela. */
+.teia--fita{
+  left:-5vw;right:-5vw;
+  display:flex;
+  align-items:flex-start;
+}
+.teia__parte{flex:1 1 0;min-width:0;display:block}
+.teia__parte img{display:block;width:100%;height:auto}
+/* O espelho é do CSS: a arte é uma só, e o navegador não a baixa duas
+   vezes. Espelhar as cópias alternadas evita que a emenda entre uma e
+   outra repita o mesmo lado e vire padrão de papel de parede. */
+.teia__parte--espelho{transform:scaleX(-1)}
+/* Repouso é o estado VISÍVEL: sem GSAP de pé a faixa nasce no lugar. */
+.teia--fita{opacity:var(--presenca,.5)}
+
+/* A faixa chega junto com a seção, e não se desenha: desenho de traço se
+   desenha, foto de teia aparece. Sob .motion, e só sob ela. */
+.motion .teia--fita{
+  opacity:0;
+  transition:opacity 1.2s var(--saida);
+}
+.motion .teia--fita[data-vista]{opacity:var(--presenca,.5)}
 
 /* ------------------------------------------------------------ rabiscos
 
@@ -879,6 +865,8 @@ html.lenis,html.lenis body{height:auto}
   color:var(--seiva);
 }
 .rabisco path{
+  /* O fill:none não é detalhe: SVG sem ele pinta o miolo do caminho de
+     preto, e a seta vira uma mancha por cima do texto. */
   fill:none;
   stroke:currentColor;
   stroke-width:2.6;
@@ -905,10 +893,10 @@ html.lenis,html.lenis body{height:auto}
 /* Cada marca se desenha quando a seção chega. Sob .motion, e só sob ela:
    sem o GSAP de pé o traço nasce inteiro, como o resto da página.
 
-   O pathLength="100" no HTML declara que todo caminho mede 100, seja
-   qual for o tamanho real. Sem isso o tracejado teria de ser medido em
-   JS e remedido a cada mudança de tela, porque a volta estica junto com
-   a palavra que ela cerca. */
+   O pathLength="100" no HTML declara que todo caminho mede 100, seja qual
+   for o tamanho real. Sem isso o tracejado teria de ser medido em JS e
+   remedido a cada mudança de tela, porque a volta estica junto com a
+   palavra que ela cerca. */
 .motion .rabisco path{
   stroke-dasharray:100;
   stroke-dashoffset:100;
@@ -990,6 +978,6 @@ html.lenis,html.lenis body{height:auto}
   .capa__selo .selo__espiral{stroke-dashoffset:0}
   .motion .revela{opacity:1;transform:none}
   .motion .peca{clip-path:none}
-  .motion .teia path,
   .motion .rabisco path{stroke-dasharray:none;stroke-dashoffset:0}
+  .motion .teia--fita{opacity:var(--presenca,.5)}
 }

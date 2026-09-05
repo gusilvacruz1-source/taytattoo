@@ -263,22 +263,41 @@ tela, põe `data-vista` na mão.
 a pedido dela, guardando o que o arame tinha de bom: atravessar de parede
 a parede.
 
-Ela é geometria, não mão livre. Fios radiais partindo de um centro, e
-entre cada dois deles um fio de captura que cede para fora como corda
-pendurada cede. É essa barriga que faz o olho ler "teia" — sem ela, vira
-leque.
+O desenho é dela. Por um tempo o site desenhava a teia por geometria —
+fios radiais e fios de captura calculados — porque a arte ainda não tinha
+chegado; chegou, e a geometria saiu inteira. Teia de verdade é rasgada e
+irregular, e nenhuma conta entrega isso.
 
-Duas formas. A **larga** pendura no alto da seção com o centro acima da
-tela, então os fios abrem para baixo e alcançam as duas paredes. A de
-**canto** tem o centro no próprio canto e ocupa um quarto de círculo, que
-é como teia aparece de verdade.
+A faixa **repete** o desenho quatro vezes, e não o estica: esticar uma
+teia quase quadrada até a largura de um monitor achata os fios e o desenho
+deixa de parecer teia. As cópias alternam espelhadas, para a emenda entre
+uma e outra não repetir o mesmo lado e virar padrão de papel de parede. O
+espelho é do CSS, então o navegador baixa a arte uma vez só.
 
-Vai como SVG escrito na hora, e não como arquivo: fica nítida em qualquer
-tela, pesa o mesmo que um parágrafo e recebe a cor do CSS. Como os
-rabiscos, ela se desenha quando a seção chega — teia aparece sendo tecida,
-não pronta.
+A opacidade é meia de propósito. Em cheio a teia enterra o título da
+seção, que passa por baixo dela.
 
-## O nome
+## Os motivos
+
+A Tay listou o que usa nas criações dela: **teia de aranha, crisântemo,
+punhal e adaga, corvo, vela**. É esse o vocabulário, e é ele que manda nas
+figurinhas — as que não eram dele saíram (a mão do chifrinho, o olho, as
+tulipas, a filigrana, o lírio, o arabesco), e os arquivos ficaram na pasta
+com a linha comentada, para voltarem numa linha.
+
+| Onde | O quê | Por quê ali |
+|---|---|---|
+| Trabalhos | a faixa de teia | é o único vão da seção: os cartões da galeria ocupam a largura inteira daí para baixo |
+| Traço | o corvo, à direita | à esquerda ele cruzava o título, que é branco como ele |
+| Disponíveis | o punhal e o crisântemo | o punhal na folga da direita, o crisântemo sangrando pela esquerda abaixo do texto |
+| Agendar | a aranha e as velas | aranha aqui, e não na galeria: lá a faixa de teia já ocupa o vão, e aranha em cima de teia vira mancha |
+| Contato | a pontilhada e uma teia | a teia abaixo do texto, nunca ao lado: mais acima ela caía no parágrafo |
+
+Toda arte densa sai de cena no celular (`soLargo`). Ali a seção é uma
+coluna só e o texto ocupa a largura inteira: não existe vão, e mudar a
+figurinha de lugar só troca qual parágrafo fica embaixo dela.
+
+## O nome## O nome
 
 Cormorant Garamond continua sendo a voz de leitura da página, mas o nome
 saiu dela: a Tay disse que estava "um pouco delicado", e o estúdio é

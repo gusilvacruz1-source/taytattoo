@@ -63,30 +63,36 @@ const FIGURINHAS = [
      corpo mas continua sendo a única coisa clara na tela. Para deixar
      alguma mais discreta, o caminho é diminuir a "largura". */
 
-  /* Trabalhos: a teia pendurada no alto e a filigrana à direita.
+  /* Trabalhos: só a faixa de teia, atravessando o alto.
 
-     A teia entrou no lugar do arame farpado a pedido da Tay — o arame ela
-     achou lindo, mas a teia é a assinatura dela nas tatuagens e nas
-     ilustrações. Ela guarda o que o arame tinha de bom: atravessa de
-     parede a parede, na faixa vazia acima do título, que é o único lugar
-     da seção onde passa inteira sem cair por cima de nada. */
-  { teia: 'larga',                 secao: 'trabalhos',   y: 'clamp(30px, 7vw, 96px)', fundura: 4, opacidade: 1 },
-  { arquivo: 'filigrana.webp',     secao: 'trabalhos',   largura: 260, x: '87%', y: '22%', giro: 7,   fundura: 8, opacidade: 1 },
+     Ela entrou no lugar do arame farpado a pedido da Tay — o arame ela
+     achou lindo, mas a teia é a assinatura dela. E guarda o que o arame
+     tinha de bom: atravessa de parede a parede, na faixa acima do título,
+     que é o único vão desta seção, já que os cartões da galeria ocupam a
+     largura inteira daí para baixo.
 
-  /* Traço: o lírio e o arabesco, os dois nas beiradas.
+     O desenho é dela. Ele se repete quatro vezes, espelhado a cada
+     cópia, porque esticar uma teia quase quadrada até a largura de um
+     monitor achata os fios e o desenho deixa de parecer teia.
 
-     O lírio subiu e saiu pela borda. Ele estava em x 2% / y 52%, e ali
-     caía em cima da descrição do "Projeto ilustrado" — a Tay apontou. Os
-     três cartões desta seção ocupam a largura toda, então não existe vão
-     no meio: o lugar de figurinha aqui é sangrando pela lateral, na
-     altura do título, onde o texto ainda não começou.
+     A opacidade é meia de propósito: em cheio ela enterra o título, que
+     passa por baixo dela. */
+  { teia: 'arte', vezes: 4,        secao: 'trabalhos',   arquivo: 'teia-fita.webp', y: 'clamp(8px, 1.6vw, 26px)', fundura: 4, opacidade: .5 },
+
+
+  /* Traço: só o corvo, na beirada da direita.
+
+     O corvo entrou no lugar do lírio, e ficou na DIREITA, e não na
+     esquerda: à esquerda ele cruzava o título, que é branco como ele.
+     Uma seção inteira de texto não tem vão no meio — o lugar de figurinha
+     aqui é sangrando pela lateral, na altura do título, do lado em que
+     nenhuma linha começa.
 
      No celular ele sai de cena ("soLargo"). Ali a coluna é única e não
      existe lateral: mudar o lírio de lugar só trocaria qual parágrafo
      fica embaixo dele. Fica o arabesco, que é pontilhado e esparso e
      atravessa o texto sem disputar com ele. */
-  { arquivo: 'lirio.webp',         secao: 'traco',       largura: 210, x: '-6%', y: '6%',  giro: -9,  fundura: 6, opacidade: 1, soLargo: true },
-  { arquivo: 'arabesco.webp',      secao: 'traco',       largura: 275, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: 1 },
+  { arquivo: 'corvo.webp',         secao: 'traco',       largura: 215, x: '81%', y: '4%',  giro: 5,   fundura: 6, opacidade: 1, soLargo: true },
 
   /* Disponíveis: o punhal à direita e a flor vermelha à esquerda.
 
@@ -98,15 +104,19 @@ const FIGURINHAS = [
      e vermelho e verde são opostos na roda: em vez de sumir um no outro,
      cada um segura o seu lado. Se algum dia ela incomodar, é uma linha. */
   { arquivo: 'punhal.webp',        secao: 'disponiveis', largura: 200, x: '83%', y: '6%',  giro: 6,   fundura: 5, opacidade: 1 },
-  { arquivo: 'flor-vermelha.webp', secao: 'disponiveis', largura: 200, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1, soLargo: true },
+  { arquivo: 'crisantemo.webp',    secao: 'disponiveis', largura: 320, x: '-2%', y: '42%', giro: -8,  fundura: 8, opacidade: 1, soLargo: true },
 
-  /* Agendar: teia no canto de cima, à direita.
+  /* Agendar: a aranha em cima e as velas embaixo, as duas à direita.
 
-     Aqui estava a mão do chifrinho, e ela saiu: a Tay listou o que usa nas
-     criações dela — teia, crisântemo, punhal, corvo, vela — e mão de rock
-     não é nada disso. Enquanto a arte própria não chega, quem ocupa é a
-     teia, que é a assinatura e é desenho, não foto de banco de imagem. */
-  { teia: 'canto',                 secao: 'agendar',     largura: 260, x: '74%', y: '8%',  giro: 90,  fundura: 6, opacidade: 1 },
+     Aqui estava a mão do chifrinho, e antes dela uma teia que o site
+     desenhava por conta. Saíram as duas: a mão porque não é do vocabulário
+     da Tay, e a teia desenhada porque a arte dela chegou e uma teia
+     calculada ao lado de uma rasgada é duas línguas na mesma página.
+
+     A aranha ficou aqui, e não na galeria: lá a faixa de teia já ocupa o
+     único vão da seção, e aranha em cima de teia vira mancha. */
+  { arquivo: 'aranha.webp',        secao: 'agendar',     largura: 250, x: '76%', y: '6%',  giro: -5,  fundura: 6, opacidade: 1, soLargo: true },
+  { arquivo: 'vela.webp',          secao: 'agendar',     largura: 230, x: '76%', y: '52%', giro: 3,   fundura: 5, opacidade: 1, soLargo: true },
 
   /* Contato: a pontilhada à direita e a teia desenhada à esquerda.
 
@@ -131,6 +141,10 @@ const FIGURINHAS = [
      dela; se um dia quiser os dois, o arame volta em outra seção. */
   // { arquivo: 'arame.webp',        secao: 'trabalhos', largura: 230, x: '-4%', y: '34%', giro: -4, fundura: 7, opacidade: 1 },
   // { arquivo: 'tulipas.webp',      secao: 'disponiveis', largura: 330, x: '82%', y: '10%', giro: 5, fundura: 5, opacidade: 1 },
+  // { arquivo: 'filigrana.webp',    secao: 'trabalhos', largura: 260, x: '87%', y: '22%', giro: 7, fundura: 8, opacidade: 1 },
+  // { arquivo: 'lirio.webp',        secao: 'traco',     largura: 210, x: '-6%', y: '6%',  giro: -9, fundura: 6, opacidade: 1 },
+  // { arquivo: 'flor-vermelha.webp',secao: 'disponiveis', largura: 200, x: '4%', y: '55%', giro: -11, fundura: 8, opacidade: 1 },
+  // { arquivo: 'arabesco.webp',     secao: 'traco',     largura: 275, x: '86%', y: '8%',  giro: 8, fundura: 4, opacidade: 1 },
   // { arquivo: 'mao.webp',          secao: 'agendar',   largura: 210, x: '87%', y: '48%', giro: 9,  fundura: 7, opacidade: 1 },
   // { arquivo: 'olho-grande.webp',  secao: 'contato',   largura: 225, x: '3%',  y: '52%', giro: -7, fundura: 6, opacidade: 1 },
 
