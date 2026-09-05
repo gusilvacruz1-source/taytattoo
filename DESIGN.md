@@ -325,9 +325,19 @@ usa: ter lugar de celular é sempre melhor que sumir.
 
 Cormorant Garamond continua sendo a voz de leitura da página, mas o nome
 saiu dela: a Tay disse que estava "um pouco delicado", e o estúdio é
-darkwork. O nome agora é **New Rocker** — gótica de pontas afiadas — e vale
-só para ele: capa, cabeçalho e o nome cortado do rodapé. Página inteira em
-blackletter deixa de ser gótica e vira fantasia.
+darkwork.
+
+O nome agora é **Eater**, e vale só para ele: capa, cabeçalho e o nome
+cortado do rodapé. Página inteira em blackletter deixa de ser gótica e
+vira fantasia.
+
+Ela foi escolhida entre cinco. A referência que a cliente mandou era a
+Midnight Grave, que é fonte paga de uso comercial licenciado — e o que
+chegou aqui foi a *imagem* do alfabeto dela, que o navegador não consegue
+usar para escrever. Então montei o nome nas cinco góticas com licença OFL
+que servem (livre para site comercial) e a escolha foi de vocês. A Eater
+tem as pontas afiadas E o pingo da referência, e continua legível no
+tamanho grande do nome — a Nosifer pinga mais, mas engorda as letras.
 
 Na capa ele é **cromado**. Não é gradiente decorativo: é o desenho de como
 metal polido reflete. Claro em cima, escurecendo até a linha do horizonte,

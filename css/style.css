@@ -30,13 +30,17 @@
   src:url('../fonts/archivo.woff2') format('woff2');
   font-weight:400 700;font-style:normal;font-display:swap;
 }
-/* A gótica é New Rocker, e existe por um pedido da Tay: o nome dela em
-   Cormorant estava "um pouco delicado", nas palavras dela, e o estúdio é
-   darkwork. Ela vale só para o NOME — capa, cabeçalho e rodapé. Título de
-   seção continua em Cormorant, que é a voz de leitura: página inteira em
-   blackletter deixa de ser gótica e vira fantasia. */
+/* A gótica é Eater, escolhida pela Tay entre as que dá para usar: ela tem
+   as pontas afiadas e o pingo da referência que a cliente mandou, e é
+   licença OFL, livre para site comercial.
+
+   Ela existe por um pedido dela: o nome em Cormorant estava "um pouco
+   delicado", nas palavras dela, e o estúdio é darkwork. Vale só para o
+   NOME — capa, cabeçalho e rodapé. Título de seção continua em Cormorant,
+   que é a voz de leitura: página inteira em blackletter deixa de ser
+   gótica e vira fantasia. */
 @font-face{
-  font-family:'New Rocker';
+  font-family:'Eater';
   src:url('../fonts/gotica.woff2') format('woff2');
   font-weight:400;font-style:normal;font-display:swap;
 }
@@ -68,7 +72,7 @@
   --seiva:#4E9E77;       /* o acento aberto: foco e link (6,1:1 com breu) */
 
   --display:'Cormorant Garamond',Garamond,'Times New Roman',Georgia,serif;
-  --gotica:'New Rocker','Cormorant Garamond',Garamond,serif;
+  --gotica:'Eater','Cormorant Garamond',Garamond,serif;
   --ui:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
 
   /* Duas medidas, uma regra: superfície arredonda em 18, controle em 12.
