@@ -50,9 +50,11 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
    (`img/retrato.mp4`, mudo e em loop), o **retrato parado**
    (`img/retrato.jpg`) ou, sem nenhum dos dois, o selo. A cliente pediu
    o vídeo tatuando; ele ainda não chegou.
-3. **Vídeo de fundo da capa** (`img/hero-fundo.mp4`) e um quadro dele como
-   poster (`img/hero-fundo.jpg`). Sem os dois, a capa fica no breu com o
-   véu por cima, que continua legível.
+3. **Confirmar a peça do vídeo da capa.** O fundo da capa agora é um vídeo
+   de uma tatuagem de asas nas costas, que o Gu mandou. Veio como gravação
+   de tela de um reels, então duas coisas precisam de confirmação da Tay:
+   que a peça é dela, e que a pessoa tatuada topa aparecer na capa do
+   site. É o primeiro que se vê da página, e é retrato de alguém.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
 5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
    fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o

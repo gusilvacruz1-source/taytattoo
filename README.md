@@ -29,7 +29,7 @@ js/vendor/          GSAP, ScrollTrigger e Lenis, servidos pelo próprio site
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
 img/retrato.jpg     o retrato da capa (ainda não existe)
-img/hero-fundo.mp4  o vídeo de fundo da capa (ainda não existe)
+img/hero-fundo.*    o vídeo de fundo da capa: .webm, .mp4 e o poster .jpg
 img/figurinhas/     os adesivos: .webp no ar, .jpg originais como fonte
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
 PRODUCT.md          a verdade do negócio e as pendências
@@ -95,20 +95,29 @@ existir manda, e nada precisa ser editado no código:
 |---|---|---|
 | `img/retrato.mp4` | **um vídeo dela tatuando**, mudo e em loop | cai para a foto |
 | `img/retrato.jpg` | o retrato parado (e a capa do vídeo) | cai para o selo |
-| `img/hero-fundo.mp4` | o vídeo que roda atrás da seção inteira, H.264 | fica só o breu |
+| `img/hero-fundo.webm` | o vídeo que roda atrás da capa inteira, VP9. **Está no ar** | cai para o .mp4 |
+| `img/hero-fundo.mp4` | o mesmo vídeo em H.264, para o Safari. **Está no ar** | fica só o breu |
 | `img/hero-fundo.jpg` | um quadro do vídeo, para aparecer antes de ele carregar | nada aparece antes |
 
 O vídeo é mudo, roda em loop e fica em preto e branco, igual às fotos. Ele
 não toca para quem pediu menos movimento no sistema: nesse caso fica o
 poster parado.
 
-Vídeo de celular costuma vir em `.mov` e pesado. Converta antes de subir,
-mirando menos de 1 MB:
+Vídeo de celular costuma vir em `.mov` e pesado, e **gravação de tela de
+iPhone vem em HEVC**, que o Chrome e o Firefox não tocam — só o Safari.
+Sempre converta antes de subir, mirando menos de 1 MB:
 
 ```
-# o vídeo de fundo da seção
-ffmpeg -i entrada.mov -vcodec libx264 -crf 30 -an -vf scale=1280:-2 img/hero-fundo.mp4
-ffmpeg -i img/hero-fundo.mp4 -vframes 1 -q:v 3 img/hero-fundo.jpg
+# o vídeo de fundo da capa, nos dois formatos que cobrem todo navegador.
+# O -ss corta o começo, onde costuma aparecer aviso do sistema; o
+# split/reverse/concat monta um laço em vaivém, que repete sem salto.
+ffmpeg -ss 0.75 -t 4.85 -i entrada.mov -an \
+  -filter_complex "[0:v]fps=25,scale=828:-2,setpts=PTS-STARTPTS,split[a][b];\
+                   [b]reverse,setpts=PTS-STARTPTS[r];[a][r]concat=n=2:v=1[v]" \
+  -map "[v]" -c:v libx264 -pix_fmt yuv420p -crf 27 -preset slow \
+  -movflags +faststart img/hero-fundo.mp4
+ffmpeg -i img/hero-fundo.mp4 -an -c:v libvpx-vp9 -crf 36 -b:v 0 img/hero-fundo.webm
+ffmpeg -ss 2 -i img/hero-fundo.mp4 -frames:v 1 -q:v 4 img/hero-fundo.jpg
 
 # o vídeo da moldura, em pé (a moldura é 4:5)
 ffmpeg -i tatuando.mov -vcodec libx264 -crf 30 -an -vf "scale=900:-2,crop=900:1125" img/retrato.mp4

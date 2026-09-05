@@ -258,6 +258,30 @@ Uma rede de segurança roda dois segundos depois de carregar: chama
 `ScrollTrigger.refresh()` e, para o que ainda estiver escondido dentro da
 tela, põe `data-vista` na mão.
 
+## O vídeo da capa
+
+Uma tatuagem de asas nas costas, em preto e branco, rodando atrás da capa
+inteira com um véu por cima. É a primeira coisa que a página diz, e diz
+sem texto: darkwork, preto fechado, peça grande.
+
+Ele chegou como gravação de tela de iPhone, que vem em **HEVC** — formato
+que só o Safari toca. Está no ar em dois arquivos: VP9 em `.webm` (578 KB,
+que Chrome e Firefox escolhem) e H.264 em `.mp4` (1 MB, que o Safari pega).
+O `<source>` do WebM vem primeiro, e quem não entender cai no seguinte.
+
+O laço é em **vaivém**: o trecho corre até o fim e volta de ré, colado. Um
+corte seco do fim para o começo num plano que se move devagar aparece como
+solavanco a cada volta; em vaivém não há emenda para aparecer. Custa o
+dobro de duração, e quase nada de peso, porque a metade de ré é o mesmo
+material.
+
+O começo foi cortado fora: os primeiros meio segundo traziam um aviso do
+sistema operacional sobre gravação de tela. É a checagem que todo vídeo de
+celular pede antes de subir.
+
+Ele é mudo, roda em `loop`, e quem manda tocar é o JS — nunca o `autoplay`
+do HTML. Quem pediu menos movimento fica com o poster parado.
+
 ## A rolagem
 
 Lenis 1.1.18, servido do próprio site (`js/vendor/`, 13 KB). A roda do
