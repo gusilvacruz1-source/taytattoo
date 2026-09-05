@@ -814,7 +814,11 @@
       if (f.opacidade != null) fita.style.setProperty('--presenca', String(f.opacidade));
       else fita.style.setProperty('--presenca', '.5');
 
-      var vezes = Math.max(2, f.vezes || 3);
+      /* Uma cópia é permitida: a arte nova já atravessa sozinha, com
+         canto de teia nas duas pontas. O mínimo de duas existia para a
+         arte anterior, que era uma teia redonda e sozinha não alcançava
+         as duas paredes. */
+      var vezes = Math.max(1, f.vezes || 3);
       for (var v = 0; v < vezes; v++) {
         var meia = document.createElement('span');
         meia.className = 'teia__parte' + (v % 2 ? ' teia__parte--espelho' : '');

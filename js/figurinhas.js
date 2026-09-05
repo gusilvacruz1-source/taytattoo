@@ -80,13 +80,16 @@ const FIGURINHAS = [
      que é o único vão desta seção, já que os cartões da galeria ocupam a
      largura inteira daí para baixo.
 
-     O desenho é dela. Ele se repete quatro vezes, espelhado a cada
-     cópia, porque esticar uma teia quase quadrada até a largura de um
-     monitor achata os fios e o desenho deixa de parecer teia.
+     O desenho é UMA cópia só, e não mais quatro. A arte nova já vem com
+     a forma certa: canto de teia nas duas pontas e o fio pendurado entre
+     eles, com a aranha descendo. Ela nasceu para atravessar, então
+     repetir seria repetir os cantos no meio da parede, onde canto não
+     existe. As quatro cópias espelhadas existiam porque a arte anterior
+     era uma teia redonda, que sozinha não alcançava as duas paredes.
 
      A opacidade é meia de propósito: em cheio ela enterra o título, que
      passa por baixo dela. */
-  { teia: 'arte', vezes: 4,        secao: 'trabalhos',   arquivo: 'teia-fita.webp', y: 'clamp(8px, 1.6vw, 26px)', fundura: 4, opacidade: .34 },
+  { teia: 'arte', vezes: 2,        secao: 'trabalhos',   arquivo: 'teia-cortina.webp', y: '0', fundura: 4, opacidade: .5 },
 
 
   /* Traço: só o corvo, na beirada da direita.

@@ -270,11 +270,15 @@ fios radiais e fios de captura calculados — porque a arte ainda não tinha
 chegado; chegou, e a geometria saiu inteira. Teia de verdade é rasgada e
 irregular, e nenhuma conta entrega isso.
 
-A faixa **repete** o desenho quatro vezes, e não o estica: esticar uma
-teia quase quadrada até a largura de um monitor achata os fios e o desenho
-deixa de parecer teia. As cópias alternam espelhadas, para a emenda entre
-uma e outra não repetir o mesmo lado e virar padrão de papel de parede. O
-espelho é do CSS, então o navegador baixa a arte uma vez só.
+O desenho é o que a Tay mandou: canto de teia nas duas pontas, fios
+pendurados entre eles e uma aranha descendo por um deles. Ele já nasceu
+para atravessar, ao contrário da arte anterior, que era uma teia redonda.
+
+A faixa usa **duas cópias espelhadas**, e não uma esticada. O arquivo tem
+736px de largura; esticado sozinho até a largura de um monitor ele dobra
+de tamanho, os fios engordam e some a delicadeza do traço à mão. Em duas
+cópias, cada uma fica quase no tamanho de origem e a linha continua fina.
+O espelho é do CSS, então o navegador baixa a arte uma vez só.
 
 A opacidade é meia de propósito. Em cheio a teia enterra o título da
 seção, que passa por baixo dela.
