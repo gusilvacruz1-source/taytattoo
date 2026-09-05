@@ -8,6 +8,29 @@
   'use strict';
 
   var pouca = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* A rolagem suave, montada lá embaixo se o Lenis estiver de pé. Mora
+     aqui em cima porque a lupa precisa pausá-la enquanto está aberta. */
+  var rolagem = null;
+
+  /* Travar o fundo enquanto a lupa está aberta. Só o overflow do body não
+     basta com a rolagem suave por cima: o Lenis tem o próprio laço, e sem
+     o stop() a página continua deslizando atrás do escuro. */
+  function travarRolagem() {
+    if (rolagem) rolagem.stop();
+    document.body.style.overflow = 'hidden';
+  }
+  function soltarRolagem() {
+    if (rolagem) rolagem.start();
+    document.body.style.overflow = '';
+  }
+
+  /* A altura do cabeçalho fixo, lida do mesmo token que o CSS usa, para a
+     âncora não parar com o título escondido atrás dele. O +24 repete a
+     folga do scroll-padding-top, que o Lenis não lê. */
+  function alturaTopo() {
+    var barra = document.querySelector('.topo');
+    return (barra ? barra.offsetHeight : 0) + 24;
+  }
   var temGsap = (typeof gsap !== 'undefined') && (typeof ScrollTrigger !== 'undefined');
   function revelar(el) { el.setAttribute('data-vista', ''); }
 
@@ -501,14 +524,14 @@
 
     pintarAngulo();
     lupa.hidden = false;
-    document.body.style.overflow = 'hidden';
+    travarRolagem();
     requestAnimationFrame(function () { lupa.setAttribute('data-aberta', ''); });
     btnFecha.focus();
   }
 
   function fechar() {
     lupa.removeAttribute('data-aberta');
-    document.body.style.overflow = '';
+    soltarRolagem();
     window.setTimeout(function () {
       lupa.hidden = true;
       palco.innerHTML = '';
@@ -654,23 +677,6 @@
          mantém enquanto anima o deslocamento. */
       img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
       if (f.opacidade != null) img.style.opacity = String(f.opacidade);
-      /* Dois ajustes de imagem, os dois no mesmo filter porque um
-         substitui o outro se forem escritos separados:
-
-         "inverter" é para arte que veio com fundo claro. Sem ele o
-         branco vira um retângulo estourado sob o "screen"; invertida, o
-         branco vira preto e some, e o traço escuro acende.
-
-         "contraste" empurra os quase-pretos para o preto. Serve para
-         arte de fundo fotográfico, cujo preto não é preto de verdade e
-         o "screen" levanta como um halo claro em volta, dando o ar de
-         coisa brilhando. Não use em arte pontilhada: ali o contraste
-         come os pontos e a figurinha some. */
-      var lentes = [];
-      if (f.inverter) lentes.push('invert(1)');
-      if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
-      if (lentes.length) img.style.filter = lentes.join(' ');
-
       /* Nome de arquivo errado não deixa um retângulo quebrado na seção. */
       img.addEventListener('error', function () { img.remove(); });
 
@@ -722,10 +728,6 @@
     caixa.style.setProperty('--arco-elos', elos);
     if (f.opacidade != null) caixa.style.opacity = String(f.opacidade);
 
-    var lentes = [];
-    if (f.inverter) lentes.push('invert(1)');
-    if (f.contraste) lentes.push('contrast(' + f.contraste + ')');
-
     for (var i = 0; i < elos; i++) {
       var t = (i + 0.5) / elos;
       var espelhado = i % 2 === 1;
@@ -745,7 +747,6 @@
       img.alt = '';
       img.loading = 'lazy';
       img.decoding = 'async';
-      if (lentes.length) img.style.filter = lentes.join(' ');
       /* Arquivo que não existe some inteiro, sem deixar meia corrente. */
       img.addEventListener('error', function () { caixa.remove(); });
 
@@ -773,6 +774,52 @@
   } else {
     gsap.registerPlugin(ScrollTrigger);
     document.documentElement.classList.add('motion');
+
+    /* 0. Rolagem suave.
+
+       A roda do mouse move a página em degraus, e cada degrau é um salto
+       seco: é o que faz um site parecer duro mesmo com tudo o mais no
+       lugar. O Lenis põe inércia nesse movimento — a página parte, corre
+       e encosta, em vez de pular. É de onde vem a sensação de fluidez, e
+       é o mesmo que o site da Eloize usa.
+
+       Ele assume a rolagem inteira, então o ScrollTrigger tem de ouvir o
+       Lenis em vez do evento nativo, e o relógio do Lenis passa a ser o
+       do GSAP: dois relógios separados brigam e o parallax treme.
+
+       Nada disto roda em movimento reduzido: quem pediu menos movimento
+       não quer inércia nenhuma, e este bloco inteiro está dentro do
+       "senão" que já exclui esse caso. */
+    if (typeof Lenis !== 'undefined') {
+      rolagem = new Lenis({
+        duration: 1.1,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }
+      });
+      rolagem.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function (tempo) { rolagem.raf(tempo * 1000); });
+      /* O GSAP normalmente ignora quadros muito atrasados para não dar
+         solavanco. Com o Lenis pendurado no mesmo relógio, esse pulo de
+         segurança é justamente o que trava a rolagem. */
+      gsap.ticker.lagSmoothing(0);
+
+      /* O scroll-behavior:smooth do CSS e o Lenis fazem a mesma coisa ao
+         mesmo tempo, e o resultado é uma âncora que anda em dois tempos.
+         Com o Lenis de pé, o do CSS sai. */
+      document.documentElement.style.scrollBehavior = 'auto';
+
+      /* Âncora interna passa pelo Lenis, senão o navegador teleporta e a
+         inércia não existe justamente onde ela mais aparece. */
+      Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = a.getAttribute('href');
+          if (id.length < 2) return;
+          var destino = document.querySelector(id);
+          if (!destino) return;
+          e.preventDefault();
+          rolagem.scrollTo(destino, { offset: -alturaTopo() });
+        });
+      });
+    }
 
     /* 1. Revelação das seções. Quem move é a transição do CSS; o
        ScrollTrigger só diz a hora. Transição, e não keyframe, porque

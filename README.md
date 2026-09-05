@@ -25,12 +25,12 @@ css/style.css       tokens, componentes e as seis seções
 js/trabalhos.js     A LISTA DE FOTOS. É só aqui que se mexe para publicar
 js/figurinhas.js    A LISTA DE ADESIVOS. Onde cada figurinha cola
 js/script.js        menu, galerias, lupa, cursor e a camada de movimento
-js/vendor/          GSAP e ScrollTrigger, servidos pelo próprio site
+js/vendor/          GSAP, ScrollTrigger e Lenis, servidos pelo próprio site
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
 img/retrato.jpg     o retrato da capa (ainda não existe)
 img/hero-fundo.mp4  o vídeo de fundo da capa (ainda não existe)
-img/figurinhas/     os adesivos em PNG (ainda vazio)
+img/figurinhas/     os adesivos: .webp no ar, .jpg originais como fonte
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
 PRODUCT.md          a verdade do negócio e as pendências
 DESIGN.md           o sistema visual, como construído
@@ -165,19 +165,15 @@ editar nada:
 
 | Arquivo | Onde cola | O que é |
 |---|---|---|
-| `filigrana.jpg` | trabalhos, direita | os arabescos com as estrelinhas |
-| `arame.jpg` | trabalhos, em arco de parede a parede | o arame farpado |
-| `lirio.jpg` | traço, esquerda | o lírio de traço fino |
-| `arabesco.jpg` | traço, direita | o arabesco pontilhado |
-| `tulipas.jpg` | disponíveis, direita | as tulipas gravadas |
-| `flor-vermelha.jpg` | disponíveis, esquerda | a flor vermelha, a única cor da página fora o botão |
-| `mao.jpg` | agendar, direita | a mão do chifrinho |
-| `pontilhada.jpg` | contato, direita | a figura pontilhada |
-| `olho-grande.jpg` | contato, esquerda | o olho, com `inverter: true` |
-
-Arte que veio com **fundo claro** precisa de `inverter: true` na linha
-dela. Sem isso o fundo branco vira um retângulo estourado; invertida, o
-branco vira preto e some, e o traço escuro acende.
+| `filigrana.webp` | trabalhos, direita | os arabescos com as estrelinhas |
+| `arame.webp` | trabalhos, em arco de parede a parede | o arame farpado |
+| `lirio.webp` | traço, esquerda | o lírio de traço fino |
+| `arabesco.webp` | traço, direita | o arabesco pontilhado |
+| `tulipas.webp` | disponíveis, direita | as tulipas gravadas |
+| `flor-vermelha.webp` | disponíveis, esquerda | a flor vermelha, a única cor da página fora o botão |
+| `mao.webp` | agendar, direita | a mão do chifrinho |
+| `pontilhada.webp` | contato, direita | a figura pontilhada |
+| `olho-grande.webp` | contato, esquerda | o olho |
 
 **Cinco ficaram fora do ar**, com a linha comentada em `js/figurinhas.js`:
 
@@ -197,12 +193,28 @@ discreta: deixa ela com ar de fantasma aceso, porque o traço perde corpo
 mas continua sendo a única coisa clara na tela. Para deixar alguma mais
 discreta, diminua a `largura`, não a opacidade.
 
-Há dois ajustes de imagem opcionais por figurinha:
+### Os arquivos são `.webp`, e o porquê importa
 
-| Campo | Para quê |
-|---|---|
-| `inverter: true` | arte que veio com fundo claro. Sem isso o branco vira um retângulo estourado |
-| `contraste: 1.5` | arte de fundo fotográfico, cujo preto não é preto de verdade e aparece como halo claro em volta. **Nunca use em arte pontilhada**: o contraste come os pontos |
+As artes chegaram como JPG de fundo preto. JPG não tem transparência, então
+o site escondia o preto compondo em `screen` — o que funciona **só enquanto
+o navegador não isola a mistura**. Quando ele isola (Safari e iOS são os
+casos conhecidos, e basta um `will-change` no caminho), o preto para de
+sumir e aparece o retângulo do arquivo por cima da seção.
+
+Agora cada arte tem um `.webp` com transparência de verdade, gerado a
+partir do JPG: onde era preto ficou vazio. Não há mais o que esconder, e
+por isso sumiram junto os dois remendos que existiam — `inverter`, para
+arte que veio com fundo branco, e `contraste`, para fundo fotográfico cujo
+preto não era preto.
+
+**Os `.jpg` originais continuam na pasta.** São a fonte: se algum dia
+precisar refazer um recorte com outro ajuste, é deles que se parte. O site
+não os carrega.
+
+Para trocar uma arte por outra, o caminho é o mesmo de sempre: ponha o
+arquivo em `img/figurinhas/` e escreva o nome dele em `js/figurinhas.js`.
+Se o novo arquivo for PNG ou WebP com transparência, já está certo. Se for
+JPG de fundo preto, ele vai aparecer como retângulo — avise que eu converto.
 
 ### O arame é diferente: ele é um arco
 

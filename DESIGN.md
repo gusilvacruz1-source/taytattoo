@@ -72,17 +72,24 @@ finas somem no celular.
 
 ## Forma
 
-Duas medidas e uma regra:
+Tudo é redondo, e o quanto depende do papel:
 
 | Papel | Raio | Onde |
 |---|---|---|
-| Superfície | `18px` | cartão de peça, painel, moldura do retrato, vaga, cartão de flash, lista de canais |
-| Controle | `12px` | botão, aba de filtro, botão de ícone, menu, link de pular |
+| Superfície | `22px` | painel, vaga, cartão de flash, lista de canais, faixa |
+| Peça da galeria | `26px` | a maior superfície da página, e a que carrega foto |
+| Controle | pílula | botão, aba de filtro, botão de ícone, menu, link de pular, seta |
 | Indicador | pílula | selo de ângulos, marca de ampliar, pontos da lupa, bolinha do cursor |
+| Moldura da capa | arco | `50vw 50vw 22px 22px`: meia-lua em cima, canto de superfície embaixo |
 
 **Nada fica reto.** Canto redondo convivendo com canto vivo na mesma tela
-é o que faz uma página parecer quebrada, então a regra vale para todo
-elemento com contorno próprio, sem exceção.
+é o que faz uma página parecer quebrada, e pílula ao lado de retângulo de
+12 é a mesma quebra em menor escala — foi por isso que o controle deixou de
+ter raio próprio e virou pílula inteira, como no site da Eloize.
+
+O arco da moldura é o mesmo gesto do site dela, e é o que dá o ar de coisa
+desenhada em vez de caixa: a única forma da página que não é retângulo
+arredondado.
 
 **Sem sombra.** Sombra não se lê sobre breu. A profundidade vem de duas
 coisas: a claridade da superfície (breu → carvão → carvão alto) e um fio de
@@ -214,6 +221,8 @@ Cada gesto tem uma razão. Nenhum existe só para a página se mexer:
 | Linha dos passos se desenha | diz que aquilo é sequência, não lista | `scaleY` 0→1 com `scrub` ao longo da seção |
 | Nome do rodapé emerge | chegada: a palavra sobe enquanto o site acaba | `yPercent` 38→0 com `scrub`, termina no último pixel da página |
 | Selo do topo gira com a rolagem | é o único indicador de posição da página | `rotation: 360`, `scrub: .6`, `start: 0` até `max` |
+| Rolagem com inércia | a roda do mouse move em degraus, e o degrau é o que faz um site parecer duro | Lenis 1.1.18, `duration: 1.1`, saída exponencial |
+| Rabisco que se desenha | a marca de caneta chega escrevendo, como caneta chega | `stroke-dashoffset` 100→0, 1.1s, atraso de .25s |
 
 Os quatro últimos entraram juntos. Três deles são de rolagem contínua
 (`scrub`), que é o oposto de animação que dispara: a pessoa é quem move, e
@@ -248,6 +257,39 @@ O hover magnético dos botões anda no máximo 8px e volta em
 Uma rede de segurança roda dois segundos depois de carregar: chama
 `ScrollTrigger.refresh()` e, para o que ainda estiver escondido dentro da
 tela, põe `data-vista` na mão.
+
+## A rolagem
+
+Lenis 1.1.18, servido do próprio site (`js/vendor/`, 13 KB). A roda do
+mouse move a página em degraus, e cada degrau é um salto seco: é o que faz
+um site parecer duro mesmo com tudo o mais no lugar. Com inércia a página
+parte, corre e encosta.
+
+Ele assume a rolagem inteira, então três coisas mudam junto: o
+ScrollTrigger passa a ouvir o Lenis em vez do evento nativo, o relógio do
+Lenis vira o do GSAP (dois relógios separados brigam e o parallax treme) e
+o `scroll-behavior: smooth` do CSS sai, senão a âncora anda em dois tempos.
+As âncoras internas passam pelo `scrollTo` do Lenis, descontando a altura
+do cabeçalho fixo. A lupa dá `stop()` nele enquanto está aberta.
+
+Nada disso roda em movimento reduzido: o bloco inteiro vive dentro do mesmo
+`senão` que já exclui esse caso, e ali a página rola do jeito do navegador.
+
+## Os rabiscos
+
+Duas marcas de caneta na página inteira: uma volta em torno de "detalhe",
+na frase da capa, e uma seta ligando o passo 01 ao 02. Cada uma aponta para
+algo que já está escrito ali — a volta cerca a palavra que a própria Tay
+usou no briefing, e a seta diz que aquilo é sequência.
+
+Duas, e não uma por seção: a marca de caneta vale pela raridade. Repetida,
+deixa de ser alguém apontando e vira textura.
+
+São `<svg>` escritos no HTML, e não imagens: herdam a cor do CSS, ficam
+nítidas em qualquer tela e o traço se desenha sozinho quando a seção chega.
+O `pathLength="100"` declara que todo caminho mede 100, seja qual for o
+tamanho real — sem isso o tracejado teria de ser medido em JS e remedido a
+cada mudança de tela, porque a volta estica junto com a palavra que cerca.
 
 ## Acesso
 

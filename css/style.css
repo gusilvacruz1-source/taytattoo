@@ -4,10 +4,14 @@
    é o pedido da cliente ("vibe mais escura, voltada ao darkwork"), e é
    o que separa este site do da Eloize, que alterna tinta e papel.
 
-   Forma: duas medidas de raio e uma regra. Superfície arredonda em 18,
-   controle em 12, indicador vira pílula. Nada fica reto: canto redondo
-   convivendo com canto vivo na mesma tela é o que faz página parecer
-   quebrada.
+   Forma: tudo é redondo, e o quanto depende do papel. Superfície
+   arredonda em 22, a peça da galeria em 26, e todo controle é pílula
+   inteira — botão, aba de filtro, seta, link de pular. A moldura da capa
+   é um arco: meia-lua em cima, canto de superfície embaixo.
+
+   A regra é uma só: nada fica reto. Canto redondo convivendo com canto
+   vivo na mesma tela é o que faz página parecer quebrada, e pílula ao
+   lado de retângulo de 12 é a mesma quebra em menor escala.
 
    Acento: um só, o vermelho de tinta seca. Aparece no botão principal,
    no anel de foco e na seleção de texto. Em lugar nenhum mais.
@@ -49,8 +53,12 @@
   /* Duas medidas, uma regra: superfície arredonda em 18, controle em 12.
      Nada fica reto, para não haver canto redondo brigando com canto vivo
      na mesma tela. */
-  --raio:18px;
-  --raio-controle:12px;
+  --raio:22px;             /* superfície: cartão, faixa, moldura       */
+  --raio-grande:26px;      /* a peça da galeria, que é a maior de todas */
+  --raio-controle:999px;   /* controle: sempre pílula inteira           */
+  /* A moldura da capa em arco, que é a forma que o site da Eloize usa e
+     que a Tay pediu. Meia-lua em cima, canto de superfície embaixo. */
+  --raio-arco:50vw 50vw var(--raio) var(--raio);
 
   --largura:1240px;
   --pad-x:clamp(20px,5vw,48px);
@@ -252,7 +260,7 @@ body::after{
 
 .capa__moldura{
   margin:0;
-  border-radius:var(--raio);
+  border-radius:var(--raio-arco);
   width:min(74%,250px);
   aspect-ratio:4/5;
   border:1px solid var(--linha);
@@ -318,7 +326,7 @@ body::after{
 }
 /* A moldura carrega a proporção da peça: o espaço fica reservado antes
    de a foto chegar, e a grade não pula durante o carregamento. */
-.peca__moldura{display:block;width:100%;overflow:hidden;border-radius:var(--raio)}
+.peca__moldura{display:block;width:100%;overflow:hidden;border-radius:var(--raio-grande)}
 .peca img,.peca video{width:100%;height:100%;object-fit:cover}
 .peca:hover{border-color:var(--linha-viva)}
 
@@ -720,23 +728,14 @@ body::after{
 .figurinha{
   position:absolute;
   z-index:0;
-  /* As artes vieram em JPG, que não tem transparência: sem isto cada uma
-     seria um retângulo preto sobre o breu, que não é preto puro. O modo
-     "screen" apaga o preto e deixa só o traço claro, que é exatamente o
-     material aqui. Se um dia chegar PNG com transparência, isto continua
-     certo: sobre fundo escuro o screen não muda o que já é transparente. */
-  mix-blend-mode:screen;
-  /* O contraste não é global: mora no campo "contraste" de cada
-     figurinha, em js/figurinhas.js. Ele serve para matar o halo de arte
-     com fundo fotográfico, e estraga arte pontilhada, onde esmagar os
-     quase-pretos come os pontos. */
-  /* Máscara radial: dissolve a borda do arquivo. As artes são retângulos
-     de fundo escuro, e algumas não são pretas de verdade (a das linhas
-     tem fundo azul-marinho). Sem isto o "screen" entrega o retângulo e a
-     figurinha vira um bloco colado por cima da seção, em vez de um traço
-     que aparece do escuro. */
-  -webkit-mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);
-  mask-image:radial-gradient(closest-side,#000 80%,transparent 100%);
+  /* As artes sao WebP com transparencia de verdade, geradas a partir dos
+     JPG originais (os .jpg continuam na pasta como fonte). Antes elas
+     eram JPG de fundo preto compostas em "screen", e isso dependia de o
+     navegador nao isolar a mistura: quando ele isola — Safari e iOS sao
+     os casos conhecidos, e basta um will-change ou um transform 3D no
+     caminho — o preto do arquivo para de sumir e aparece o retangulo.
+     Com alfa no arquivo nao ha o que sumir, e nao ha mais filtro de
+     contraste nem de inversao para remendar fundo que nao era preto. */
   pointer-events:none;
   user-select:none;
   height:auto;
@@ -771,7 +770,6 @@ body::after{
   align-items:center;
   pointer-events:none;
   user-select:none;
-  mix-blend-mode:screen;
   will-change:transform;
 }
 .arco__elo{
@@ -802,6 +800,79 @@ body::after{
   -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%);
   mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%);
 }
+
+/* -------------------------------------------------------- rolagem suave
+
+   As cinco regras que o Lenis pede, escritas aqui em vez de num arquivo
+   à parte: são cinco linhas, e um arquivo a mais é uma requisição a mais
+   para carregar cinco linhas.
+
+   Elas entram só quando o JS põe a classe .lenis no <html>, ou seja, só
+   quando a rolagem suave está mesmo de pé. Sem ela nada disto existe e a
+   página rola do jeito do navegador. */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto !important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:clip}
+.lenis.lenis-smooth iframe{pointer-events:none}
+
+/* ------------------------------------------------------------ rabiscos
+
+   Duas marcas de caneta por cima do layout: uma volta em torno de uma
+   palavra e uma seta ligando um passo ao seguinte. São anotação, e não
+   ornamento — cada uma aponta para uma coisa que já está escrita ali.
+
+   Duas na página inteira, e não uma por seção: a marca de caneta vale
+   pela raridade. Repetida, deixa de ser alguém apontando e vira textura.
+
+   Vão como <svg> escrito no HTML, e não como imagem: assim herdam a cor
+   do CSS, ficam nítidas em qualquer tela e o traço pode se desenhar
+   sozinho com stroke-dashoffset. */
+.rab-alvo{position:relative;display:inline-block}
+.rabisco{
+  position:absolute;
+  pointer-events:none;
+  overflow:visible;
+  color:var(--brasa);
+}
+.rabisco path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.6;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+  /* O traço não engorda nem afina quando o SVG estica junto com a
+     palavra: a espessura é de tela, e não do sistema de coordenadas. */
+  vector-effect:non-scaling-stroke;
+}
+
+/* A volta em torno da palavra: sobra dos dois lados, como caneta sobra. */
+.rabisco--volta{
+  left:-17%;top:-48%;
+  width:134%;height:196%;
+}
+/* A seta que liga o passo 01 ao 02, na folga à direita do texto. */
+.rabisco--seta{
+  left:56%;top:20%;
+  width:clamp(76px,7vw,108px);height:auto;
+  aspect-ratio:128/96;
+  color:var(--osso-suave);
+}
+
+/* Cada marca se desenha quando a seção chega. Sob .motion, e só sob ela:
+   sem o GSAP de pé o traço nasce inteiro, como o resto da página.
+
+   O pathLength="100" no HTML declara que todo caminho mede 100, seja
+   qual for o tamanho real. Sem isso o tracejado teria de ser medido em
+   JS e remedido a cada mudança de tela, porque a volta estica junto com
+   a palavra que ela cerca. */
+.motion .rabisco path{
+  stroke-dasharray:100;
+  stroke-dashoffset:100;
+  transition:stroke-dashoffset 1.1s var(--saida) .25s;
+}
+.motion [data-vista] .rabisco path,
+.motion .rabisco[data-vista] path{stroke-dashoffset:0}
 
 /* O conteúdo sempre por cima dos adesivos. */
 .secao>.container,.capa__inner{position:relative;z-index:1}
