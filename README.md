@@ -244,6 +244,24 @@ arquivo em `img/figurinhas/` e escreva o nome dele em `js/figurinhas.js`.
 Se o novo arquivo for PNG ou WebP com transparência, já está certo. Se for
 JPG de fundo preto, ele vai aparecer como retângulo — avise que eu converto.
 
+### Se aparecer o quadrado de uma figurinha
+
+Quer dizer que sobrou fundo no arquivo. O recorte tira o fundo pela
+luminosidade e dissolve a borda, e duas coisas fazem ele falhar:
+
+- **O fundo não é preto de verdade.** Arte de fundo fotográfico ou
+  texturizado deixa uma neblina de alfa baixo espalhada pelo quadro
+  inteiro. Isso não é invisível: é um retângulo claro do tamanho do
+  arquivo. O conserto é subir o `corte` até o fundo bater em zero.
+- **A dissolvida não alcança a borda.** A dissolvida mede a distância até
+  a borda mais próxima, e não até o centro. Já foi radial uma vez, e por
+  isso mal chegava a zero no meio de cada lado — sobrava exatamente o
+  retângulo. Se voltar a aparecer, é o `pluma` que está baixo demais.
+
+Para conferir sem depender do olho, ponha o `.webp` sobre um **fundo
+claro**. Sobre o breu do site um resto de fundo se disfarça; sobre cinza
+médio ele salta.
+
 ### O arame é diferente: ele é um arco
 
 Fio que começa e acaba dentro do quadro vira objeto. Por isso o arame não

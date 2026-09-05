@@ -221,6 +221,7 @@ Cada gesto tem uma razão. Nenhum existe só para a página se mexer:
 | Selo do topo gira com a rolagem | é o único indicador de posição da página | `rotation: 360`, `scrub: .6`, `start: 0` até `max` |
 | Rolagem com inércia | a roda do mouse move em degraus, e o degrau é o que faz um site parecer duro | Lenis 1.1.18, `duration: 1.1`, saída exponencial |
 | Rabisco que se desenha | a marca de caneta chega escrevendo, como caneta chega | `stroke-dashoffset` 100→0, 1.1s, atraso de .25s |
+| Figurinha que acende | ela chega com a seção, em vez de já estar lá | opacidade 0→presença, 1.1s; só opacidade, porque o parallax já usa o transform |
 
 Os quatro últimos entraram juntos. Três deles são de rolagem contínua
 (`scrub`), que é o oposto de animação que dispara: a pessoa é quem move, e

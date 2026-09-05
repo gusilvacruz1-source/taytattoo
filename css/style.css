@@ -778,6 +778,9 @@ body::after{
   left:var(--fx,4%);
   top:var(--fy,20%);
   width:var(--fw,140px);
+  /* Repouso é o estado VISÍVEL: sem GSAP de pé a figurinha nasce no lugar,
+     com a presença que a configuração pediu. */
+  opacity:var(--presenca,1);
   /* As artes sao WebP com transparencia de verdade, geradas a partir dos
      JPG originais (os .jpg continuam na pasta como fonte). Antes elas
      eram JPG de fundo preto compostas em "screen", e isso dependia de o
@@ -907,6 +910,17 @@ html.lenis,html.lenis body{height:auto}
 }
 .motion .rabisco[data-vista] path{stroke-dashoffset:0}
 
+/* A figurinha chega junto com a seção, em vez de já estar lá quando a
+   pessoa desce. Só opacidade: ela já anda no parallax, e deslocamento por
+   cima de deslocamento faz as duas coisas brigarem pelo mesmo transform.
+
+   Sob .motion, e só sob ela. */
+.motion .figurinha{
+  opacity:0;
+  transition:opacity 1.1s var(--saida);
+}
+.motion .figurinha[data-vista]{opacity:var(--presenca,1)}
+
 /* Figurinha que só entra em tela larga.
 
    No celular a seção vira uma coluna só, e o texto ocupa a largura
@@ -1002,4 +1016,5 @@ html.lenis,html.lenis body{height:auto}
   .motion .peca{clip-path:none}
   .motion .rabisco path{stroke-dasharray:none;stroke-dashoffset:0}
   .motion .teia--fita{opacity:var(--presenca,.5)}
+  .motion .figurinha{opacity:var(--presenca,1)}
 }

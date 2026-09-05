@@ -725,7 +725,11 @@
       /* Adesivo colado à mão nunca fica reto. O GSAP lê esta rotação e a
          mantém enquanto anima o deslocamento. */
       img.style.transform = 'rotate(' + (f.giro || 0) + 'deg)';
-      if (f.opacidade != null) img.style.opacity = String(f.opacidade);
+      /* A presença mora numa variável, e não no style.opacity, porque a
+         figurinha chega com uma transição de opacidade: escrever direto no
+         elemento travaria o valor final e a entrada não teria para onde
+         ir. É o mesmo mecanismo da faixa de teia. */
+      img.style.setProperty('--presenca', f.opacidade != null ? String(f.opacidade) : '1');
       /* Arte densa some no celular, onde a coluna é estreita e o texto
          ocupa tudo. Quem decide é o CSS, não o JS: assim ela volta se a
          pessoa girar o aparelho, sem precisar recarregar. */
@@ -875,16 +879,17 @@
       });
     });
 
-    /* 2b. Teias e rabiscos se desenham sozinhos, e precisam de gatilho
-       próprio: os dois moram fora dos blocos marcados com .revela — a teia
-       é filha direta da seção, e a volta da capa mora dentro da frase —
-       então esperar pelo data-vista de um ancestral seria esperar por um
-       atributo que nunca chega ali. Sem isto o traço fica com o
-       stroke-dashoffset cheio para sempre, ou seja, invisível.
+    /* 2b. Teias, rabiscos e figurinhas chegam junto com a seção, e os três
+       precisam de gatilho próprio: todos moram fora dos blocos marcados
+       com .revela — a figurinha e a teia são filhas diretas da seção, e a
+       volta da capa mora dentro da frase — então esperar pelo data-vista
+       de um ancestral seria esperar por um atributo que nunca chega ali.
+       Sem isto o traço fica com o stroke-dashoffset cheio para sempre, e a
+       figurinha com opacidade zero: os dois, invisíveis.
 
        Cada um vira alvo também, para a rede de segurança lá embaixo
        alcançá-los se o gatilho não disparar. */
-    Array.prototype.slice.call(document.querySelectorAll('.teia, .rabisco')).forEach(function (traco) {
+    Array.prototype.slice.call(document.querySelectorAll('.teia, .rabisco, .figurinha')).forEach(function (traco) {
       alvos.push(traco);
       ScrollTrigger.create({
         trigger: traco,
