@@ -30,6 +30,16 @@
   src:url('../fonts/archivo.woff2') format('woff2');
   font-weight:400 700;font-style:normal;font-display:swap;
 }
+/* A gótica é New Rocker, e existe por um pedido da Tay: o nome dela em
+   Cormorant estava "um pouco delicado", nas palavras dela, e o estúdio é
+   darkwork. Ela vale só para o NOME — capa, cabeçalho e rodapé. Título de
+   seção continua em Cormorant, que é a voz de leitura: página inteira em
+   blackletter deixa de ser gótica e vira fantasia. */
+@font-face{
+  font-family:'New Rocker';
+  src:url('../fonts/gotica.woff2') format('woff2');
+  font-weight:400;font-style:normal;font-display:swap;
+}
 
 :root{
   --breu:#0B0B0C;
@@ -48,6 +58,7 @@
   --brasa:#D4685C;       /* o mesmo acento clareado para foco e link */
 
   --display:'Cormorant Garamond',Garamond,'Times New Roman',Georgia,serif;
+  --gotica:'New Rocker','Cormorant Garamond',Garamond,serif;
   --ui:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
 
   /* Duas medidas, uma regra: superfície arredonda em 18, controle em 12.
@@ -186,7 +197,7 @@ body::after{
 
 .marca{display:flex;align-items:center;gap:12px;margin-right:auto}
 .marca__selo{width:30px;height:30px;flex:none;color:var(--osso)}
-.marca__nome{font-family:var(--display);font-size:1.3rem;color:var(--osso);line-height:1}
+.marca__nome{font-family:var(--gotica);font-size:1.15rem;color:var(--osso);line-height:1.15;letter-spacing:.01em}
 .marca__nome small{
   display:block;font-family:var(--ui);font-size:.55rem;font-weight:600;
   letter-spacing:.28em;color:var(--osso-suave);margin-top:4px;
@@ -252,10 +263,36 @@ body::after{
 .capa__palco{display:grid;justify-items:center;gap:28px;width:100%}
 
 .capa__nome{
-  font-size:clamp(2.9rem,11.2vw,9.6rem);
-  font-weight:300;line-height:.95;
-  text-transform:uppercase;letter-spacing:.006em;
+  font-family:var(--gotica);
+  font-size:clamp(2.5rem,9.6vw,8.2rem);
+  font-weight:400;line-height:.95;
+  text-transform:uppercase;letter-spacing:.012em;
   margin:0;
+}
+
+/* Cromado.
+
+   Não é gradiente decorativo: é o desenho de como metal polido reflete.
+   Claro em cima (o céu), escurecendo até a linha do horizonte, e no
+   milímetro seguinte estoura em branco de novo (o chão refletido). É essa
+   virada dura no meio que o olho lê como metal; sem ela, é degradê.
+
+   Nenhuma parada desce abaixo de #55514B. Sobre o breu, preto no
+   gradiente não vira sombra: vira buraco, e a letra perde o corpo. */
+/* Só o nome da capa. O do rodapé segue massa silenciosa: cromar os dois
+   poria dois brilhos disputando a mesma página. */
+.capa__nome span{
+  background:linear-gradient(180deg,
+    #C8C2B7 0%,
+    #FFFFFF 11%,
+    #8E887E 42%,
+    #55514B 49%,   /* a linha do horizonte */
+    #FFFFFF 51%,   /* e o estouro logo abaixo dela */
+    #E7E1D6 63%,
+    #7E786F 84%,
+    #B9B1A4 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
 }
 
 .capa__moldura{
@@ -615,7 +652,7 @@ body::after{
 }
 .rodape__marca span{
   display:block;
-  font-family:var(--display);
+  font-family:var(--gotica);
   font-size:clamp(3.2rem,15.5vw,15.5rem);
   line-height:.78;
   font-weight:400;
@@ -743,63 +780,59 @@ body::after{
   will-change:transform;
 }
 
-/* --------------------------------------------------------------- arco
+/* --------------------------------------------------------------- teia
 
-   O arame pendurado de uma parede à outra, atrás da galeria. É a única
-   figurinha que atravessa a seção; as outras ficam coladas num canto.
+   A assinatura da Tay, e o único ornamento que se repete na página. A
+   geometria mora em montarTeia(), em js/script.js, com o porquê de cada
+   parte; aqui fica só como ela se apoia na seção.
 
-   A montagem está em montarArco(), em js/script.js, com o porquê de cada
-   parte. Aqui fica só a geometria: a corrente ocupa a largura da seção
-   mais uma sobra para fora de cada parede, e cada elo fica com uma fatia
-   igual desse vão.
-
-   O elo é a arte deitada. Ela é um retrato, então o giro de -90° troca
-   altura por largura: a ALTURA do arquivo é que vira o comprimento do
-   pedaço de fio. Por isso a altura sai do vão do elo, e não a largura. */
-.arco{
-  --elo-vao:calc((100vw + var(--arco-sobra,9vw) * 2) / var(--arco-elos,6));
+   Ela é traço, e traço tem espessura de tela: o vector-effect segura os
+   fios finos do mesmo jeito num celular e num monitor grande, em vez de
+   engrossá-los junto com o desenho. */
+.teia{
   position:absolute;
-  left:calc(var(--arco-sobra,9vw) * -1);
-  right:calc(var(--arco-sobra,9vw) * -1);
-  /* Altura zero de propósito: com align-items:center os elos ficam
-     centrados na linha do "top", então o y da configuração é a linha do
-     fio, e não a quina de uma caixa invisível. */
-  height:0;
   z-index:0;
-  display:flex;
-  align-items:center;
   pointer-events:none;
   user-select:none;
+  color:var(--linha-viva);
   will-change:transform;
 }
-.arco__elo{
-  flex:1 1 0;
-  min-width:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  transform:translateY(var(--elo-sobe,0));
+.teia path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.35;
+  stroke-linecap:round;
+  vector-effect:non-scaling-stroke;
 }
-/* O espelho vem depois do translate na ordem de leitura, então roda
-   primeiro: vira só a arte, e não a subida do elo. */
-.arco__elo--espelho{transform:translateY(var(--elo-sobe,0)) scaleX(-1)}
-.arco__elo img{
-  /* 1.3 do vão para o elo entrar por baixo do vizinho. A sobreposição é
-     o que apaga a emenda: as máscaras das duas pontas se cruzam ali, e o
-     "screen" soma o que sobra de cada uma. */
-  height:calc(var(--elo-vao) * 1.3);
-  /* A largura recorta as tarjas pretas dos lados do arquivo: o fio ocupa
-     uma faixa diagonal estreita e o resto do JPG é fundo. Sem o recorte
-     a faixa deitada fica alta demais e o arco engrossa sem motivo. */
-  width:calc(var(--elo-vao) * 1.3 * .55);
-  object-fit:cover;
-  object-position:56% 50%;
-  transform:rotate(calc(-90deg + var(--elo-giro,0deg)));
-  /* Dissolve as duas pontas do elo. Simétrica de propósito: assim ela
-     serve igual no elo espelhado, sem uma regra só para ele. */
-  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%);
-  mask-image:linear-gradient(to bottom,transparent 0%,#000 18%,#000 82%,transparent 100%);
+
+/* A larga atravessa de parede a parede, que é o que a Tay gostou no
+   arame. Sangra 6vw para fora de cada lado: a seção corta o excesso, e o
+   fio da ponta encosta na parede inteiro em vez de acabar antes dela. */
+.teia--larga{
+  left:-6vw;right:-6vw;
+  width:auto;
+  aspect-ratio:1200/300;
+  color:var(--osso-suave);
+  opacity:.5;
 }
+
+/* A de canto fica atrás do texto, como as outras figurinhas. */
+.teia--canto{
+  aspect-ratio:1/1;
+  height:auto;
+  max-width:52vw;
+  opacity:.62;
+}
+
+/* A teia se desenha quando a seção chega, no mesmo movimento dos
+   rabiscos: teia aparece sendo tecida, e não pronta. Sob .motion, e só
+   sob ela — sem GSAP nasce inteira, como o resto da página. */
+.motion .teia path{
+  stroke-dasharray:100;
+  stroke-dashoffset:100;
+  transition:stroke-dashoffset 1.6s var(--saida) .1s;
+}
+.motion .teia[data-vista] path{stroke-dashoffset:0}
 
 /* -------------------------------------------------------- rolagem suave
 
@@ -871,8 +904,21 @@ html.lenis,html.lenis body{height:auto}
   stroke-dashoffset:100;
   transition:stroke-dashoffset 1.1s var(--saida) .25s;
 }
-.motion [data-vista] .rabisco path,
 .motion .rabisco[data-vista] path{stroke-dashoffset:0}
+
+/* Figurinha que só entra em tela larga.
+
+   No celular a seção vira uma coluna só, e o texto ocupa a largura
+   inteira: não sobra vão nenhum, e qualquer figurinha grande cai por cima
+   de uma descrição. Foi o que a Tay apontou no lírio. Mudar de lugar não
+   resolve ali — só troca qual parágrafo fica embaixo dela.
+
+   Então a arte densa some no estreito e fica a esparsa, que atravessa o
+   texto sem disputar com ele. Uma figurinha por seção no celular é o
+   bastante: o clima continua, e o texto volta a ser legível. */
+@media (max-width:720px){
+  .figurinha--so-largo{display:none}
+}
 
 /* O conteúdo sempre por cima dos adesivos. */
 .secao>.container,.capa__inner{position:relative;z-index:1}
@@ -934,4 +980,6 @@ html.lenis,html.lenis body{height:auto}
   .capa__selo .selo__espiral{stroke-dashoffset:0}
   .motion .revela{opacity:1;transform:none}
   .motion .peca{clip-path:none}
+  .motion .teia path,
+  .motion .rabisco path{stroke-dasharray:none;stroke-dashoffset:0}
 }

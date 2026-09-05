@@ -258,6 +258,45 @@ Uma rede de segurança roda dois segundos depois de carregar: chama
 `ScrollTrigger.refresh()` e, para o que ainda estiver escondido dentro da
 tela, põe `data-vista` na mão.
 
+## A teia
+
+É a assinatura da Tay nas tatuagens e nas ilustrações, e por isso é o
+único ornamento que se repete na página. Entrou no lugar do arame farpado
+a pedido dela, guardando o que o arame tinha de bom: atravessar de parede
+a parede.
+
+Ela é geometria, não mão livre. Fios radiais partindo de um centro, e
+entre cada dois deles um fio de captura que cede para fora como corda
+pendurada cede. É essa barriga que faz o olho ler "teia" — sem ela, vira
+leque.
+
+Duas formas. A **larga** pendura no alto da seção com o centro acima da
+tela, então os fios abrem para baixo e alcançam as duas paredes. A de
+**canto** tem o centro no próprio canto e ocupa um quarto de círculo, que
+é como teia aparece de verdade.
+
+Vai como SVG escrito na hora, e não como arquivo: fica nítida em qualquer
+tela, pesa o mesmo que um parágrafo e recebe a cor do CSS. Como os
+rabiscos, ela se desenha quando a seção chega — teia aparece sendo tecida,
+não pronta.
+
+## O nome
+
+Cormorant Garamond continua sendo a voz de leitura da página, mas o nome
+saiu dela: a Tay disse que estava "um pouco delicado", e o estúdio é
+darkwork. O nome agora é **New Rocker** — gótica de pontas afiadas — e vale
+só para ele: capa, cabeçalho e o nome cortado do rodapé. Página inteira em
+blackletter deixa de ser gótica e vira fantasia.
+
+Na capa ele é **cromado**. Não é gradiente decorativo: é o desenho de como
+metal polido reflete. Claro em cima, escurecendo até a linha do horizonte,
+e no milímetro seguinte estourando em branco de novo, que é o chão
+refletido. É a virada dura no meio que o olho lê como metal.
+
+Nenhuma parada do gradiente desce abaixo de `#55514B`. Sobre o breu, preto
+no gradiente não vira sombra: vira buraco, e a letra perde o corpo. O nome
+do rodapé ficou fora do cromado — dois brilhos disputariam a mesma página.
+
 ## O vídeo da capa
 
 Uma tatuagem de asas nas costas, em preto e branco, rodando atrás da capa

@@ -38,6 +38,25 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
 - WhatsApp: **(42) 99125-1759**, confirmado pela Tay. Está publicado no
   botão, no rodapé e no JSON-LD.
 
+## O que a Tay pediu, e o que já foi feito
+
+Retorno dela por escrito, em 05/09, olhando o site no celular:
+
+| Ela disse | Estado |
+|---|---|
+| "está bem parecido com o da Elo e nós somos completamente diferente / quero realmente uma estética gótica e dark" | em andamento: entraram a fonte gótica no nome e a teia; a base de tipografia e cor ainda é a mesma |
+| "a fonte do meu nome ainda está um pouco delicada, poderia mudar?" | **feito** — New Rocker, cromada |
+| "o arame farpado é lindoooo, mas poderia trocar por teia de aranha / ela é minha assinatura" | **feito** — teia no lugar exato do arame |
+| "essa flor encima da descrição precisa mudar de lugar" | **feito** — o lírio subiu e sai de cena no celular |
+| "os desenhos brancos de fundo pode substituir por teia, crisântemos, punhais e adagas, corvos, velas" | parcial: saíram a mão e o olho, entrou teia; falta a arte dos outros |
+| "o vídeo de fundo está simplesmente incrível" | mantido como está |
+| "onde está a espiral vai ser uma foto minha / não quero nem uma espiral" | esperando a foto |
+
+**O que ela usa nas criações dela**, nas palavras dela: teia de aranha,
+crisântemos, punhais e adagas, corvos, velas. É esse o vocabulário que
+manda nas figurinhas daqui para a frente. A teia já é desenhada pelo
+próprio site; as outras quatro precisam de arte.
+
 ## Pendências (o que precisa vir da Tay)
 0. **Confirmar as abas do filtro.** Hoje são Autorais, Delicadas,
    Blackwork e Cicatrizadas. "Delicadas" veio do destaque do perfil dela
@@ -45,11 +64,11 @@ Tudo abaixo saiu do perfil dela ou do WhatsApp da própria cliente.
    nossa. Vale ela dizer como divide o próprio trabalho.
 1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
    seções hoje são estado vazio apontando para o Instagram.
-2. **A moldura da capa**, que é o quadro no meio do nome. Aceita três
-   coisas, e a primeira que existir manda: um **vídeo dela tatuando**
-   (`img/retrato.mp4`, mudo e em loop), o **retrato parado**
-   (`img/retrato.jpg`) ou, sem nenhum dos dois, o selo. A cliente pediu
-   o vídeo tatuando; ele ainda não chegou.
+2. **A foto da Tay para a moldura da capa** (`img/retrato.jpg`). Hoje ali
+   está o selo em espiral, e ela foi clara: "não quero nem uma espiral,
+   então pode colocar sim uma foto minha". É a pendência mais visível do
+   site, porque a moldura fica no meio do nome. A moldura também aceita
+   vídeo (`img/retrato.mp4`), que entra na frente da foto se existir.
 3. **Confirmar a peça do vídeo da capa.** O fundo da capa agora é um vídeo
    de uma tatuagem de asas nas costas, que o Gu mandou. Veio como gravação
    de tela de um reels, então duas coisas precisam de confirmação da Tay:

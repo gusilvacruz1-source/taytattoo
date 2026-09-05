@@ -63,18 +63,29 @@ const FIGURINHAS = [
      corpo mas continua sendo a única coisa clara na tela. Para deixar
      alguma mais discreta, o caminho é diminuir a "largura". */
 
-  /* Trabalhos: a filigrana à direita e o arame atravessando por cima.
+  /* Trabalhos: a teia pendurada no alto e a filigrana à direita.
 
-     O arame é o único em arco: ele é um fio, e fio que começa e acaba
-     dentro do quadro vira objeto. Pendurado de uma parede à outra,
-     cortado pelas duas, ele volta a ser fio. Fica na faixa vazia acima do
-     título, que é o único lugar da seção onde ele atravessa inteiro sem
-     passar por cima de nada. */
-  { arquivo: 'filigrana.webp',     secao: 'trabalhos',   largura: 260, x: '87%', y: '14%', giro: 7,   fundura: 8, opacidade: 1 },
-  { arquivo: 'arame.webp',         secao: 'trabalhos',   arco: true, elo: 145, curva: 9, y: 'clamp(38px, 9vw, 120px)', fundura: 5, opacidade: 1 },
+     A teia entrou no lugar do arame farpado a pedido da Tay — o arame ela
+     achou lindo, mas a teia é a assinatura dela nas tatuagens e nas
+     ilustrações. Ela guarda o que o arame tinha de bom: atravessa de
+     parede a parede, na faixa vazia acima do título, que é o único lugar
+     da seção onde passa inteira sem cair por cima de nada. */
+  { teia: 'larga',                 secao: 'trabalhos',   y: 'clamp(30px, 7vw, 96px)', fundura: 4, opacidade: 1 },
+  { arquivo: 'filigrana.webp',     secao: 'trabalhos',   largura: 260, x: '87%', y: '22%', giro: 7,   fundura: 8, opacidade: 1 },
 
-  /* Traço: o lírio à esquerda e o arabesco fechando à direita. */
-  { arquivo: 'lirio.webp',         secao: 'traco',       largura: 240, x: '2%',  y: '52%', giro: -9,  fundura: 6, opacidade: 1 },
+  /* Traço: o lírio e o arabesco, os dois nas beiradas.
+
+     O lírio subiu e saiu pela borda. Ele estava em x 2% / y 52%, e ali
+     caía em cima da descrição do "Projeto ilustrado" — a Tay apontou. Os
+     três cartões desta seção ocupam a largura toda, então não existe vão
+     no meio: o lugar de figurinha aqui é sangrando pela lateral, na
+     altura do título, onde o texto ainda não começou.
+
+     No celular ele sai de cena ("soLargo"). Ali a coluna é única e não
+     existe lateral: mudar o lírio de lugar só trocaria qual parágrafo
+     fica embaixo dele. Fica o arabesco, que é pontilhado e esparso e
+     atravessa o texto sem disputar com ele. */
+  { arquivo: 'lirio.webp',         secao: 'traco',       largura: 210, x: '-6%', y: '6%',  giro: -9,  fundura: 6, opacidade: 1, soLargo: true },
   { arquivo: 'arabesco.webp',      secao: 'traco',       largura: 275, x: '86%', y: '8%',  giro: 8,   fundura: 4, opacidade: 1 },
 
   /* Disponíveis: as tulipas à direita e a flor vermelha à esquerda. A
@@ -83,16 +94,33 @@ const FIGURINHAS = [
   { arquivo: 'tulipas.webp',       secao: 'disponiveis', largura: 330, x: '82%', y: '10%', giro: 5,   fundura: 5, opacidade: 1 },
   { arquivo: 'flor-vermelha.webp', secao: 'disponiveis', largura: 200, x: '4%',  y: '55%', giro: -11, fundura: 8, opacidade: 1 },
 
-  /* Agendar: a mão do chifrinho. */
-  { arquivo: 'mao.webp',           secao: 'agendar',     largura: 210, x: '87%', y: '48%', giro: 9,   fundura: 7, opacidade: 1 },
+  /* Agendar: teia no canto de cima, à direita.
 
-  /* Contato: a pontilhada à direita e o olho à esquerda. O olho veio com
-     fundo branco, e o recorte já resolveu isso no arquivo. */
+     Aqui estava a mão do chifrinho, e ela saiu: a Tay listou o que usa nas
+     criações dela — teia, crisântemo, punhal, corvo, vela — e mão de rock
+     não é nada disso. Enquanto a arte própria não chega, quem ocupa é a
+     teia, que é a assinatura e é desenho, não foto de banco de imagem. */
+  { teia: 'canto',                 secao: 'agendar',     largura: 260, x: '74%', y: '8%',  giro: 90,  fundura: 6, opacidade: 1 },
+
+  /* Contato: a pontilhada à direita e a teia no canto de baixo à esquerda.
+     Aqui estava o olho grande, que saiu pelo mesmo motivo da mão. */
   { arquivo: 'pontilhada.webp',    secao: 'contato',     largura: 360, x: '80%', y: '38%', giro: 10,  fundura: 7, opacidade: 1 },
-  { arquivo: 'olho-grande.webp',   secao: 'contato',     largura: 225, x: '3%',  y: '52%', giro: -7,  fundura: 6, opacidade: 1 },
+  { teia: 'canto',                 secao: 'contato',     largura: 240, x: '-4%', y: '34%', giro: 0,   fundura: 5, opacidade: 1 },
 
   /* ------------------------------------------------------------------
-     Cinco ficaram fora do ar. Para pôr qualquer uma, tire as barras.
+     TRÊS SAÍRAM DE CENA POR PEDIDO DA TAY, e os arquivos continuam na
+     pasta. Ela listou o que usa nas criações dela — teia de aranha,
+     crisântemo, punhal e adaga, corvo, vela — e estas três não são nada
+     disso. Para trazer qualquer uma de volta, tire as barras da frente.
+
+     O arame ela chamou de lindo, e saiu só porque a teia é a assinatura
+     dela; se um dia quiser os dois, o arame volta em outra seção. */
+  // { arquivo: 'arame.webp',        secao: 'trabalhos', largura: 230, x: '-4%', y: '34%', giro: -4, fundura: 7, opacidade: 1 },
+  // { arquivo: 'mao.webp',          secao: 'agendar',   largura: 210, x: '87%', y: '48%', giro: 9,  fundura: 7, opacidade: 1 },
+  // { arquivo: 'olho-grande.webp',  secao: 'contato',   largura: 225, x: '3%',  y: '52%', giro: -7, fundura: 6, opacidade: 1 },
+
+  /* ------------------------------------------------------------------
+     E cinco nunca chegaram a entrar. Para pôr qualquer uma, idem.
 
      brilho e linhas: não são desenho de traço, são imagens de área
      cheia. O brilho é um estouro de luz que ocupa o quadro inteiro, e o
