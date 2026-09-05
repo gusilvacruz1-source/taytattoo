@@ -63,8 +63,29 @@ próprio site; as outras quatro precisam de arte.
    Blackwork e Cicatrizadas. "Delicadas" veio do destaque do perfil dela
    e "blackwork" do briefing que ela escreveu; as outras duas são leitura
    nossa. Vale ela dizer como divide o próprio trabalho.
-1. **Fotos e vídeos dos trabalhos.** É a lacuna que mais pesa: duas das seis
-   seções hoje são estado vazio apontando para o Instagram.
+1. **CONFIRMAR OS NOMES E AS ABAS das sete primeiras peças.** As fotos
+   chegaram em 05/09 e estão no ar, mas a Tay não mandou os títulos — os
+   que estão lá são leitura minha, olhando as fotos. Cada um é para ela
+   corrigir: é o trabalho dela, e quem nomeia é ela. As categorias
+   (Autorais, Delicadas, Blackwork) também são chute meu.
+
+   Estão em `js/trabalhos.js`, uma peça por bloco:
+
+   | Título no ar | Abas |
+   |---|---|
+   | Flor com olho no antebraço | autorais, blackwork |
+   | Draw or die | autorais |
+   | Mulher e crânio na perna | autorais, blackwork |
+   | Fada na lua | autorais, delicadas |
+   | Filigrana no tornozelo | delicadas |
+   | Mulher coroada | autorais, blackwork |
+   | Olho no sol (dois ângulos) | autorais, blackwork |
+
+   Nenhuma peça está marcada como **Cicatrizadas**, então essa aba não
+   aparece. Ela volta sozinha quando alguma for marcada.
+
+2. **Mais fotos de trabalhos**, e as dos desenhos disponíveis, que ainda
+   não vieram — a seção Disponíveis continua em estado vazio.
 2. **O vídeo dela tatuando** (`img/retrato.mp4`), se ela quiser. A foto
    dela já está na moldura, no lugar do selo em espiral que ela não
    queria. A moldura tem três degraus e o arquivo é quem manda: se um dia
@@ -76,6 +97,13 @@ próprio site; as outras quatro precisam de arte.
    que a peça é dela, e que a pessoa tatuada topa aparecer na capa do
    site. É o primeiro que se vê da página, e é retrato de alguém.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
+   A pasta `img/disponiveis/` está vazia.
+
+4b. **As quatro fotos de estúdio** que vieram junto com as peças estão em
+   `img/estudio/`, fora da galeria: duas da Tay tatuando, uma de cliente e
+   uma dela tatuando o braço da cliente. Não são peças, então não entram
+   na galeria — mas são boas, e cabem numa seção "sobre" ou no lugar do
+   vídeo da capa, se ela quiser.
 5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
    fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o
    autor de cada uma**: são artes que vão para o site comercial de uma

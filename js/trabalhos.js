@@ -47,24 +47,73 @@ const CATEGORIAS = [
 ];
 
 const TRABALHOS = [
-  // {
-  //   titulo: 'Cobra na panturrilha',
-  //   categorias: 'blackwork autorais',
-  //   proporcao: '3/4',
-  //   angulos: [
-  //     { arquivo: 'cobra-1.jpg', alt: 'Cobra em blackwork descendo a panturrilha' },
-  //     { arquivo: 'cobra-2.jpg', alt: 'A mesma cobra vista de lado, com a perna estendida' },
-  //     { arquivo: 'cobra.mp4',   alt: 'Vídeo da cobra: a luz corre pelas escamas', capa: 'cobra-capa.jpg' },
-  //   ],
-  // },
-  // {
-  //   titulo: 'Lírio na clavícula',
-  //   categorias: 'delicadas cicatrizadas',
-  //   proporcao: '1/1',
-  //   angulos: [
-  //     { arquivo: 'lirio-1.jpg', alt: 'Lírio de traço fino sobre a clavícula, já cicatrizado' },
-  //   ],
-  // },
+  /* AS SETE PRIMEIRAS PEÇAS, das fotos que a Tay mandou em 05/09.
+
+     Os títulos e as categorias abaixo são LEITURA MINHA, feita olhando as
+     fotos — a Tay não mandou os nomes. Elas estão no ar para o site sair
+     do vazio, mas cada linha aqui é para ela corrigir: é o trabalho dela,
+     e quem nomeia é ela. O que está certo com certeza é o arquivo, a
+     proporção e quais fotos são da mesma peça. */
+
+  {
+    titulo: 'Flor com olho no antebraço',
+    categorias: 'autorais blackwork',
+    proporcao: '9/16',
+    angulos: [
+      { arquivo: 'flor-olho-antebraco.jpeg', alt: 'Flor grande de pétalas sombreadas com um olho no centro, descendo o antebraço' },
+    ],
+  },
+  {
+    titulo: 'Draw or die',
+    categorias: 'autorais',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'draw-or-die-coxa.jpeg', alt: 'Letra ornamentada na coxa com a frase DRAW OR DIE embaixo' },
+    ],
+  },
+  {
+    titulo: 'Mulher e crânio na perna',
+    categorias: 'autorais blackwork',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'mulher-cranio-perna.jpeg', alt: 'Rosto de mulher chorando sob um crânio de animal, com flecha e flor, descendo a perna' },
+    ],
+  },
+  {
+    titulo: 'Fada na lua',
+    categorias: 'autorais delicadas',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'fada-lua-antebraco.jpeg', alt: 'Fada sentada numa lua entre estrelas, em traço fino, no antebraço' },
+    ],
+  },
+  {
+    titulo: 'Filigrana no tornozelo',
+    categorias: 'delicadas',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'filigrana-tornozelo.jpeg', alt: 'Ornamento simétrico de traço fino descendo a parte de trás do tornozelo' },
+    ],
+  },
+  {
+    titulo: 'Mulher coroada',
+    categorias: 'autorais blackwork',
+    proporcao: '3/4',
+    angulos: [
+      { arquivo: 'mulher-coroa-antebraco.jpeg', alt: 'Rosto de mulher com coroa de raios e lágrimas escuras, sobre uma base ornamentada, no antebraço' },
+    ],
+  },
+  {
+    /* A única com dois ângulos: a mão fechando o rosto e o dorso dela em
+       close. É para isso que o cartão tem setas. */
+    titulo: 'Olho no sol',
+    categorias: 'autorais blackwork',
+    proporcao: '4/5',
+    angulos: [
+      { arquivo: 'olho-sol-mao-1.jpeg', alt: 'Mão cobrindo o rosto, com um olho dentro de um sol tatuado no dorso' },
+      { arquivo: 'olho-sol-mao-2.jpeg', alt: 'O mesmo olho no sol, visto de perto com a mão estendida' },
+    ],
+  },
 ];
 
 /* Desenhos autorais livres, esperando quem leve.
