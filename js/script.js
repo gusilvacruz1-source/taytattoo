@@ -84,15 +84,54 @@
   }
 
   /* ---------------------------------------------------- vídeo da capa */
-  /* Sem autoplay no HTML de propósito: quem manda tocar é o JS, e só
-     quando o visitante não pediu menos movimento. Em reduced-motion fica
-     o poster parado. Sem os arquivos, o elemento não pinta nada e sobra
-     o breu com o véu por cima, que é um degradê discreto e serve. */
+
+  /* O autoplay agora mora no HTML, junto com muted e playsinline, porque
+     no celular é esse trio que o navegador aceita. Um play() só de JS o
+     iPhone recusa com frequência — ainda mais enquanto a página carrega —
+     e antes a recusa era engolida por um catch vazio: o visitante ficava
+     com a foto parada para sempre, sem nada a fazer a respeito.
+
+     Aqui o JS só cobre o que o atributo não resolve:
+
+     1. Movimento reduzido desliga o autoplay na hora e fica o poster.
+     2. Quando o navegador recusa mesmo assim, a gente volta a tentar no
+        primeiro toque, tecla ou rolagem. O caso comum é o Modo de Baixo
+        Consumo do iPhone, que bloqueia vídeo automático sem exceção mas
+        libera depois de um gesto da pessoa.
+     3. E toda vez que a aba volta a aparecer, porque o celular pausa o
+        vídeo ao sair dela e não retoma sozinho.
+
+     Sem os arquivos nada disso pinta, e sobra o breu com o véu por cima,
+     que é um degradê discreto e serve. */
   var video = document.getElementById('capaVideo');
-  if (video && !pouca) {
-    var tocar = function () { video.play().catch(function () {}); };
-    if (video.readyState >= 2) tocar();
-    else video.addEventListener('loadeddata', tocar, { once: true });
+
+  if (video && pouca) {
+    video.autoplay = false;
+    video.pause();
+
+  } else if (video) {
+    var GESTOS = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
+
+    var soltarGestos = function () {
+      GESTOS.forEach(function (g) { window.removeEventListener(g, insistir); });
+    };
+
+    var insistir = function () {
+      if (!video.paused) { soltarGestos(); return; }
+      var promessa = video.play();
+      if (promessa && promessa.then) promessa.then(soltarGestos, function () {});
+    };
+
+    GESTOS.forEach(function (g) {
+      window.addEventListener(g, insistir, { passive: true });
+    });
+    /* Este fica para sempre: sair e voltar da aba pausa o vídeo de novo,
+       e é a única das três situações que se repete. */
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) insistir();
+    });
+
+    insistir();
   }
 
   /* --------------------------------------------------------- retrato */

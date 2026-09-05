@@ -103,6 +103,25 @@ O vídeo é mudo, roda em loop e fica em preto e branco, igual às fotos. Ele
 não toca para quem pediu menos movimento no sistema: nesse caso fica o
 poster parado.
 
+### Se o vídeo aparecer parado no celular
+
+Vídeo de fundo depende de três coisas juntas — `autoplay`, `muted` e
+`playsinline` — e mesmo com as três o celular às vezes recusa. O site já
+faz o que dá pelo código: se o navegador recusar, ele volta a tentar no
+primeiro toque, tecla ou rolagem, e toda vez que a aba volta a aparecer.
+
+Sobram dois motivos que **nenhum site consegue contornar**, e é bom saber
+reconhecer:
+
+| No aparelho | O que acontece | Como confirmar |
+|---|---|---|
+| **Modo de Baixo Consumo** (iPhone) | o iOS bloqueia todo vídeo automático | Ajustes › Bateria. Com ele ligado, o vídeo só começa depois que a pessoa toca na tela |
+| **Reduzir Movimento** ligado | o site respeita e deixa o poster parado, de propósito | iPhone: Ajustes › Acessibilidade › Movimento. Android: Acessibilidade › Remover animações |
+
+Se não for nenhum dos dois e ainda assim ficar parado, o provável é o
+arquivo: **gravação de tela de iPhone vem em HEVC**, que só o Safari toca.
+A conversão logo abaixo resolve.
+
 Vídeo de celular costuma vir em `.mov` e pesado, e **gravação de tela de
 iPhone vem em HEVC**, que o Chrome e o Firefox não tocam — só o Safari.
 Sempre converta antes de subir, mirando menos de 1 MB:
