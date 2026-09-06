@@ -922,31 +922,69 @@ html.lenis,html.lenis body{height:auto}
   user-select:none;
   will-change:transform;
 }
-/* A teia não estica de parede a parede: ela ANCORA nas duas.
+/* UMA teia, e não duas. Ancorada nas duas paredes, emendada pelo fio.
 
-   Esticar era o erro, e deu para ver. A arte é papel de parede de canto,
-   com 736px de largura; espalhada num monitor ela amplia uma vez e meia,
-   as células da teia passam de 35px para 100, e o desenho fica grosso e
-   borrado. Pior: o corte no meio da arte virava risco reto atravessando a
-   seção, e teia não tem risco reto.
+   O caminho até aqui foi longo e vale ficar escrito, porque cada tentativa
+   errou por um motivo diferente.
 
-   Agora cada cópia fica no tamanho que o desenho pede, presa na sua
-   parede, e os fios pendurados avançam para o meio. Se sobrar vão entre
-   elas, sobrou — teia de verdade não cobre parede inteira, e é o vão que
-   faz o olho ler teia em vez de textura. */
-.teia--fita{left:0;right:0}
+   Esticar de parede a parede: a arte tem 368px de largura, e espalhada num
+   monitor ela amplia três vezes — as células passam de 35px para 100 e o
+   desenho fica grosso e borrado. Fora que o corte no meio da arte virava
+   risco reto atravessando a seção, e teia não tem risco reto.
+
+   Ancorar cada cópia na sua parede, no tamanho natural: acabou o borrão,
+   mas nasceu o problema que a Tay apontou duas vezes. Sobravam 500px de
+   nada no meio, e dois cantos de teia com um vão entre eles são DUAS
+   teias. O olho não tem como ler outra coisa.
+
+   O que faz virar uma só está na própria arte: ela tem um fio de amarração
+   correndo reto no topo, de ponta a ponta (linhas 28 a 48 do arquivo).
+   Esse fio é o que emenda. `teia-fio.webp` é uma fatia de 48px dele, de uma
+   parte onde só ele passa, e essa fatia se repete no tamanho natural pelo
+   vão inteiro. O resultado é um fio contínuo de parede a parede, com a
+   teia adensada nas duas pontas — que é o que uma teia pendurada num vão
+   é de verdade: um fio esticado e o bicho trabalhando nos cantos.
+
+   Nada amplia. O fio se repete, não estica; os cantos ficam no tamanho que
+   o desenho pede. Uma variável só, --esc, escala as três peças juntas, para
+   o fio do meio e o fio dos cantos caírem sempre na mesma altura. */
+.teia--fita{left:0;right:0;--esc:1.15}
+@media (max-width:900px){ .teia--fita{--esc:.85} }
+@media (max-width:560px){ .teia--fita{--esc:.55} }
+
 .teia__parte{
   position:absolute;
   top:0;
-  width:min(40%,420px);
+  width:calc(368px * var(--esc));
   display:block;
 }
-.teia__parte:first-child{left:-3vw}
-.teia__parte--espelho{right:-3vw}
+/* A arte tem 34px de margem vazia antes do fio começar. O deslocamento
+   negativo joga essa margem para fora da tela, e o fio nasce na parede —
+   não a três dedos dela. */
+.teia__parte:first-child{left:calc(-34px * var(--esc))}
+.teia__parte--espelho{right:calc(-34px * var(--esc))}
 .teia__parte img{display:block;width:100%;height:auto}
 /* O espelho é do CSS: a arte é uma só, e o navegador não a baixa duas
    vezes. Ele é o que faz o canto da direita ser canto da direita. */
 .teia__parte--espelho{transform:scaleX(-1)}
+
+/* O fio que emenda os dois cantos. Começa onde o canto da esquerda acaba
+   (334 * --esc) e para onde o da direita começa, com 14px de sobreposição
+   de cada lado para não existir emenda visível.
+
+   Quando a tela estreita a ponto de os dois cantos se encostarem, left e
+   right passam da largura, a caixa zera e o fio simplesmente não é
+   desenhado. Não precisa de media query: nesse ponto os cantos já se
+   tocam, e a teia continua sendo uma só. */
+.teia__fio{
+  position:absolute;
+  top:0;
+  left:calc(320px * var(--esc));
+  right:calc(320px * var(--esc));
+  height:calc(60px * var(--esc));
+  background:url(../img/figurinhas/teia-fio.webp) repeat-x left top;
+  background-size:calc(48px * var(--esc)) calc(60px * var(--esc));
+}
 /* Repouso é o estado VISÍVEL: sem GSAP de pé a faixa nasce no lugar. */
 .teia--fita{opacity:var(--presenca,.5)}
 

@@ -80,16 +80,17 @@ const FIGURINHAS = [
      que é o único vão desta seção, já que os cartões da galeria ocupam a
      largura inteira daí para baixo.
 
-     O desenho é UMA cópia só, e não mais quatro. A arte nova já vem com
-     a forma certa: canto de teia nas duas pontas e o fio pendurado entre
-     eles, com a aranha descendo. Ela nasceu para atravessar, então
-     repetir seria repetir os cantos no meio da parede, onde canto não
-     existe. As quatro cópias espelhadas existiam porque a arte anterior
-     era uma teia redonda, que sozinha não alcançava as duas paredes.
+     A montagem é fixa e não sai daqui: um fio emendando o vão e um canto
+     em cada parede, sempre. Não é configurável de propósito — a forma
+     depende disso. Um canto só deixaria uma ponta solta; três repetiriam
+     canto no meio da parede, onde canto não existe; e dois sem o fio do
+     meio, que foi o que esteve no ar, leem como duas teias, que é
+     exatamente o que a Tay pediu para não ser. Quem monta é montarTeia(),
+     em js/script.js.
 
      A opacidade é meia de propósito: em cheio ela enterra o título, que
      passa por baixo dela. */
-  { teia: 'arte', vezes: 2,        secao: 'trabalhos',   arquivo: 'teia-canto.webp', y: '0', fundura: 4, opacidade: .62 },
+  { teia: 'arte',                  secao: 'trabalhos',   arquivo: 'teia-canto.webp', y: '0', fundura: 4, opacidade: .62 },
 
 
   /* Traço: só o corvo, na beirada da direita.

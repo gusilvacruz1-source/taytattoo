@@ -797,42 +797,50 @@
 
   /* Monta a faixa de teia que atravessa a seção de parede a parede.
 
-     Ela é repetida, e não esticada. Esticar uma teia quase quadrada até a
-     largura de um monitor achata os fios e o desenho deixa de parecer
-     teia; repetida, cada cópia mantém a proporção que tem no arquivo. As
-     cópias alternam espelhadas, para a emenda entre uma e outra não
-     repetir o mesmo lado e virar padrão de papel de parede. */
-  function montarTeia(f) {
-    {
-      var fita = document.createElement('div');
-      fita.className = 'teia teia--fita';
-      fita.setAttribute('aria-hidden', 'true');
-      fita.style.top = f.y || '4%';
-      /* Mora numa variável, e não no style.opacity, porque a faixa chega
-         com uma transição de opacidade: escrever direto no elemento
-         travaria o valor final e a entrada não teria para onde ir. */
-      if (f.opacidade != null) fita.style.setProperty('--presenca', String(f.opacidade));
-      else fita.style.setProperty('--presenca', '.5');
+     São três peças, e não duas: o fio que emenda, e um canto em cada
+     parede. A Tay pediu duas vezes que a teia lá de cima fosse UMA só, e
+     duas vezes o que estava no ar eram dois cantos com um vão entre eles.
+     Dois cantos separados por 500px de nada são duas teias, por mais bem
+     desenhado que cada um esteja.
 
-      /* Uma cópia é permitida: a arte nova já atravessa sozinha, com
-         canto de teia nas duas pontas. O mínimo de duas existia para a
-         arte anterior, que era uma teia redonda e sozinha não alcançava
-         as duas paredes. */
-      var vezes = Math.max(1, f.vezes || 3);
-      for (var v = 0; v < vezes; v++) {
-        var meia = document.createElement('span');
-        meia.className = 'teia__parte' + (v % 2 ? ' teia__parte--espelho' : '');
-        var arte = document.createElement('img');
-        arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-arte.webp');
-        arte.alt = '';
-        arte.loading = 'lazy';
-        arte.decoding = 'async';
-        arte.addEventListener('error', function () { fita.remove(); });
-        meia.appendChild(arte);
-        fita.appendChild(meia);
-      }
-      return fita;
+     O fio vem primeiro, no fundo, e os cantos por cima dele. Ele é a
+     fatia do fio de amarração que a própria arte já tem correndo no topo,
+     repetida no tamanho natural pelo vão — nada estica, nada amplia. O
+     alinhamento das três peças é do CSS, por --esc; aqui só a ordem
+     importa, e ela é essa: fio, canto, canto.
+
+     Cada cópia mantém a proporção do arquivo, e a da direita é espelhada
+     pelo CSS: a arte é uma só e o navegador não a baixa duas vezes. */
+  function montarTeia(f) {
+    var fita = document.createElement('div');
+    fita.className = 'teia teia--fita';
+    fita.setAttribute('aria-hidden', 'true');
+    fita.style.top = f.y || '4%';
+    /* Mora numa variável, e não no style.opacity, porque a faixa chega
+       com uma transição de opacidade: escrever direto no elemento
+       travaria o valor final e a entrada não teria para onde ir. */
+    fita.style.setProperty('--presenca', f.opacidade != null ? String(f.opacidade) : '.5');
+
+    var fio = document.createElement('span');
+    fio.className = 'teia__fio';
+    fita.appendChild(fio);
+
+    /* Dois cantos, sempre: um por parede. Não é configurável porque a
+       forma depende disso — um canto só deixaria uma ponta solta, e três
+       repetiriam canto no meio da parede, onde canto não existe. */
+    for (var v = 0; v < 2; v++) {
+      var meia = document.createElement('span');
+      meia.className = 'teia__parte' + (v ? ' teia__parte--espelho' : '');
+      var arte = document.createElement('img');
+      arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-canto.webp');
+      arte.alt = '';
+      arte.loading = 'lazy';
+      arte.decoding = 'async';
+      arte.addEventListener('error', function () { fita.remove(); });
+      meia.appendChild(arte);
+      fita.appendChild(meia);
     }
+    return fita;
   }
 
   var figurinhas = colarFigurinhas(typeof FIGURINHAS !== 'undefined' ? FIGURINHAS : []);

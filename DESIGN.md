@@ -298,19 +298,38 @@ O desenho é o que a Tay mandou: canto de teia nas duas pontas, fios
 pendurados entre eles e uma aranha descendo por um deles. Ele já nasceu
 para atravessar, ao contrário da arte anterior, que era uma teia redonda.
 
-A teia **não estica de parede a parede: ela ancora nas duas.**
+A teia **não estica de parede a parede: ela ancora nas duas e se emenda
+pelo fio.** São três tentativas, e vale ficar escrito por que cada uma
+falhou, porque a Tay reprovou duas delas.
 
-Esticar foi um erro, e deu para ver. A arte é papel de parede de canto,
-com 736px de largura; espalhada num monitor ela amplia uma vez e meia, as
-células da teia passam de 35px para 100 e o desenho fica grosso e borrado.
-Pior: o corte no meio da arte virava um risco reto atravessando a seção, e
-teia não tem risco reto.
+**Esticar** foi o primeiro erro. A arte tem 368px de largura; espalhada num
+monitor ela amplia três vezes, as células passam de 35px para 100 e o
+desenho fica grosso e borrado. Pior: o corte no meio da arte virava um
+risco reto atravessando a seção, e teia não tem risco reto.
 
-Agora são **duas cópias no tamanho que o desenho pede**, cada uma presa na
-sua parede, com os fios pendurados avançando para o meio. Sobra vão entre
-elas, e sobrar é certo: teia de verdade não cobre parede inteira, e é o vão
-que faz o olho ler teia em vez de textura. O espelho é do CSS, então o
-navegador baixa a arte uma vez só.
+**Ancorar duas cópias nas paredes, no tamanho natural**, resolveu o borrão
+e criou o problema que ela apontou: sobravam 500px de nada no meio, e dois
+cantos de teia com um vão entre eles são **duas teias**. Eu tinha escrito
+aqui que o vão era certo, que "teia de verdade não cobre parede inteira".
+Estava errado no que importava: uma teia pendurada num vão não é feita de
+dois cantos soltos — é feita de um fio esticado com o bicho trabalhando nas
+pontas. O vão sem fio não lia como respiro, lia como duas.
+
+**A emenda estava na própria arte.** Ela tem um fio de amarração correndo
+reto no topo, de ponta a ponta (linhas 28 a 48 do arquivo).
+`teia-fio.webp` é uma fatia de 48px dele, tirada de uma faixa onde só ele
+passa, e essa fatia se repete no tamanho natural pelo vão inteiro. O
+resultado é um fio contínuo de parede a parede com a teia adensada nas duas
+pontas — uma teia só.
+
+Nada amplia em nenhum momento: o fio se **repete**, não estica, e os cantos
+ficam no tamanho que o desenho pede. As três peças escalam por uma variável
+única, `--esc`, e é ela que garante o essencial — que o fio do meio e o fio
+dos cantos caiam sempre na mesma altura. Medido em cinco larguras: os três
+elementos dão o mesmo topo, e o fio sobrepõe os dois cantos em todas.
+Quando a tela estreita a ponto de os cantos se tocarem, o fio zera sozinho
+e some, sem media query. O espelho é do CSS, então o navegador baixa a arte
+uma vez só.
 
 A opacidade é meia de propósito. Em cheio a teia enterra o título da
 seção, que passa por baixo dela.
