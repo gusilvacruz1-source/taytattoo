@@ -91,14 +91,22 @@ próprio site; as outras quatro precisam de arte.
    queria. A moldura tem três degraus e o arquivo é quem manda: se um dia
    entrar um `retrato.mp4`, ele passa na frente da foto sozinho, sem
    precisar mexer em código.
-3. **Confirmar a peça do vídeo da capa.** O fundo da capa agora é um vídeo
-   de uma tatuagem de asas nas costas, que o Gu mandou. Veio como gravação
-   de tela de um reels, então duas coisas precisam de confirmação da Tay:
-   que a peça é dela, e que a pessoa tatuada topa aparecer na capa do
-   site. É o primeiro que se vê da página, e é retrato de alguém.
-   O "pode pôr a pessoa" do Gu veio respondendo às fotos de estúdio (4b);
-   esta aqui é outra pessoa, então continua aberta até ele dizer que vale
-   para as duas.
+3. **Confirmar a autoria da peça do vídeo da capa.** O fundo da capa é um
+   vídeo de uma tatuagem de asas nas costas, que o Gu mandou. Eram duas
+   ressalvas; sobrou uma.
+
+   Resolvida: a pessoa tatuada aparecendo na capa. Perguntei ao Gu se o
+   "pode pôr a pessoa" das fotos de estúdio valia também para ela, já que
+   é outra pessoa e é o primeiro que se vê da página, e ele confirmou
+   ("vale sim"). A autorização das pessoas retratadas, no site inteiro,
+   está dada.
+
+   Aberta: **a peça é da Tay?** O vídeo veio como gravação de tela de um
+   reels, e não da câmera dela. Isso não é autorização de ninguém — é
+   fato sobre o trabalho, e só a Tay responde. Enquanto não responder,
+   o site mostra a peça sem dizer de quem é: o vídeo é fundo, não tem
+   legenda nem crédito, e nada na página afirma a autoria. Se ela disser
+   que não é dela, é trocar o arquivo; nenhum texto precisa mudar.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
    A pasta `img/disponiveis/` está vazia.
 
