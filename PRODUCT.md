@@ -96,6 +96,9 @@ próprio site; as outras quatro precisam de arte.
    de tela de um reels, então duas coisas precisam de confirmação da Tay:
    que a peça é dela, e que a pessoa tatuada topa aparecer na capa do
    site. É o primeiro que se vê da página, e é retrato de alguém.
+   O "pode pôr a pessoa" do Gu veio respondendo às fotos de estúdio (4b);
+   esta aqui é outra pessoa, então continua aberta até ele dizer que vale
+   para as duas.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
    A pasta `img/disponiveis/` está vazia.
 
@@ -104,9 +107,11 @@ próprio site; as outras quatro precisam de arte.
    o braço da cliente e uma da cliente com o braço pronto. Não são peças,
    então não entram na galeria; ficam ali porque os três passos acima são
    o combinado e elas são o que acontece depois dele. No celular a fita
-   rola de lado, uma foto por vez. **Falta confirmar com as clientes que
-   aparecem** que elas topam estar no site: são fotos de pessoas
-   identificáveis numa página comercial.
+   rola de lado, uma foto por vez. São fotos de pessoas identificáveis
+   numa página comercial, e por isso ficaram com ressalva; o Gu liberou
+   ("pode pôr a pessoa"), então a ressalva está resolvida. Se alguma
+   cliente mudar de ideia, é apagar o `<figure>` dela no `#agendar`: a
+   fita se refaz com três fotos sem mexer em mais nada.
 5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
    fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o
    autor de cada uma**: são artes que vão para o site comercial de uma
