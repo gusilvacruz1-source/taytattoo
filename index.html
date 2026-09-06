@@ -104,7 +104,21 @@
       <!-- O nome e o retrato dividem a mesma célula da grade: a foto fica
            na frente e as letras reaparecem dos dois lados e embaixo dela. -->
       <div class="capa__palco">
-        <h1 class="capa__nome"><span class="sobe"><span>Tay Machado</span></span></h1>
+        <!-- O nome, montado com as três letras desenhadas que a Tay mandou:
+             um T, um A e um Y, cada um de uma mão diferente. Elas viram a
+             palavra TAY; "Machado" continua sendo texto de verdade, na
+             Eater.
+
+             As letras são MÁSCARA, e não imagem: o cromado passa por
+             dentro delas, o mesmo do sobrenome. É isso que faz três
+             desenhos de origens diferentes lerem como uma palavra só.
+
+             Se o navegador não souber mascarar, o <span class="nome__recuo">
+             assume e o nome volta a ser texto inteiro, como era. -->
+        <h1 class="capa__nome"><span class="sobe"><span class="nome">
+          <span class="nome__tay" aria-hidden="true"><i class="letra letra--t"></i><i class="letra letra--a"></i><i class="letra letra--y"></i></span><span class="nome__recuo">Tay</span>
+          <span class="nome__casa">Machado</span>
+        </span></span></h1>
 
         <!-- SLOT DA MOLDURA, em três degraus. O primeiro que existir manda:
              1. img/retrato.mp4  um vídeo dela tatuando, mudo e em loop

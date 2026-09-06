@@ -295,8 +295,8 @@ body::after{
    gradiente não vira sombra: vira buraco, e a letra perde o corpo. */
 /* Só o nome da capa. O do rodapé segue massa silenciosa: cromar os dois
    poria dois brilhos disputando a mesma página. */
-.capa__nome span{
-  background:linear-gradient(180deg,
+.capa__nome{
+  --cromo:linear-gradient(180deg,
     #C8C2B7 0%,
     #FFFFFF 11%,
     #8E887E 42%,
@@ -305,8 +305,95 @@ body::after{
     #E7E1D6 63%,
     #7E786F 84%,
     #B9B1A4 100%);
+}
+.capa__nome span{
+  background:var(--cromo);
   -webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent;color:transparent;
+}
+
+/* ---------------------------------------------------- o nome desenhado
+
+   A Tay mandou três letras: um T, um A e um Y. São as três primeiras do
+   nome dela, e cada uma veio de uma mão diferente — um T gótico rasgado,
+   um A de blackletter com floreio longo, um Y tribal cheio. Postas lado a
+   lado como vieram, seriam três desenhos numa fileira, não uma palavra.
+
+   Duas coisas fazem virar palavra.
+
+   A primeira é o CROMADO. Elas não entram como imagem: entram como
+   máscara, e o mesmo gradiente que corre no sobrenome corre por dentro
+   delas. Material igual apaga metade da diferença entre três traços.
+
+   A segunda é a LINHA DE BASE. As três caixas não servem para alinhar: em
+   cada uma o desenho ocupa uma altura diferente antes de virar rabo. Medi
+   onde o corpo de cada letra acaba — T em 84% da caixa, A em 70%, Y em
+   74% — e é por essa fração que elas escalam. Assim as três dividem a
+   mesma altura de letra, e cada rabo desce o que o desenho dele desce.
+
+   Escalar pela caixa era o erro óbvio: daria um A pequeno e um Y grande,
+   porque o A tem meio floreio de caixa vazia por baixo. */
+/* A altura da LETRA, e não da caixa. Tudo aqui deriva dela: o tamanho das
+   três, o do sobrenome e o vão onde o retrato mora. Fica no h1 para as
+   duas metades do nome enxergarem. */
+.capa__nome{--cap:clamp(2.8rem,9.6vw,8.4rem)}
+/* No estreito o nome empilha (TAY em cima, MACHADO embaixo) em vez de
+   abrir vão para o retrato, então cabe muito mais letra: a mesma conta do
+   desktop deixaria as três do tamanho de um subtítulo. */
+@media (max-width:760px){ .capa__nome{--cap:clamp(3rem,22vw,6.4rem)} }
+.nome{display:block}
+
+.nome__tay{
+  display:none;                 /* o @supports lá embaixo é quem liga */
+  justify-content:center;
+  align-items:flex-start;       /* topos juntos; os rabos que desçam */
+  line-height:0;
+}
+.letra{
+  display:block;
+  height:calc(var(--cap) / var(--base));
+  aspect-ratio:var(--prop);
+  /* O cromado é sempre a mesma faixa, do topo até a base da letra: com
+     `100% 100%` cada letra teria o próprio horizonte, em altura própria, e
+     o brilho não atravessaria a palavra. Abaixo da base fica a última cor
+     do gradiente, que é onde os rabos vivem. */
+  background-color:#B9B1A4;
+  background-image:var(--cromo);
+  background-repeat:no-repeat;
+  background-position:top left;
+  background-size:100% var(--cap);
+  -webkit-mask:var(--arte) no-repeat top left/100% 100%;
+  mask:var(--arte) no-repeat top left/100% 100%;
+}
+.letra--t{--arte:url('../img/figurinhas/nome-t.webp'); --base:.84; --prop:452/570}
+.letra--a{--arte:url('../img/figurinhas/nome-a.webp'); --base:.70; --prop:587/662}
+.letra--y{--arte:url('../img/figurinhas/nome-y.webp'); --base:.74; --prop:288/500}
+
+/* O A tem um terço de caixa vazia à esquerda, porque o floreio dele só
+   ocupa aquele canto lá embaixo. Sem puxar, o T e o A ficariam com um vão
+   de palavra inteira entre eles; puxando, o floreio passa por baixo do pé
+   do T, que é onde um letrista o poria. */
+.letra--a{margin-left:calc(var(--cap) * -.20)}
+.letra--y{margin-left:calc(var(--cap) * -.04)}
+
+.nome__casa{
+  display:block;
+  font-size:calc(var(--cap,1em) * .42);
+  line-height:1;
+  letter-spacing:.13em;
+  margin-top:calc(var(--cap,0px) * .06);
+}
+
+/* Máscara é o que sustenta tudo isso. Onde ela não existir, as letras
+   sairiam retângulos cromados — então o padrão é o nome escrito, e o
+   desenho só entra quando o navegador garante que sabe recortar. */
+@supports ((-webkit-mask-image:url('../img/figurinhas/nome-t.webp')) or (mask-image:url('../img/figurinhas/nome-t.webp'))){
+  .nome__tay{display:flex}
+  .nome__recuo{
+    position:absolute;width:1px;height:1px;
+    padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0;
+  }
 }
 
 .capa__moldura{
@@ -338,18 +425,47 @@ body::after{
 
 @media (min-width:761px){
   .capa__palco{gap:0}
-  /* O nome cruza o terço de baixo do retrato: mais acima ele cortaria
-     o rosto, que num enquadramento 4:5 fica na parte de cima. */
+  /* O retrato mora DENTRO do nome: TAY de um lado, MACHADO do outro, a
+     foto no vão entre os dois.
+
+     Antes o nome era uma linha comprida que passava por trás do retrato,
+     e funcionava porque "TAY MACHADO" escrito é largo: sobrava palavra
+     dos dois lados da foto. Com as letras desenhadas, TAY virou um bloco
+     de três — e o A, que é o do meio, sumia inteiro atrás do rosto.
+     Esconder uma das três letras que a Tay mandou é perder o motivo de
+     elas estarem ali.
+
+     Então o vão deixou de ser acaso e virou medida: ele é a largura do
+     retrato mais um respiro, escrita na mesma conta dos dois lugares. A
+     foto não cobre mais nada — ela ocupa o buraco que o nome abriu. */
+  /* A medida do vão mora no palco, e não no nome: o nome e o retrato são
+     irmãos, e variável de irmão não se enxerga. */
+  .capa__palco{--retrato:clamp(168px,19.5vw,286px)}
   .capa__nome{
     grid-area:1/1;z-index:1;
     white-space:nowrap;
-    align-self:end;
-    transform:translateY(-10%);
+    align-self:center;
+  }
+  /* Dois nomes de classe, e não um: .sobe>span (que dá display:block a
+     tudo que a animação de subida embrulha) tem peso maior que .nome
+     sozinho, e ganhava daqui. */
+  .capa__nome .nome{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    gap:calc(var(--retrato) + clamp(18px,2.6vw,40px));
+  }
+  /* Centra o sobrenome na faixa de altura das letras desenhadas, e não na
+     caixa delas: a caixa desce junto com os rabos, e alinhar por ela
+     deixaria MACHADO boiando embaixo. */
+  .nome__casa{
+    font-size:calc(var(--cap) * .66);
+    margin-top:calc(var(--cap) * .21);
   }
   .capa__moldura{
     grid-area:1/1;place-self:center;
     z-index:2;
-    width:clamp(176px,21vw,286px);
+    width:var(--retrato);
   }
 }
 

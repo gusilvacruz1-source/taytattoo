@@ -399,6 +399,49 @@ Nenhuma parada do gradiente desce abaixo de `#55514B`. Sobre o breu, preto
 no gradiente não vira sombra: vira buraco, e a letra perde o corpo. O nome
 do rodapé ficou fora do cromado — dois brilhos disputariam a mesma página.
 
+### As três letras desenhadas
+
+Na capa, **TAY** não é mais fonte: são três letras desenhadas que a cliente
+mandou, um T, um A e um Y. **Machado** continua sendo Eater, e é texto de
+verdade. Cabeçalho e rodapé também seguem em Eater — no tamanho de menu,
+estas letras viram borrão.
+
+As três vêm de mãos diferentes: um T gótico rasgado, um A de blackletter
+com floreio longo, um Y tribal cheio. Lado a lado como vieram, seriam três
+desenhos numa fileira, não uma palavra. Duas decisões fazem virar palavra.
+
+**O cromado.** Elas não entram como imagem: entram como **máscara**, e o
+mesmo gradiente que corre no sobrenome corre por dentro delas. Material
+igual apaga metade da diferença entre três traços. O gradiente é sempre a
+mesma faixa — do topo até a base da letra, e não da caixa —, senão cada
+letra teria o próprio horizonte e o brilho não atravessaria a palavra.
+
+**A linha de base.** As caixas não servem para alinhar: em cada arte o
+desenho ocupa uma altura diferente antes de virar rabo. Medi onde o corpo
+de cada letra acaba — T em 84% da caixa, A em 70%, Y em 74% — e é por essa
+fração que elas escalam. As três dividem a mesma altura de letra, e cada
+rabo desce o que o desenho dele desce. Escalar pela caixa daria um A
+pequeno e um Y grande, porque o A tem meio floreio de caixa vazia embaixo.
+
+O A ainda é puxado 20% para a esquerda: o floreio dele só ocupa aquele
+canto de baixo, e sem puxar sobraria um vão de palavra inteira entre o T e
+o A. Puxado, o floreio passa por baixo do pé do T, que é onde um letrista o
+poria.
+
+**O retrato mudou de lugar por causa disso.** Antes o nome era uma linha
+comprida que passava por trás da foto, e funcionava porque "TAY MACHADO"
+escrito é largo: sobrava palavra dos dois lados. Com as letras desenhadas,
+TAY virou um bloco de três — e o A, que é o do meio, sumia inteiro atrás do
+rosto. Esconder uma das três letras é perder o motivo de elas estarem ali.
+Agora o vão não é acaso, é medida: TAY de um lado, MACHADO do outro, e o
+retrato ocupando o buraco que o nome abriu, com a largura dele escrita na
+mesma conta dos dois lugares. No estreito tudo empilha, e aí o nome cresce,
+porque não precisa mais dividir a linha com a foto.
+
+Máscara é o que sustenta tudo isso. Onde ela não existir, as letras sairiam
+retângulos cromados — então o padrão é o nome escrito por extenso, e o
+desenho só entra dentro de um `@supports`.
+
 ## O vídeo da capa
 
 Uma tatuagem de asas nas costas, em preto e branco, rodando atrás da capa

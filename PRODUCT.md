@@ -120,6 +120,19 @@ próprio site; as outras quatro precisam de arte.
    ("pode pôr a pessoa"), então a ressalva está resolvida. Se alguma
    cliente mudar de ideia, é apagar o `<figure>` dela no `#agendar`: a
    fita se refaz com três fotos sem mexer em mais nada.
+4c. **A autoria das três letras do nome.** O TAY da capa agora é feito com
+   três desenhos que o Gu mandou: `@ar_letters.jpg`, `Letter Т.jpg` e
+   `Y font.jpg`, virados em `nome-t/a/y.webp`. São de três mãos
+   diferentes, e o nome do primeiro arquivo é literalmente um perfil de
+   Instagram (**@ar_letters**) — ou seja, pelo menos uma delas tem autor
+   conhecido. Isso é o nome da marca numa página comercial, que é o uso
+   mais exposto que uma arte pode ter aqui. **Confirmar com quem
+   desenhou**, ou trocar por letra da própria Tay: ela desenha, e o nome
+   dela na mão dela seria melhor que qualquer das três. Enquanto isso não
+   se resolve, desligar é uma linha — apagar o bloco `@supports` em
+   css/style.css e o nome volta a ser escrito por extenso na Eater, sem
+   mexer em mais nada.
+
 5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
    fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o
    autor de cada uma**: são artes que vão para o site comercial de uma
