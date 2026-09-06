@@ -78,16 +78,39 @@ Tudo é redondo, e o quanto depende do papel:
 | Peça da galeria | `26px` | a maior superfície da página, e a que carrega foto |
 | Controle | pílula | botão, aba de filtro, botão de ícone, menu, link de pular, seta |
 | Indicador | pílula | selo de ângulos, marca de ampliar, pontos da lupa, bolinha do cursor |
-| Moldura da capa | arco | `50vw 50vw 22px 22px`: meia-lua em cima, canto de superfície embaixo |
+| Moldura da capa | círculo | `50%`: a única forma da página que não é retângulo arredondado |
 
 **Nada fica reto.** Canto redondo convivendo com canto vivo na mesma tela
 é o que faz uma página parecer quebrada, e pílula ao lado de retângulo de
 12 é a mesma quebra em menor escala — foi por isso que o controle deixou de
 ter raio próprio e virou pílula inteira, como no site da Eloize.
 
-O arco da moldura é o mesmo gesto do site dela, e é o que dá o ar de coisa
-desenhada em vez de caixa: a única forma da página que não é retângulo
-arredondado.
+A moldura da capa é a única forma da página que não é retângulo
+arredondado. Era um arco — meia-lua em cima, canto embaixo, o gesto do site
+da Eloize —, e virou **círculo** a pedido da Tay, com o motivo junto: *"me
+senti muito cabeçuda"*.
+
+O motivo importa mais que a forma, porque a forma sozinha piora o motivo. A
+meia-lua apoiava exatamente no alto da cabeça dela, que é a pior coisa que
+uma moldura pode fazer com um retrato: repetir a forma do crânio. Mas o
+retrato é um close curto — a cara já ocupa o quadro inteiro —, e recortar
+4:5 para 1:1 corta mais 8% em cima e embaixo: medido, o queixo cai a 85% da
+altura do círculo, onde a curva já está fechando, e a mandíbula bate na
+borda. Círculo puro deixaria **mais** cabeçuda, não menos.
+
+Então o círculo veio com ar dentro. `retrato-redondo.webp` é o mesmo
+retrato numa tela quadrada, posto a 1,15× em vez de encher o quadro, com a
+borda apagando em `smoothstep` a partir do raio 0,80 — a foto derrete no
+escuro em vez de ser fatiada pela moldura. A cabeça passa a ocupar uns 80%
+do círculo no lugar de 100%. O original intocado fica em `img/retrato.jpg`,
+que também é a capa do vídeo.
+
+**A capa inteira encolhe em tela baixa.** A moldura maior empurrou os
+botões para fora da dobra num notebook de 720px de altura, e botão de
+agendar abaixo da dobra é o mesmo que não ter botão. O nome e a moldura
+passaram a ser limitados pela altura além da largura (`min(…, 15.5dvh)` e
+`min(…, 24dvh)`). Medido em 1280×720, 1440×900, 1600×1000, 360×640,
+390×667, 390×780 e 390×844: o botão cabe na dobra em todos.
 
 **Sem sombra.** Sombra não se lê sobre breu. A profundidade vem de duas
 coisas: a claridade da superfície (breu → carvão → carvão alto) e um fio de

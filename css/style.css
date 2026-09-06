@@ -81,9 +81,6 @@
   --raio:22px;             /* superfície: cartão, faixa, moldura       */
   --raio-grande:26px;      /* a peça da galeria, que é a maior de todas */
   --raio-controle:999px;   /* controle: sempre pílula inteira           */
-  /* A moldura da capa em arco, que é a forma que o site da Eloize usa e
-     que a Tay pediu. Meia-lua em cima, canto de superfície embaixo. */
-  --raio-arco:50vw 50vw var(--raio) var(--raio);
 
   --largura:1240px;
   --pad-x:clamp(20px,5vw,48px);
@@ -336,7 +333,11 @@ body::after{
 /* A altura da LETRA, e não da caixa. Tudo aqui deriva dela: o tamanho das
    três, o do sobrenome e o vão onde o retrato mora. Fica no h1 para as
    duas metades do nome enxergarem. */
-.capa__nome{--cap:clamp(3rem,17vw,9.6rem)}
+/* A altura da letra é limitada pela LARGURA e pela ALTURA da tela. Só
+   pela largura, num notebook de 720px de altura o nome empurrava os botões
+   para fora da dobra — e botão de agendar abaixo da dobra é o mesmo que
+   não ter botão. */
+.capa__nome{--cap:min(clamp(3rem,17vw,9.6rem), 15.5dvh)}
 .nome{display:block}
 
 .nome__tay{
@@ -384,11 +385,32 @@ body::after{
   }
 }
 
+/* A moldura é REDONDA, e a Tay pediu assim com o motivo junto: "me senti
+   muito cabeçuda". O motivo importa mais que a forma, porque a forma
+   sozinha piora o motivo.
+
+   Era um arco 4:5 — meia-lua em cima, canto embaixo — e a meia-lua
+   apoiava exatamente no alto da cabeça dela, o que é a pior coisa que uma
+   moldura pode fazer com um retrato: repetir a forma do crânio.
+
+   Só que trocar por círculo, com a foto como estava, deixa PIOR. A foto é
+   um close curto: a cara já ocupa o quadro inteiro, e recortar 4:5 para
+   1:1 corta mais 8% em cima e embaixo. Medido: o queixo cai a 85% da
+   altura do círculo, onde a curva já está fechando, e a mandíbula bate na
+   borda. Mais fechado ainda, e o rosto encosta nos quatro lados.
+
+   Então o círculo veio com ar dentro. `retrato-redondo.webp` é o mesmo
+   retrato numa tela quadrada, reduzido para 1,15x em vez de encher, e com
+   a borda apagando em suave no raio 0,80 — a foto derrete no escuro em vez
+   de ser fatiada pela moldura. A cabeça passa a ocupar uns 80% do círculo
+   no lugar de 100%, que é o que ela pediu de verdade. */
 .capa__moldura{
   margin:0;
-  border-radius:var(--raio-arco);
-  width:min(74%,250px);
-  aspect-ratio:4/5;
+  border-radius:50%;
+  /* Mesmo motivo do nome: em tela baixa a moldura encolhe, para a capa
+     inteira caber na dobra. */
+  width:min(76%, 266px, 24dvh);
+  aspect-ratio:1;
   border:1px solid var(--linha);
   background:var(--carvao);
   display:grid;place-items:center;
@@ -426,7 +448,6 @@ body::after{
    inteira. É também o arranjo que o celular já usava. */
 @media (min-width:761px){
   .capa__palco{gap:clamp(20px,3vh,34px)}
-  .capa__moldura{width:clamp(150px,15.5vw,224px)}
 }
 
 /* Entrada da capa. Repouso é o estado VISÍVEL: a animação parte do

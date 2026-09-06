@@ -122,15 +122,23 @@
         </span></span></h1>
 
         <!-- SLOT DA MOLDURA, em três degraus. O primeiro que existir manda:
-             1. img/retrato.mp4  um vídeo dela tatuando, mudo e em loop
-             2. img/retrato.jpg  o retrato parado (e a capa do vídeo)
+             1. img/retrato.mp4          um vídeo dela tatuando, mudo e em loop
+             2. img/retrato-redondo.webp o retrato parado
              3. o selo, que é o que fica enquanto nenhum dos dois chegar
-             Nada precisa ser editado no código: é só salvar o arquivo. -->
+             Nada precisa ser editado no código: é só salvar o arquivo.
+
+             O retrato parado é uma versão preparada para o círculo: o
+             mesmo retrato com ar em volta e a borda apagando no escuro,
+             porque a foto crua é um close curto demais e a moldura
+             redonda cortava a mandíbula. O original fica em
+             img/retrato.jpg, que também é a capa do vídeo — se um dia
+             entrar um retrato.mp4, ele vai encher o círculo e convém
+             preparar o corte dele do mesmo jeito. -->
         <figure class="capa__moldura">
           <video id="retratoVideo" src="img/retrato.mp4" poster="img/retrato.jpg"
                  muted loop playsinline preload="auto" tabindex="-1"
                  aria-label="Tay Machado tatuando" hidden></video>
-          <img id="retrato" src="img/retrato.jpg" alt="Retrato da Tay Machado" hidden>
+          <img id="retrato" src="img/retrato-redondo.webp" alt="Retrato da Tay Machado" hidden>
           <svg class="capa__selo" viewBox="0 0 120 120" aria-hidden="true">
             <defs><path id="volta-capa" d="M60 12a48 48 0 010 96 48 48 0 010-96"/></defs>
             <g class="selo__anel" style="transform-origin:60px 60px">

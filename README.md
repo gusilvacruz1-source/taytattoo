@@ -28,7 +28,8 @@ js/script.js        menu, galerias, lupa, cursor e a camada de movimento
 js/vendor/          GSAP, ScrollTrigger e Lenis, servidos pelo próprio site
 img/trabalhos/      fotos e vídeos das peças fechadas
 img/disponiveis/    desenhos livres
-img/retrato.jpg     o retrato da Tay, na moldura da capa
+img/retrato-redondo.webp  o retrato da Tay, preparado para a moldura redonda
+img/retrato.jpg     o retrato original, e a capa do vídeo
 img/hero-fundo.*    o vídeo de fundo da capa: .webm, .mp4 e o poster .jpg
 img/figurinhas/     os adesivos: .webp no ar, .jpg originais como fonte
 fonts/              Cormorant Garamond e Archivo, 72 KB somadas
@@ -93,7 +94,7 @@ existir manda, e nada precisa ser editado no código:
 
 | Arquivo | O que é | Se faltar |
 |---|---|---|
-| `img/retrato.mp4` | **um vídeo dela tatuando**, mudo e em loop | cai para a foto |
+| `img/retrato.mp4` | **um vídeo dela tatuando**, mudo e em loop | cai para `retrato-redondo.webp` |
 | `img/retrato.jpg` | o retrato da Tay (e a capa do vídeo). **Está no ar** | cai para o selo |
 | `img/hero-fundo.webm` | o vídeo que roda atrás da capa inteira, VP9. **Está no ar** | cai para o .mp4 |
 | `img/hero-fundo.mp4` | o mesmo vídeo em H.264, para o Safari. **Está no ar** | fica só o breu |
@@ -138,8 +139,8 @@ ffmpeg -ss 0.75 -t 4.85 -i entrada.mov -an \
 ffmpeg -i img/hero-fundo.mp4 -an -c:v libvpx-vp9 -crf 36 -b:v 0 img/hero-fundo.webm
 ffmpeg -ss 2 -i img/hero-fundo.mp4 -frames:v 1 -q:v 4 img/hero-fundo.jpg
 
-# o vídeo da moldura, em pé (a moldura é 4:5)
-ffmpeg -i tatuando.mov -vcodec libx264 -crf 30 -an -vf "scale=900:-2,crop=900:1125" img/retrato.mp4
+# o vídeo da moldura (a moldura é redonda, então o corte é quadrado)
+ffmpeg -i tatuando.mov -vcodec libx264 -crf 30 -an -vf "scale=900:-2,crop=900:900" img/retrato.mp4
 ffmpeg -i img/retrato.mp4 -vframes 1 -q:v 3 img/retrato.jpg
 ```
 
