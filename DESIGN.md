@@ -298,63 +298,59 @@ O desenho é o que a Tay mandou: canto de teia nas duas pontas, fios
 pendurados entre eles e uma aranha descendo por um deles. Ele já nasceu
 para atravessar, ao contrário da arte anterior, que era uma teia redonda.
 
-A teia **não estica de parede a parede: ela ancora nas duas e se emenda
-pelo fio.** São três tentativas, e vale ficar escrito por que cada uma
-falhou, porque a Tay reprovou duas delas.
+A teia é **uma imagem, e não uma montagem.** Foram quatro versões, e vale
+ficar escrito por que cada uma caiu, porque a cliente reprovou três.
 
-**Esticar** foi o primeiro erro. A arte tem 368px de largura; espalhada num
-monitor ela amplia três vezes, as células passam de 35px para 100 e o
-desenho fica grosso e borrado. Pior: o corte no meio da arte virava um
-risco reto atravessando a seção, e teia não tem risco reto.
+**1. Esticar de parede a parede.** A arte ampliava três vezes, as células
+passavam de 35px para 100, e o desenho ficava grosso e borrado. Pior: o
+corte no meio da arte virava um risco reto atravessando a seção, e teia não
+tem risco reto.
 
-**Ancorar duas cópias nas paredes, no tamanho natural**, resolveu o borrão
-e criou o problema que ela apontou: sobravam 500px de nada no meio, e dois
+**2. Dois cantos ancorados nas paredes, no tamanho natural.** Resolveu o
+borrão e criou o problema seguinte: sobravam 500px de nada no meio, e dois
 cantos de teia com um vão entre eles são **duas teias**. Eu tinha escrito
 aqui que o vão era certo, que "teia de verdade não cobre parede inteira".
-Estava errado no que importava: uma teia pendurada num vão não é feita de
-dois cantos soltos — é feita de um fio esticado com o bicho trabalhando nas
-pontas. O vão sem fio não lia como respiro, lia como duas.
+Não era.
 
-**A emenda estava na própria arte.** Ela tem um fio de amarração correndo
-reto no topo, de ponta a ponta (linhas 28 a 48 do arquivo).
-`teia-fio.webp` é uma fatia de 20px dele, e essa fatia se repete no tamanho
-natural pelo vão inteiro. O resultado é um fio contínuo de parede a parede
-com a teia adensada nas duas pontas — uma teia só.
+**3. Os dois cantos emendados por uma fatia do fio, repetida.** Virou corda
+trançada atravessando a seção. O fio dela não é uma linha lisa comprida: é
+traço que dobra, e traço que dobra, repetido, vira passamanaria. Cortei a
+fatia de dois lugares diferentes e o resultado foi o mesmo — o problema não
+era onde eu cortava. **Não dá para prolongar o que ela desenhou sem
+inventar traço que ela não fez.**
 
-A fatia foi cortada duas vezes. A primeira saiu de x 248, que por azar é
-onde o desenho tem um laço: repetida, ela virava uma corda trançada
-atravessando a seção. A segunda saiu de x 182, um trecho onde o fio é uma
-linha só — 20px de linha repetidos leem como linha, e não como motivo. Fio
-de teia é fio, não passamanaria.
+**4. E o erro embaixo dos três: eu montava de pedaços uma coisa que ela já
+tinha desenhado inteira.** O arquivo original (`teia-cortina.jpg`,
+736×1308) traz a teia completa e já atravessando — dois cantos
+**diferentes**, um em cada ponta, o fio de amarração entre eles, os fios
+pendurados e a aranha descendo por um deles. Não faltava nada nela.
+`teia-larga.webp` é essa faixa recortada (678×390, linhas 440 a 830 do
+original), com fundo transparente, no pixel em que ela desenhou.
 
-**E a arte encolheu.** O corte antigo, `teia-canto.webp`, trazia junto os
-arcos longos e lisos que descem pelo meio do desenho; ampliados numa faixa
-de página, aqueles arcos não leem como teia, leem como cortina de festa. O
-corte novo, `teia-ponta.webp` (176×156), é só o leque radial do canto: a
-parte que é inconfundivelmente teia desenhada.
+Uma imagem só: sem espelho, sem repetição, sem emenda. As três coisas que
+davam errado eram as três coisas que eu acrescentava.
 
-**A teia ganhou parede só dela.** Enquanto a faixa dividia a altura com o
-título, os dois se estragavam: o título passava por cima de uma renda de
-traço fino, e a teia tinha de ficar fraca para não enterrar a leitura —
-fraca e fina, ela deixou de parecer desenho e passou a parecer *foto de
-teia dentro de um retângulo*. Foi a crítica da cliente, e estava certa: o
-problema não era a arte, era o lugar. Agora `#trabalhos` abre no alto a
-altura exata da arte (`156px * --esc`), a teia mora ali sozinha, e como não
-há mais nada por baixo ela pode ser forte — de .62 para .82 de presença. O
-respiro normal da seção encolheu na mesma conta, senão sobrava uma tela
-vazia antes do título.
+**No estreito ela ocupa a largura inteira** — e como um celular tem menos
+que os 678px do arquivo, ela **reduz**, que é o único jeito de traço fino
+ficar nítido. É a teia inteira, de parede a parede, numa peça só, que era o
+pedido.
 
-Nada amplia em nenhum momento: o fio se **repete**, não estica, e os cantos
-ficam no tamanho que o desenho pede. As três peças escalam por uma variável
-única, `--esc`, e é ela que garante o essencial — que o fio do meio e o fio
-dos cantos caiam sempre na mesma altura. Medido em cinco larguras: os três
-elementos dão o mesmo topo, e o fio sobrepõe os dois cantos em todas.
-Quando a tela estreita a ponto de os cantos se tocarem, o fio zera sozinho
-e some, sem media query. O espelho é do CSS, então o navegador baixa a arte
-uma vez só.
+**Do tamanho natural para cima ela para de crescer.** Esticar além dos
+678px é a versão 1 de novo — testei a alternativa (largura cheia num
+monitor, cortando a altura) e a 1,87× o traço engorda, estoura e o corte
+decepa a aranha. Em tela larga ela fica pendurada no alto do vão, no
+tamanho em que foi desenhada. Uma variável só, `--teia-larg:
+min(100%, 678px)`, decide as duas coisas — e a mesma variável reserva a
+altura no `padding-top` da seção, por 390/678.
 
-A opacidade é meia de propósito. Em cheio a teia enterra o título da
-seção, que passa por baixo dela.
+**A teia tem parede só dela.** Enquanto dividia a altura com o título, os
+dois se estragavam: o título passava por cima de uma renda de traço fino, e
+a teia tinha de ficar fraca para não enterrar a leitura — fraca e fina, ela
+deixou de parecer desenho e passou a parecer *foto de teia num retângulo*.
+Foi a crítica da cliente, e estava certa: o problema não era a arte, era o
+lugar. Agora a seção abre no alto a altura exata da arte, a teia mora ali
+sozinha, e como não há nada por baixo ela pode ser forte — .88 de presença,
+linha branca de traço, que é o que ela é.
 
 ## Os motivos
 

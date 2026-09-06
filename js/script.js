@@ -795,22 +795,20 @@
      chegado. Chegou, e a geometria saiu: teia de verdade é rasgada e
      irregular, e nenhuma conta entrega isso. */
 
-  /* Monta a faixa de teia que atravessa a seção de parede a parede.
+  /* Monta a faixa de teia que abre a seção.
 
-     São três peças, e não duas: o fio que emenda, e um canto em cada
-     parede. A Tay pediu duas vezes que a teia lá de cima fosse UMA só, e
-     duas vezes o que estava no ar eram dois cantos com um vão entre eles.
-     Dois cantos separados por 500px de nada são duas teias, por mais bem
-     desenhado que cada um esteja.
+     UMA imagem, e uma só. A Tay pediu três vezes que a teia lá de cima
+     fosse uma teia só, e as três vezes o que estava no ar era uma
+     montagem: arte esticada, depois dois cantos com um vão no meio,
+     depois os dois cantos emendados por um fio repetido que virava corda.
 
-     O fio vem primeiro, no fundo, e os cantos por cima dele. Ele é a
-     fatia do fio de amarração que a própria arte já tem correndo no topo,
-     repetida no tamanho natural pelo vão — nada estica, nada amplia. O
-     alinhamento das três peças é do CSS, por --esc; aqui só a ordem
-     importa, e ela é essa: fio, canto, canto.
+     O erro embaixo dos três era o mesmo: montar de pedaços uma coisa que
+     ela já tinha desenhado inteira. A arte original traz a teia completa e
+     já atravessando, com um canto diferente em cada ponta, os fios
+     pendurados e a aranha. Não falta nada nela para ser montado.
 
-     Cada cópia mantém a proporção do arquivo, e a da direita é espelhada
-     pelo CSS: a arte é uma só e o navegador não a baixa duas vezes. */
+     Por isso aqui não há laço, não há espelho e não há emenda: cria a
+     faixa, põe o desenho dentro, acabou. O tamanho é do CSS. */
   function montarTeia(f) {
     var fita = document.createElement('div');
     fita.className = 'teia teia--fita';
@@ -821,25 +819,16 @@
        travaria o valor final e a entrada não teria para onde ir. */
     fita.style.setProperty('--presenca', f.opacidade != null ? String(f.opacidade) : '.5');
 
-    var fio = document.createElement('span');
-    fio.className = 'teia__fio';
-    fita.appendChild(fio);
-
-    /* Dois cantos, sempre: um por parede. Não é configurável porque a
-       forma depende disso — um canto só deixaria uma ponta solta, e três
-       repetiriam canto no meio da parede, onde canto não existe. */
-    for (var v = 0; v < 2; v++) {
-      var meia = document.createElement('span');
-      meia.className = 'teia__parte' + (v ? ' teia__parte--espelho' : '');
-      var arte = document.createElement('img');
-      arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-ponta.webp');
-      arte.alt = '';
-      arte.loading = 'lazy';
-      arte.decoding = 'async';
-      arte.addEventListener('error', function () { fita.remove(); });
-      meia.appendChild(arte);
-      fita.appendChild(meia);
-    }
+    var alvo = document.createElement('span');
+    alvo.className = 'teia__desenho';
+    var arte = document.createElement('img');
+    arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-larga.webp');
+    arte.alt = '';
+    arte.loading = 'lazy';
+    arte.decoding = 'async';
+    arte.addEventListener('error', function () { fita.remove(); });
+    alvo.appendChild(arte);
+    fita.appendChild(alvo);
     return fita;
   }
 

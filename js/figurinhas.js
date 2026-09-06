@@ -90,7 +90,7 @@ const FIGURINHAS = [
 
      A opacidade é meia de propósito: em cheio ela enterra o título, que
      passa por baixo dela. */
-  { teia: 'arte',                  secao: 'trabalhos',   arquivo: 'teia-ponta.webp', y: '0', fundura: 4, opacidade: .82 },
+  { teia: 'arte',                  secao: 'trabalhos',   arquivo: 'teia-larga.webp', y: '0', fundura: 4, opacidade: .88 },
 
 
   /* Traço: só o corvo, na beirada da direita.
