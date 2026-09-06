@@ -156,6 +156,30 @@ quem mantém este site edita uma lista, não `&quot;` no meio da marcação.
 E a pele é a daqui, escura, porque a cliente pediu o oposto do tema claro
 daquele site.
 
+## A fita do estúdio
+
+A galeria é das peças: cada cartão é um desenho pronto na pele. As quatro
+fotos de estúdio não são isso — são a Tay com a máquina na mão, e uma
+cliente rindo no meio da sessão. Postas na galeria, virariam peças mal
+fotografadas; deixadas de fora, o site inteiro não tem uma imagem de quem
+tatua trabalhando.
+
+Ficam no fim do Agendar, sob o olho **"No dia"**. Os três passos acima são
+o combinado — mensagem, orçamento, sinal —, e a fita é o que acontece
+depois dele. É o mesmo assunto continuado, não uma seção nova pedindo
+atenção.
+
+No desktop são quatro colunas iguais, `aspect-ratio:3/4`, em preto e
+branco; a cor só volta no `:hover`, e só onde há mouse de verdade
+(`hover:hover and pointer:fine`). O cinza é o que faz a fita não competir
+com a galeria, que é colorida e é a matéria do site.
+
+Abaixo de 720px a grade vira fita que rola de lado: `flex`, `overflow-x`,
+`scroll-snap-type:x mandatory` e `flex:0 0 68%`. Empilhadas, quatro fotos
+de 3/4 dão quase duas telas de rolagem para dizer uma coisa só. Os 68% e
+a sangria até as bordas (`margin-inline` negativo) existem para a segunda
+foto assomar na margem: é ela que conta que a fita anda.
+
 ## Ícones
 
 Tabler Icons 3.31.0 (MIT), copiados do pacote e servidos como sprite SVG no
@@ -329,7 +353,7 @@ acontece por media query, então girar o aparelho basta, sem recarregar.
 Sobrou o `soLargo`, que some com a figurinha no estreito, mas hoje nenhuma
 usa: ter lugar de celular é sempre melhor que sumir.
 
-## O nome## O nome
+## O nome
 
 Cormorant Garamond continua sendo a voz de leitura da página, mas o nome
 saiu dela: a Tay disse que estava "um pouco delicado", e o estúdio é

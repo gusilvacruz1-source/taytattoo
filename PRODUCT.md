@@ -99,11 +99,14 @@ próprio site; as outras quatro precisam de arte.
 4. **Desenhos disponíveis**, com nome de cada um, para a seção Disponíveis.
    A pasta `img/disponiveis/` está vazia.
 
-4b. **As quatro fotos de estúdio** que vieram junto com as peças estão em
-   `img/estudio/`, fora da galeria: duas da Tay tatuando, uma de cliente e
-   uma dela tatuando o braço da cliente. Não são peças, então não entram
-   na galeria — mas são boas, e cabem numa seção "sobre" ou no lugar do
-   vídeo da capa, se ela quiser.
+4b. **As quatro fotos de estúdio** (`img/estudio/`) estão no ar, no fim do
+   Agendar, sob o título "No dia": duas da Tay tatuando, uma dela tatuando
+   o braço da cliente e uma da cliente com o braço pronto. Não são peças,
+   então não entram na galeria; ficam ali porque os três passos acima são
+   o combinado e elas são o que acontece depois dele. No celular a fita
+   rola de lado, uma foto por vez. **Falta confirmar com as clientes que
+   aparecem** que elas topam estar no site: são fotos de pessoas
+   identificáveis numa página comercial.
 5. **A autoria das figurinhas.** Nove já estão no ar e cinco ficaram de
    fora, com o motivo escrito em `js/figurinhas.js`. **Confirmar quem é o
    autor de cada uma**: são artes que vão para o site comercial de uma

@@ -555,6 +555,62 @@ body::after{
 .passo:nth-child(2) .passo__corpo{padding-left:clamp(0px,3vw,44px)}
 .passo:nth-child(3) .passo__corpo{padding-left:clamp(0px,6vw,88px)}
 
+/* ------------------------------------------------------------- estúdio
+
+   As quatro fotos da Tay trabalhando, no fim da seção do agendamento. Os
+   três passos acima são o combinado; estas são o dia.
+
+   Elas não entram na galeria porque a galeria é de PEÇAS — cada cartão
+   ali é uma tatuagem, e foto de processo não é. Aqui embaixo elas contam
+   outra coisa: como é estar na cadeira.
+
+   No estreito a fita rola de lado em vez de empilhar. Quatro fotos
+   empilhadas viram meia tela de rolagem, e o que elas dizem se diz na
+   primeira; deslizar é mais barato que descer. */
+.estudio{margin-top:clamp(44px,6vw,76px)}
+.estudio .olho{margin-bottom:14px}
+.estudio__fitas{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(10px,1.2vw,16px);
+}
+.estudio__foto{
+  margin:0;
+  border-radius:var(--raio);
+  overflow:hidden;
+  background:var(--carvao);
+  border:1px solid var(--linha);
+  aspect-ratio:3/4;
+}
+.estudio__foto img{
+  display:block;width:100%;height:100%;
+  object-fit:cover;
+  filter:grayscale(1) contrast(1.04);
+  transition:filter .5s var(--saida),transform .8s var(--saida);
+}
+@media (hover:hover) and (pointer:fine){
+  .estudio__foto:hover img{filter:grayscale(0) contrast(1.04);transform:scale(1.03)}
+}
+
+@media (max-width:720px){
+  /* Fita que rola de lado: as quatro cabem sem virar meia tela. */
+  .estudio__fitas{
+    display:flex;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    /* Sangra até as bordas, para a próxima foto assomar e dizer que rola */
+    margin-inline:calc(var(--pad-x) * -1);
+    padding-inline:var(--pad-x);
+    scrollbar-width:none;
+  }
+  .estudio__fitas::-webkit-scrollbar{display:none}
+  .estudio__foto{
+    flex:0 0 68%;
+    scroll-snap-align:start;
+  }
+}
+
 /* ================================ 6. CONTATO (faixa de largura cheia) */
 
 .faixa{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,72px);align-items:start}
