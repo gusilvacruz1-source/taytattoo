@@ -336,11 +336,7 @@ body::after{
 /* A altura da LETRA, e não da caixa. Tudo aqui deriva dela: o tamanho das
    três, o do sobrenome e o vão onde o retrato mora. Fica no h1 para as
    duas metades do nome enxergarem. */
-.capa__nome{--cap:clamp(2.8rem,9.6vw,8.4rem)}
-/* No estreito o nome empilha (TAY em cima, MACHADO embaixo) em vez de
-   abrir vão para o retrato, então cabe muito mais letra: a mesma conta do
-   desktop deixaria as três do tamanho de um subtítulo. */
-@media (max-width:760px){ .capa__nome{--cap:clamp(3rem,22vw,6.4rem)} }
+.capa__nome{--cap:clamp(3rem,17vw,9.6rem)}
 .nome{display:block}
 
 .nome__tay{
@@ -375,14 +371,6 @@ body::after{
    do T, que é onde um letrista o poria. */
 .letra--a{margin-left:calc(var(--cap) * -.20)}
 .letra--y{margin-left:calc(var(--cap) * -.04)}
-
-.nome__casa{
-  display:block;
-  font-size:calc(var(--cap,1em) * .42);
-  line-height:1;
-  letter-spacing:.13em;
-  margin-top:calc(var(--cap,0px) * .06);
-}
 
 /* Máscara é o que sustenta tudo isso. Onde ela não existir, as letras
    sairiam retângulos cromados — então o padrão é o nome escrito, e o
@@ -423,50 +411,22 @@ body::after{
 }
 .capa__acoes{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
 
+/* Nome e retrato EMPILHAM, em qualquer largura.
+
+   Houve três arranjos aqui, e cada um caiu por um motivo. O nome passava
+   por trás do retrato, o que funcionava enquanto ele era "TAY MACHADO"
+   escrito: palavra comprida, sobrava letra dos dois lados da foto. Com as
+   três letras desenhadas TAY virou um bloco de três, e o A, que é o do
+   meio, sumia atrás do rosto; então o retrato passou a morar no vão entre
+   TAY e MACHADO. Saindo o MACHADO, some o outro lado do vão — e uma
+   palavra só não tem como abraçar nada.
+
+   Empilhado, o nome não disputa com a foto em largura nenhuma, e é por
+   isso que ele pode crescer: no lugar de dividir a linha, ele fica com ela
+   inteira. É também o arranjo que o celular já usava. */
 @media (min-width:761px){
-  .capa__palco{gap:0}
-  /* O retrato mora DENTRO do nome: TAY de um lado, MACHADO do outro, a
-     foto no vão entre os dois.
-
-     Antes o nome era uma linha comprida que passava por trás do retrato,
-     e funcionava porque "TAY MACHADO" escrito é largo: sobrava palavra
-     dos dois lados da foto. Com as letras desenhadas, TAY virou um bloco
-     de três — e o A, que é o do meio, sumia inteiro atrás do rosto.
-     Esconder uma das três letras que a Tay mandou é perder o motivo de
-     elas estarem ali.
-
-     Então o vão deixou de ser acaso e virou medida: ele é a largura do
-     retrato mais um respiro, escrita na mesma conta dos dois lugares. A
-     foto não cobre mais nada — ela ocupa o buraco que o nome abriu. */
-  /* A medida do vão mora no palco, e não no nome: o nome e o retrato são
-     irmãos, e variável de irmão não se enxerga. */
-  .capa__palco{--retrato:clamp(168px,19.5vw,286px)}
-  .capa__nome{
-    grid-area:1/1;z-index:1;
-    white-space:nowrap;
-    align-self:center;
-  }
-  /* Dois nomes de classe, e não um: .sobe>span (que dá display:block a
-     tudo que a animação de subida embrulha) tem peso maior que .nome
-     sozinho, e ganhava daqui. */
-  .capa__nome .nome{
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    gap:calc(var(--retrato) + clamp(18px,2.6vw,40px));
-  }
-  /* Centra o sobrenome na faixa de altura das letras desenhadas, e não na
-     caixa delas: a caixa desce junto com os rabos, e alinhar por ela
-     deixaria MACHADO boiando embaixo. */
-  .nome__casa{
-    font-size:calc(var(--cap) * .66);
-    margin-top:calc(var(--cap) * .21);
-  }
-  .capa__moldura{
-    grid-area:1/1;place-self:center;
-    z-index:2;
-    width:var(--retrato);
-  }
+  .capa__palco{gap:clamp(20px,3vh,34px)}
+  .capa__moldura{width:clamp(150px,15.5vw,224px)}
 }
 
 /* Entrada da capa. Repouso é o estado VISÍVEL: a animação parte do
@@ -1064,14 +1024,33 @@ html.lenis,html.lenis body{height:auto}
    Nada amplia. O fio se repete, não estica; os cantos ficam no tamanho que
    o desenho pede. Uma variável só, --esc, escala as três peças juntas, para
    o fio do meio e o fio dos cantos caírem sempre na mesma altura. */
-.teia--fita{left:0;right:0;--esc:1.15}
-@media (max-width:900px){ .teia--fita{--esc:.85} }
-@media (max-width:560px){ .teia--fita{--esc:.55} }
+/* --esc mora na SEÇÃO, e não na faixa: a seção precisa da altura da teia
+   para reservar a parede dela no padding, e variável de filho não sobe. */
+#trabalhos{--esc:1.15}
+@media (max-width:900px){ #trabalhos{--esc:1} }
+@media (max-width:560px){ #trabalhos{--esc:.9} }
+
+/* A parede da teia.
+
+   Enquanto a faixa dividia a altura com o título, os dois se estragavam:
+   o título passava por cima de uma renda de traço fino, e a teia tinha de
+   ficar fraca para não enterrar a leitura — fraca e fina, ela deixou de
+   parecer desenho e passou a parecer foto de teia num retângulo. Era a
+   crítica da Tay, e estava certa.
+
+   Agora a seção abre no alto a altura exata da arte, e a teia mora ali
+   sozinha. Como não há mais nada por baixo, ela pode ser forte: linha
+   branca de traço, que é o que ela é. */
+/* O respiro normal da seção encolhe, porque a teia já é respiro: somado
+   inteiro ao dela, sobrava um vão de tela vazia antes do título. */
+#trabalhos{padding-top:calc(clamp(56px,6vw,92px) + 156px * var(--esc) + clamp(10px,1.6vw,22px))}
+
+.teia--fita{left:0;right:0}
 
 .teia__parte{
   position:absolute;
   top:0;
-  width:calc(368px * var(--esc));
+  width:calc(176px * var(--esc));
   display:block;
 }
 /* A arte tem 34px de margem vazia antes do fio começar. O deslocamento
@@ -1095,11 +1074,11 @@ html.lenis,html.lenis body{height:auto}
 .teia__fio{
   position:absolute;
   top:0;
-  left:calc(320px * var(--esc));
-  right:calc(320px * var(--esc));
-  height:calc(60px * var(--esc));
+  left:calc(130px * var(--esc));
+  right:calc(130px * var(--esc));
+  height:calc(48px * var(--esc));
   background:url(../img/figurinhas/teia-fio.webp) repeat-x left top;
-  background-size:calc(48px * var(--esc)) calc(60px * var(--esc));
+  background-size:calc(20px * var(--esc)) calc(48px * var(--esc));
 }
 /* Repouso é o estado VISÍVEL: sem GSAP de pé a faixa nasce no lugar. */
 .teia--fita{opacity:var(--presenca,.5)}

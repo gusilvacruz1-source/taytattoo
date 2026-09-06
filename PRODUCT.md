@@ -120,7 +120,9 @@ próprio site; as outras quatro precisam de arte.
    ("pode pôr a pessoa"), então a ressalva está resolvida. Se alguma
    cliente mudar de ideia, é apagar o `<figure>` dela no `#agendar`: a
    fita se refaz com três fotos sem mexer em mais nada.
-4c. **A autoria das três letras do nome.** O TAY da capa agora é feito com
+4c. **A autoria das três letras do nome.** O nome na capa agora é só
+   **TAY** — o Gu pediu para tirar o Machado dali; o sobrenome continua no
+   cabeçalho, no rodapé, no selo e no título da página. O TAY é feito com
    três desenhos que o Gu mandou: `@ar_letters.jpg`, `Letter Т.jpg` e
    `Y font.jpg`, virados em `nome-t/a/y.webp`. São de três mãos
    diferentes, e o nome do primeiro arquivo é literalmente um perfil de

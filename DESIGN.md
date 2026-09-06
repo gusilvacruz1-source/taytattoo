@@ -317,10 +317,32 @@ pontas. O vão sem fio não lia como respiro, lia como duas.
 
 **A emenda estava na própria arte.** Ela tem um fio de amarração correndo
 reto no topo, de ponta a ponta (linhas 28 a 48 do arquivo).
-`teia-fio.webp` é uma fatia de 48px dele, tirada de uma faixa onde só ele
-passa, e essa fatia se repete no tamanho natural pelo vão inteiro. O
-resultado é um fio contínuo de parede a parede com a teia adensada nas duas
-pontas — uma teia só.
+`teia-fio.webp` é uma fatia de 20px dele, e essa fatia se repete no tamanho
+natural pelo vão inteiro. O resultado é um fio contínuo de parede a parede
+com a teia adensada nas duas pontas — uma teia só.
+
+A fatia foi cortada duas vezes. A primeira saiu de x 248, que por azar é
+onde o desenho tem um laço: repetida, ela virava uma corda trançada
+atravessando a seção. A segunda saiu de x 182, um trecho onde o fio é uma
+linha só — 20px de linha repetidos leem como linha, e não como motivo. Fio
+de teia é fio, não passamanaria.
+
+**E a arte encolheu.** O corte antigo, `teia-canto.webp`, trazia junto os
+arcos longos e lisos que descem pelo meio do desenho; ampliados numa faixa
+de página, aqueles arcos não leem como teia, leem como cortina de festa. O
+corte novo, `teia-ponta.webp` (176×156), é só o leque radial do canto: a
+parte que é inconfundivelmente teia desenhada.
+
+**A teia ganhou parede só dela.** Enquanto a faixa dividia a altura com o
+título, os dois se estragavam: o título passava por cima de uma renda de
+traço fino, e a teia tinha de ficar fraca para não enterrar a leitura —
+fraca e fina, ela deixou de parecer desenho e passou a parecer *foto de
+teia dentro de um retângulo*. Foi a crítica da cliente, e estava certa: o
+problema não era a arte, era o lugar. Agora `#trabalhos` abre no alto a
+altura exata da arte (`156px * --esc`), a teia mora ali sozinha, e como não
+há mais nada por baixo ela pode ser forte — de .62 para .82 de presença. O
+respiro normal da seção encolheu na mesma conta, senão sobrava uma tela
+vazia antes do título.
 
 Nada amplia em nenhum momento: o fio se **repete**, não estica, e os cantos
 ficam no tamanho que o desenho pede. As três peças escalam por uma variável
@@ -401,10 +423,14 @@ do rodapé ficou fora do cromado — dois brilhos disputariam a mesma página.
 
 ### As três letras desenhadas
 
-Na capa, **TAY** não é mais fonte: são três letras desenhadas que a cliente
-mandou, um T, um A e um Y. **Machado** continua sendo Eater, e é texto de
-verdade. Cabeçalho e rodapé também seguem em Eater — no tamanho de menu,
-estas letras viram borrão.
+Na capa, o nome é **TAY**, e não é mais fonte: são três letras desenhadas
+que a cliente mandou, um T, um A e um Y.
+
+**Machado saiu da capa** a pedido do Gu. O sobrenome continua no cabeçalho,
+no rodapé, no selo giratório e no `<title>` da página — é o nome dela, e é
+o que o buscador lê. O que mudou é a capa, onde o desenho fala sozinho.
+Esses três lugares seguem em Eater: no tamanho de menu, estas letras viram
+borrão.
 
 As três vêm de mãos diferentes: um T gótico rasgado, um A de blackletter
 com floreio longo, um Y tribal cheio. Lado a lado como vieram, seriam três
@@ -428,15 +454,19 @@ canto de baixo, e sem puxar sobraria um vão de palavra inteira entre o T e
 o A. Puxado, o floreio passa por baixo do pé do T, que é onde um letrista o
 poria.
 
-**O retrato mudou de lugar por causa disso.** Antes o nome era uma linha
-comprida que passava por trás da foto, e funcionava porque "TAY MACHADO"
-escrito é largo: sobrava palavra dos dois lados. Com as letras desenhadas,
-TAY virou um bloco de três — e o A, que é o do meio, sumia inteiro atrás do
-rosto. Esconder uma das três letras é perder o motivo de elas estarem ali.
-Agora o vão não é acaso, é medida: TAY de um lado, MACHADO do outro, e o
-retrato ocupando o buraco que o nome abriu, com a largura dele escrita na
-mesma conta dos dois lugares. No estreito tudo empilha, e aí o nome cresce,
-porque não precisa mais dividir a linha com a foto.
+**O retrato mudou de lugar duas vezes, e as duas por causa do nome.**
+
+Ele passava por trás da foto, o que funcionava enquanto o nome era "TAY
+MACHADO" escrito: palavra comprida, sobrava letra dos dois lados. Com as
+três letras desenhadas, TAY virou um bloco de três — e o A, que é o do
+meio, sumia inteiro atrás do rosto. Esconder uma das três é perder o motivo
+de elas estarem ali. Então o retrato passou a morar no vão entre TAY e
+MACHADO, com a largura dele escrita na mesma conta dos dois lugares.
+
+Saindo o MACHADO, some o outro lado do vão: uma palavra só não abraça nada.
+Agora **nome e retrato empilham em qualquer largura** — TAY em cima, a foto
+embaixo. É o arranjo que o celular já usava, e é o que deixa o nome crescer:
+no lugar de dividir a linha com a foto, ele fica com ela inteira.
 
 Máscara é o que sustenta tudo isso. Onde ela não existir, as letras sairiam
 retângulos cromados — então o padrão é o nome escrito por extenso, e o

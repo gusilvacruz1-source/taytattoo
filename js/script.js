@@ -832,7 +832,7 @@
       var meia = document.createElement('span');
       meia.className = 'teia__parte' + (v ? ' teia__parte--espelho' : '');
       var arte = document.createElement('img');
-      arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-canto.webp');
+      arte.src = 'img/figurinhas/' + (f.arquivo || 'teia-ponta.webp');
       arte.alt = '';
       arte.loading = 'lazy';
       arte.decoding = 'async';
